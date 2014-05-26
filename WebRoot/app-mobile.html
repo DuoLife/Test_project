@@ -1,0 +1,267 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- initial set  -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <!--seo -->
+    <title>我们爱讲冷笑话官方应用程序</title>
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <link rel="canonical" href="http://lengxiaohua.com/" />
+
+    <!-- device -->
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Cache-Control" content="no-cache"/>
+    <meta content="lengxiaohua.com" name="author" /> 
+    <meta content="Copyright ©lengxiaohua.com 版权所有" name="copyright"/>
+</head>
+	<style>
+		.clear{clear:both;}
+		*{
+    		font-family:"Microsoft YaHei",微软雅黑;
+    		margin: 0px;
+    		padding: 0px;
+    	}
+    	.clear{
+    		clear: both;
+    	}
+		.display_forward{filter:alpha(Opacity=0);-moz-opacity:0.5;opacity: 0.5;z-index:1;background-color:#000000;float:left;width: 100%;height:200%;position: fixed;margin: 0;padding: 0;}
+		#display_forward_img{width: 100%;}
+		#display_forward_img img{float:left;position: fixed;top: 1px;left: 0px;z-index: 10;width:100%;}
+    	/* 上部 */
+    	.background_warp{
+    		width: 100%;
+    		background: url("img/page/appdl/BG.png");
+    	}
+    	.top_warp{
+    		position: relative;
+    		width: 980px;
+    		height: 633px;
+    		margin:0px auto;
+    	}
+		/* logo */
+    	.logo_div{
+    		position: absolute;
+    		width: 350px;
+    		float: left;
+    		left: 72px;
+    		top: 70px;
+    	}
+    	.logo_div img{
+    		position: absolute;
+    		float: left;
+    		left: 0px;
+    		top: 0px;
+    	}
+    	.logo_div .logo_p1,.logo_div .logo_p2{
+    		position: absolute;
+    		float: left;
+    		color: #FFF;
+    	}
+    	.logo_div .logo_p1{
+    		font-size: 24px;
+    		top: 20px;
+    		left: 100px;
+    	}
+    	.logo_div .logo_p2{
+    		font-size: 14px;
+    		top: 60px;
+    		left: 100px;
+    	}
+    	
+    	/* 下载div*/
+    	.download_div{
+    		position: absolute;
+    		float: left;
+    		width: 410px;
+    		left: 72px;
+    		top: 380px;
+    	}
+    	.download_div .ios_download{
+    		display: block;
+    		width: 180px;
+    		height: 40px;
+    		background: url("/img/page/appdl/ios_down.png");
+    	}
+    	.download_div .android_download{
+    		display: block;
+    		margin-top: 20px;
+    		width: 180px;
+    		height: 40px;
+    		background: url("/img/page/appdl/android_down.png");
+    	}
+    	.download_div .ios_download:hover{
+			background: url("/img/page/appdl/ios_down_selected.png");
+    	}
+    	.download_div .android_download:hover{
+    		background: url("/img/page/appdl/android_down_selected.png");
+    	}
+    	.erweima{
+    		position: absolute;
+    		left: 200px;
+    		top: -34px;
+    		float: left;
+    		width: 192px;
+    	}
+    	/* 手机轮播 */
+    	.phone{
+    		position: absolute;
+    		left:480px; 
+		    top:60px; 
+    	}
+		.phone .album { 
+		    position:absolute; 
+		    z-index:20;
+		    left:4px; 
+		    top:60px; 
+		}
+		/* 下部 */
+    	.bottom_warp{
+    		width: 980px;
+    		height: 300px;
+    		margin:0px auto;
+    		background-color: #FFF;
+    	}
+    	.lengtu{
+    		float: left;
+    		text-align: center;
+    		width: 308px;
+    		margin: 32px 0px;
+    	}
+    	.lengtu .yuan{
+    		line-height: 30px;
+    		vertical-align: middle;
+    		width: 224px;
+    		height: 224px;
+    		margin: 0 0 20px 40px;
+    		background: url("/img/page/appdl/yuan.png") no-repeat;
+    		background-position: center;
+    	}
+    	.lengtu .yuan .title{
+    		font-weight: bold;
+    		padding-top: 60px;
+    		margin-bottom: 20px;
+    	}
+		/* 底部 */
+    	.bottom_info{
+    		margin: 5px auto 15px auto;
+    		width: 880px;
+    		font-size: 12px;
+    	}
+	</style>
+		<script language="JavaScript">
+	function isWeixin(){
+		var ua = navigator.userAgent.toLowerCase();
+		if(ua.match(/MicroMessenger/i)=="micromessenger") {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	/*function isWeixin() {
+		 if (typeof WeixinJSBridge == 'undefined') {
+			return false;
+		 }else {
+			return true;
+		 }
+    }*/
+	function download() {
+		if(isWeixin()) {
+			var imgDiv = document.getElementById("display_forward_img");
+			imgDiv.style.display="";
+			var imgDiv = document.getElementById("display_forward");
+			imgDiv.style.display="";
+			imgDiv.setAttribute("onclick", "javascript:undisplay_forward_img();");
+			WeiXinTesting();
+		}
+	}
+	function undisplay_forward_img() {
+		var imgDiv = document.getElementById("display_forward_img");
+		imgDiv.style.display="none";
+		var imgDiv = document.getElementById("display_forward");
+		imgDiv.style.display="none";
+	}
+	</script>
+	<script type="text/javascript">
+	var browser={    
+		versions:function(){            
+			var u = navigator.userAgent, app = navigator.appVersion;            
+			return {                
+			trident: u.indexOf('Trident') > -1, //IE内核                
+			presto: u.indexOf('Presto') > -1, //opera内核                
+			webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核                
+			gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核                
+			mobile : !!u.match(/AppleWebKit.*Mobile/) || !!u.match(/Windows Phone/)|| !!u.match(/Linux/) || !!u.match(/Android/) || !!u.match(/MQQBrowser/),//是否为移动终端                
+			ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端                
+			android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器                
+			iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者QQHD浏览器                
+			iPad: u.indexOf('iPad') > -1, //是否iPad                
+			webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部            
+			};
+		}()
+	} 
+	if(browser.versions.android && !isWeixin()){
+		//alert("欢迎下载冷兔独家内测版，我们爱讲冷笑话！\n即刻下载！");
+	window.location.href='http://static.nduoa.com/apk/630/630392/1347630/com.coldworks.coldjoke.apk';
+	}
+	if(browser.versions.ios && !isWeixin()){
+		//alert("欢迎下载冷兔独家内测版，我们爱讲冷笑话！\n即刻下载！");
+	window.location.href='https://itunes.apple.com/cn/app/ai-jiang-leng-xiao-hua/id569068376?l=en&mt=8';
+	}
+</script>
+<body>
+	<!--微信弹窗提示-->
+	<div id="display_forward_img" style="display: none; ">
+		<img src="img/appdown_forward.jpg"/>
+	</div>
+	<div id="display_forward" class="display_forward" style="display: none; ">
+	</div>
+	<!--微信弹窗提示 - end-->
+    <div class="background_warp">
+    <div class="top_warp">
+    	<div class="logo_div">
+    		<img src="/img/page/appdl/icon.png" title="爱讲冷笑话" alt="爱讲冷笑话" width="90px" height="90px"/>
+    		<div class="logo_p_div">
+	    		<p class="logo_p1">爱讲冷笑话 &nbsp;V4.0</p>
+	    		<p class="logo_p2">笑话也有冷热之分，究竟是谁不懂幽默</p>
+    		</div>
+    	</div>
+    	<div class="download_div">
+    		<div>
+    			<a href="https://itunes.apple.com/cn/app/ai-jiang-leng-xiao-hua/id569068376?mt=8" target="_blank" class="ios_download"></a>
+    			<a href="http://static.nduoa.com/apk/630/630392/1347630/com.coldworks.coldjoke.apk" target="_blank" class="android_download"></a>
+    		</div>
+    	</div>
+    	<div class="phone">
+            <div class="album" fx="cycle[fx=scrollHorz;speed=700;timeout=3000]" style="width: 241px; height: 426px; overflow: hidden;">
+                <img src="/img/page/appdl/album01.png" />
+                <img src="/img/page/appdl/album02.png" />
+                <img src="/img/page/appdl/album03.png" />
+                <img src="/img/page/appdl/album04.png" />
+            </div>
+            <img fx="ie6png" src="/img/page/appdl/phone1.png" />
+            <img fx="ie6png" src="/img/page/appdl/phone2.png" style="margin-left: -8px"/>
+        </div>
+    </div>
+		<hr style="width: 100%;size: 1px;color: #D9D9D9;"/>
+		<div class="bottom_info">
+			<p>lengxiaohua.com Copyright ☺ 2010-2017 ColdWorks.All Rights Resserved.</p>
+		</div>
+
+
+    <!--baidu analysis-->
+    <script type="text/javascript">
+        var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+        document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F69c02520068c43c4860863f4969ee4f3' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+
+    <!--tengxun analysis-->
+    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=10740159" charset="UTF-8"></script>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+Initial Release.  Download the jar file and zip file. 
+The zip file contains other jar dependencies:
+
+Tidy.jar
+commons-codec.jar
+commons-httpclient.jar
+commons-logging-api.jar
+commons-logging.jar
+htmlparser.jar
+jargs.jar
+
+Unzip the contents of the zipfile.  
+Make sure all jar files are in the same folder, 
+then run the spider by running: 
+
+java -jar aspider-0.1a.jar
+
+Email me if you have any problems.
+
+Future releases will have options for downloading 
+filetypes as well as mime-types.
+( right now, it only matches mime types )
+Also will have options for logging output options, 
+right now all logging goes to stdout and stderr.
+
