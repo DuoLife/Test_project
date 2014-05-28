@@ -13,5 +13,7 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/htmlparser.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jargs.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/gson-2.2.4.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-pool-1.5.6.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/memcached-2.6rc1-43-gede362b.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>
