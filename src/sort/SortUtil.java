@@ -36,7 +36,8 @@ public class SortUtil {
 	}
 	
 	public static void main(String[] args) {
-		int[] a = {59, 1, 22, 45, 21, 65, 33, 76};
+		//int[] a = {59, 1, 22, 45, 21, 65, 33, 76};
+		int[] a = {4,3,2,1,0};
 		quickSort(a, 0, a.length-1);
 		for(int i: a){
 			System.out.print(i+" ");
