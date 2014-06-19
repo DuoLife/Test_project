@@ -4,5 +4,7 @@ public class StringOUt {
 	 for(int i=0;i<46;i++) {
 		 System.out.println("<img src=\"img/momo/chartlet/"+i+".gif\"/>");
 	 }	
+	 boolean test = false;
+	 System.out.println(test);
 	}
 }
