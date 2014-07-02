@@ -2,6 +2,13 @@ package memcached;
 
 import java.io.Serializable;
 
+/**
+ * 
+ * @author xuming 2014-4-24 21:38:45
+ * 
+ * Email:xuming@coldworks.com
+ */
+
 public class TestBean implements Serializable{
 
 	//只要对象离开了JVM当前的内存就需要序列化，否则没办法将对象再次在内存中还原。

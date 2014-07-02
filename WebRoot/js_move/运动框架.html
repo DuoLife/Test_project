@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>运动框架.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+	<script type="text/javascript">
+		window.onload = function () {
+			var oDiv = document.getElementsByTagName('div');
+			oDiv.timer = null;
+			var oBtn = document.getElementsByTagName('input');
+			oBtn[0].onclick = function backMethod () {
+					clearInterval(oDiv.timer);
+					oDiv.timer = setInterval (function() {
+						var speed = parseInt(getStyle( oDiv[0], 'left')) + -10;
+						if(speed < 40) {
+							speed = 40;
+						}
+						oDiv[0].style.left = speed + 'px';
+						if(speed == 40) {
+							clearInterval(oDiv.timer);
+						}
+					}, 30);
+			};
+			oBtn[1].onclick= function goMethod () {
+					clearInterval(oDiv.timer);
+					oDiv.timer = setInterval (function() {
+						var speed = parseInt(getStyle( oDiv[0], 'left')) + 10;
+						if(speed > 800) {
+							speed = 800;
+						}
+						oDiv[0].style.left = speed + 'px';
+						if(speed == 800) {
+							clearInterval(oDiv.timer);
+						}
+					}, 30);
+			};
+			/*var len = 10;
+			//var oDiv = document.getElementsByTagName('div');
+ 			var str = "";
+			for(var i=0; i<len; i++) {
+				str = str + '<div style="width:50px; height:50px; background:red; position: absolute; left: '+ 60*i +'px; top: 16px;"></div>';
+			}
+			document.body.innerHTML = str;
+			
+			document.onclick = function doMove () {
+				clearInterval(oDiv.timer);
+				oDiv.timer = setInterval (function() {
+					var speed = parseInt(getStyle( oDiv[0], 'top')) + 10;
+					if(speed > 800) {
+						speed = 800;
+					}
+					oDiv[0].style.top = speed + 'px';
+					if(speed >= 800) {
+						clearInterval(oDiv.timer);
+					}
+				}, 30);
+			};*/
+		};
+		
+		function getStyle( obj, attr ) {return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj)[attr]}
+	</script>
+  </head>
+  
+  <body>
+  	<input type="button" id="back" value="←" />
+  	<input type="button" id="go" value="→" />
+  	<div style="width:50px; height:50px; background:red; position: absolute; left: 10px; top: 40px;"></div>
+  </body>
+</html>
