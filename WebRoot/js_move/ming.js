@@ -25,4 +25,13 @@ function doMove ( obj, attr, dir, target) {
 		}
 	}, 30);
 }
+
+/*
+ * 获取元素style值
+ * 由于document.getElementById(eId).style.XX只能获取dom中的属性，内联样式表中的值并不能通过此方法获取，而使用getStyle可以获取该元素真正的样式属性值。
+ * 
+ * 兼容IE：IE浏览器不支持getComputedStyle(obj)[attr]，而是自己实现了obj.currentStyle[attr]，效果相同。
+ * 
+ * @params (对象， 想要获取的style属性)
+ */
 function getStyle( obj, attr ) {return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj)[attr]}
