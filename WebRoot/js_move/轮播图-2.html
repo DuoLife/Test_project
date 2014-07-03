@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>轮播图2</title>
+<style>
+* {padding: 0px; margin: 0px;}
+	#wrapper {position: relative; width: 450px; height: 100px; left: 500px; top: 300px; border: solid 2px #999;}
+	#ul {position: absolute; left: 0px;}
+	#ul li {width: 200px; height: 100px; background: #9F0; margin-right: 50px; float: left; left: 0px; list-style: none;}
+	
+</style>
+<script language="javascript">
+window.onload = function () {
+	var oUl = document.getElementById('ul');
+	var oLi = oUl.getElementsByTagName('li');
+	var oneSize = oLi[0].offsetWidth + 50;
+	
+	
+	var oBtn = document.getElementsByTagName('input');
+	oBtn[0].onclick = function () {
+		oLi[3].appendChild(oUl);
+	};
+};
+function getWidth ( obj, subElement ) {
+	oUl.style.width = oneSize * oLi.length + 'px';
+}
+</script>
+
+</head>
+
+<body>
+ <input type="button" value="←"/>
+ <div id="wrapper">
+ 	<ul id="ul">
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    </ul>
+ </div>
+</body>
+</html>

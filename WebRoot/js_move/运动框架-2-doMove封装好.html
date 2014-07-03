@@ -13,10 +13,10 @@
 			var oBtn = document.getElementsByTagName('input');
 			var oDiv = document.getElementById('div');
 			
-			oBtn[0].onclick = function () {doMove( oDiv, 'height', 10, 50);};
-			oBtn[1].onclick = function () {doMove( oDiv, 'height', 10, 900);};
+			oBtn[1].onclick = function () {doMove( oDiv, 'height', 10, 500, function () {doMove(oDiv, 'left', 20, 500)});};
+			oBtn[0].onclick = function () {doMove( oDiv, 'left', 10, 50, function () {doMove(oDiv, 'height', 20, 50)});};
 		};
-		function doMove ( obj, attr, dir, target) {
+		function doMove ( obj, attr, dir, target, endFn) {
 			clearInterval( obj.timer);
 			dir = target>parseInt(getStyle( obj, attr))?dir:-dir;
 			obj.timer = setInterval( function () {
@@ -27,6 +27,7 @@
 				obj.style[attr] = speed + 'px';
 				if( speed == target ) {
 					clearInterval( obj.timer);
+					endFn && endFn();
 				}
 			}, 30);
 		}
@@ -37,6 +38,6 @@
   <body>
   	<input type="button" id="back" value="←" />
   	<input type="button" id="go" value="→" />
-  	<div id="div" style="width:50px; height:50px; background:red; position: absolute; left: 10px; top: 40px;"></div>
+  	<div id="div" style="width:50px; height:50px; background:red; position: absolute; left: 50px; top: 40px;"></div>
   </body>
 </html>

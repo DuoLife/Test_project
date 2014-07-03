@@ -9,9 +9,9 @@
 /*
  * 移动函数
  * 
- * @params (对象， 变化的style属性值， 步长变量， 目标位置)
+ * @params (对象， 变化的style属性值， 步长变量， 目标位置， 增加回调函数)
  */
-function doMove ( obj, attr, dir, target) {
+function doMove ( obj, attr, dir, target, endFn) {
 	clearInterval( obj.timer);
 	dir = target>parseInt(getStyle( obj, attr))?dir:-dir;
 	obj.timer = setInterval( function () {
@@ -22,6 +22,7 @@ function doMove ( obj, attr, dir, target) {
 		obj.style[attr] = speed + 'px';
 		if( speed == target ) {
 			clearInterval( obj.timer);
+			endFn && endFn();
 		}
 	}, 30);
 }
