@@ -5,25 +5,37 @@
 <title>轮播图2</title>
 <style>
 * {padding: 0px; margin: 0px;}
-	#wrapper {position: relative; width: 450px; height: 100px; left: 500px; top: 300px; border: solid 2px #999;}
+	input {position: absolute; left: 500px; top: 250px; width: 70px; height: 30px;}
+	#wrapper {position: relative; width: 700px; height: 100px; left: 500px; top: 300px; border: solid 2px #999; overflow: hidden;}
 	#ul {position: absolute; left: 0px;}
 	#ul li {width: 200px; height: 100px; background: #9F0; margin-right: 50px; float: left; left: 0px; list-style: none;}
 	
 </style>
+<script src="ming.js"></script>
 <script language="javascript">
 window.onload = function () {
 	var oUl = document.getElementById('ul');
 	var oLi = oUl.getElementsByTagName('li');
-	var oneSize = oLi[0].offsetWidth + 50;
+	var num = 2;
 	
-	
+	getWidth( oUl, oLi);
 	var oBtn = document.getElementsByTagName('input');
 	oBtn[0].onclick = function () {
-		oLi[3].appendChild(oUl);
+		for( var i=0; i<num; i++) {
+			var li = oUl.children[i].cloneNode(true);
+			oUl.appendChild(li);
+			getWidth( oUl, oLi);
+		}
+		doMove( oUl, 'left', 10, - num * 250, function () {
+			oUl.removeChild(oLi[0]);
+			oUl.removeChild(oLi[0]);
+			oUl.style.left = 0;
+		});
 	};
 };
 function getWidth ( obj, subElement ) {
-	oUl.style.width = oneSize * oLi.length + 'px';
+	var oneSize = subElement[0].offsetWidth + 50;
+	obj.style.width = oneSize * subElement.length + 'px';
 }
 </script>
 
@@ -33,11 +45,11 @@ function getWidth ( obj, subElement ) {
  <input type="button" value="←"/>
  <div id="wrapper">
  	<ul id="ul">
-    	<li></li>
-    	<li></li>
-    	<li></li>
-    	<li></li>
-    	<li></li>
+    	<li>1</li>
+    	<li>2</li>
+    	<li>3</li>
+    	<li>4</li>
+    	<li>5</li>
     </ul>
  </div>
 </body>
