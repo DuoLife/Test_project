@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+body { background:#666; }
+.box { width: 300px; height: 500px; border: 1px solid #CCC; position: relative; margin: 40px auto; background: url(img/loading.gif) #FFF no-repeat center; }
+.box p { width: 100%; position: absolute; left: 0px; background:#333; line-height: 30px; text-align: center; margin: 0px; padding: 0px; color: #CCC}
+.box img {width: 300px; height: 500px;}
+.box .count { top: 0px;}
+.box .desc { bottom: 0px;}
+.box ul { position: absolute; left: 310px; top: 0px; list-style: none; margin: 0px; padding: 0px; }
+.box li { width: 40px; height: 40px; background: #036; margin-bottom: 10px;}
+.box .active { width: 52px; height: 52px; background:#FFC; }
+</style>
+
+<script type="text/javascript">
+	window.onload = function () {
+		oDiv = document.getElementById('pic1');
+		oP1 = oDiv.getElementsByTagName('p')[0];
+		oP2 = oDiv.getElementsByTagName('p')[1];
+		oImg = oDiv.getElementsByTagName('img')[0];
+		oUl = oDiv.getElementsByTagName('ul')[0];
+		oLi = oUl.getElementsByTagName('li');
+		
+		var arrImg = [ 'img/01.png', 'img/02.png', 'img/03.png'];
+		var arrP = [ '第1张照片', '第2张照片', '第3张照片'];
+		
+		var num = 0;
+		var len = arrImg.length;
+		var flag = 0;
+		for(var i=0; i<len; i++) {
+			oUl.innerHTML += '<li></li>'
+		}
+		change();
+		/*oLi[flag].className = '';
+		flag = num;
+		oLi[flag].className = 'active';
+		oP1.innerHTML = num+1 + '/' + len;
+		oP2.innerHTML = arrP[num];
+		oImg.src = arrImg[num];*/
+		
+		for(var i=0; i<len; i++) {
+			oLi[i].index = i;
+			oLi[i].onclick = function () {
+				num = this.index;
+				change();
+			};
+		}
+		function change() {
+			oLi[flag].className = '';
+			flag = num;
+			oLi[num].className = 'active';
+			oP1.innerHTML = num+1 + '/' + len;
+			oP2.innerHTML = arrP[num];
+			oImg.src = arrImg[num];
+		}
+	};
+	
+	
+</script>
+</head>
+
+<body>
+<div id="pic1" class="box">
+	<p class="count">图片数量加载中。。。</p>
+    <img src=""/>
+    <p class="desc">图片描述加载中。。。</p>
+    <ul>
+    </ul>
+</div>
+</body>
+</html>

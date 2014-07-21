@@ -17,15 +17,30 @@ body { background:#666; }
 
 <script type="text/javascript">
 	window.onload = function () {
-		oDiv = document.getElementById('pic1');
-		oP1 = oDiv.getElementsByTagName('p')[0];
-		oP2 = oDiv.getElementsByTagName('p')[1];
-		oImg = oDiv.getElementsByTagName('img')[0];
-		oUl = oDiv.getElementsByTagName('ul')[0];
-		oLi = oUl.getElementsByTagName('li');
+		imageSwitch('pic2', ['img/01.png', 'img/02.png', 'img/03.png'], ['第1张照片', '第2张照片', '第3张照片'], 'onclick');
+		imageSwitch('pic1', ['img/01.png', 'img/02.png', 'img/03.png', 'img/02.png',], ['第1张照片', '第2张照片', '第3张照片', '第2张照片'], 'onmouseover');
+	};
+	
+	/*
+	注意：
+		最开始忘记写var，导致只有最后一次传递进来的id对应的元素有效。
+		因为每次调用方法都将id对应的元素付给同一个变量，所以之前的就会被覆盖。
+	参数：
+		1.对应父级元素的id。
+		2.图片URL数组。
+		3.图片对应描述的数组。
+		4.li元素的图片切换事件触发方式。
+	使用：
+		imageSwitch('pic2', ['img/01.png', 'img/02.png', 'img/03.png'], ['第1张照片', '第2张照片', '第3张照片'], 'onclick');
+	*/
+	function  imageSwitch(targetId, arrImg, arrP, evt) {
 		
-		var arrImg = [ 'img/01.png', 'img/02.png', 'img/03.png'];
-		var arrP = [ '第1张照片', '第2张照片', '第3张照片'];
+		var oDiv = document.getElementById(targetId, arrImg, arrP);
+		var oP1 = oDiv.getElementsByTagName('p')[0];
+		var oP2 = oDiv.getElementsByTagName('p')[1];
+		var oImg = oDiv.getElementsByTagName('img')[0];
+		var oUl = oDiv.getElementsByTagName('ul')[0];
+		var oLi = oUl.getElementsByTagName('li');
 		
 		var num = 0;
 		var len = arrImg.length;
@@ -34,16 +49,10 @@ body { background:#666; }
 			oUl.innerHTML += '<li></li>'
 		}
 		change();
-		/*oLi[flag].className = '';
-		flag = num;
-		oLi[flag].className = 'active';
-		oP1.innerHTML = num+1 + '/' + len;
-		oP2.innerHTML = arrP[num];
-		oImg.src = arrImg[num];*/
 		
 		for(var i=0; i<len; i++) {
 			oLi[i].index = i;
-			oLi[i].onclick = function () {
+			oLi[i][evt] = function () {
 				num = this.index;
 				change();
 			};
@@ -56,7 +65,7 @@ body { background:#666; }
 			oP2.innerHTML = arrP[num];
 			oImg.src = arrImg[num];
 		}
-	};
+	}
 	
 	
 </script>
@@ -68,7 +77,14 @@ body { background:#666; }
     <img src=""/>
     <p class="desc">图片描述加载中。。。</p>
     <ul>
-    </ul
-></div>
+    </ul>
+</div>
+<div id="pic2" class="box">
+	<p class="count">图片数量加载中。。。</p>
+    <img src=""/>
+    <p class="desc">图片描述加载中。。。</p>
+    <ul>
+    </ul>
+</div>
 </body>
 </html>

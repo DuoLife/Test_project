@@ -33,9 +33,13 @@ public class CompareDate {
 //			System.out.println(l);
 			
 			Date date = new Date();
+			System.out.println(date);
 			date.setDate(date.getDate()-1);
 			//date.setDate(date.getDay()-1);
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH");
+			SimpleDateFormat sdatef = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy",java.util.Locale.ENGLISH);
+			Date d = sdatef.parse((date.toString()));
+			System.out.println(d);
 			String dateStr = sdf.format(date);
 			System.out.println(dateStr);
 			System.out.println(1000*60*60*24);
