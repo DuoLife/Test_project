@@ -12,6 +12,7 @@
 #ad #desc {position: absolute; left: 60px; top: 150px; padding: 0;}
 #ad #price {position: absolute; left: 60px; top: 172px; padding: 0;}
 #ad img {background: url(img/loading.gif) no-repeat center #fff; position: absolute; left: 54PX;top: 4px; width: 190px; height: 220px;}
+#ad .lad .active, #ad .rad .active {background: #CCC;}
 </style>
 </head>
 <script>
@@ -46,6 +47,7 @@
 			aLi[i].index = i;
 			aLi[i].innerHTML = aMsg[i][0];
 			aLi[i].onmouseover = function () {
+				aLi[num].className = '';
 				num = this.index;
 				stopChange();
 				change();
@@ -61,12 +63,14 @@
 		function startChange() {
 			clearInterval(timer);
 			timer = setInterval(function() {
+				aLi[num].className = '';
 				num++;
 				num %= aMsg.length;
 				change();
 			},1000);
 		}
 		function change() {
+			aLi[num].className = 'active';
 			oDesc.innerHTML = aMsg[num][1];
 			oPirce.innerHTML = aMsg[num][2];
 			oImg.src = aMsg[num][3];
@@ -83,7 +87,7 @@
 <body>
 <div id="ad">
 	<ul class="lad">
-    	<li>1</li>
+    	<li class="active">1</li>
     	<li>2</li>
     	<li>3</li>
     	<li>1</li>
