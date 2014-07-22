@@ -59,7 +59,7 @@ HTML结构：
 使用：
 	imageSwitch('pic2', ['img/01.png', 'img/02.png', 'img/03.png'], ['第1张照片', '第2张照片', '第3张照片'], 'onclick');
 */
-function  imageSwitch(targetId, arrImg, arrP, evt) {
+function imageSwitch(targetId, arrImg, arrP, evt) {
 	
 	var oDiv = document.getElementById(targetId, arrImg, arrP);
 	var oP1 = oDiv.getElementsByTagName('p')[0];
