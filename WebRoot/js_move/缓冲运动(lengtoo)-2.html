@@ -17,11 +17,11 @@
 			oBtn[i].onmouseover = function () {
 				//alert(this.index);
 				changeOpacity(aDiv[this.index], 100);
-				startMove(aDiv[this.index], 300, 'left');
+				startMove(aDiv[this.index], 300);
 			};
 			oBtn[i].onmouseout = function () {
 				changeOpacity(aDiv[this.index],0);
-				startMove(aDiv[this.index], -100, 'left');
+				startMove(aDiv[this.index], -100);
 			};
 		}
 		function changeOpacity(obj, iTarget) {
@@ -29,7 +29,7 @@
 				clearInterval(obj.otimer);
 				obj.otimer = setInterval(function () {
 					var iCur = parseInt(parseFloat(getStyle(obj, 'opacity'))*100);  //93
-					var iSpeed = (iTarget-iCur) / 20;    
+					var iSpeed = (iTarget-iCur) / 8;    
 					iSpeed = iSpeed>0? Math.ceil(iSpeed):Math.floor(iSpeed);     // >0 =1
 					if(iCur==iTarget) {
 						//alert('ok');
@@ -43,13 +43,13 @@
 					
 				},30);
 		}
-		function startMove(obj, iTarget, attr) {
+		function startMove(obj, iTarget) {
 			clearInterval(obj.timer);
 			obj.timer = setInterval(function () {
-				var temp = parseInt(getStyle(obj, attr));
-				var iSpeed = (iTarget-temp) / 12;
+				var temp = parseInt(getStyle(obj, 'left'));
+				var iSpeed = (iTarget-temp) / 8;
 				iSpeed = iSpeed > 0 ? Math.ceil(iSpeed):Math.floor(iSpeed);
-				obj.style[attr] = temp + iSpeed +"px";
+				obj.style.left = temp + iSpeed +"px";
 				document.title = iSpeed;
 				if(temp == iTarget) {
 					clearInterval(obj.timer);
