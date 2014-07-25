@@ -15,17 +15,19 @@
 		for(var i=0;i<aDiv.length;i++) {
 			aDiv[i].onclick = function () {
 				//alert(getStyle(this, 'opacity')*100);
+				startMove(this, 500);
 				clearInterval(timer);
 				var iTarget = 100;
 				timer = setInterval(function () {
-					var iCur = parseInt(getStyle(aDiv[0], 'opacity')*100);
-					var iSpeed = (iTarget-parseInt(getStyle(aDiv[0], 'opacity')*100)) / 8;
+					var iCur = parseFloat(getStyle(aDiv[0], 'opacity')*100);
+					var iSpeed = (iTarget-parseFloat(getStyle(aDiv[0], 'opacity')*100)) / 8;
 					iSpeed = iSpeed>0? Math.ceil(iSpeed):Math.floor(iSpeed);
+					//alert('iCur:'+iCur+' + iSpeed:'+iSpeed+'='+(iCur+iSpeed));
 					if(iCur==iTarget) {
 						clearInterval(timer);
 					}else {
 						aDiv[0].style.filter = 'alpha(opacity:'+(iCur+iSpeed)+')';
-						aDiv[0].style.opacity = (iCur+iSpeed)/100;
+						aDiv[0].style.opacity = (iCur + iSpeed)/100;
 					}
 					document.title = iCur+'速度：'+iSpeed;
 					
@@ -34,15 +36,15 @@
 		}
 		
 		function startMove(obj, iTarget) {
-			clearInterval(timer);
-			timer = setInterval(function () {
+			clearInterval(obj.timer);
+			obj.timer = setInterval(function () {
 				var temp = parseInt(getStyle(obj, 'width'));
 				var iSpeed = (iTarget-temp) / 8;
 				iSpeed = iSpeed > 0 ? Math.ceil(iSpeed):Math.floor(iSpeed);
 				obj.style.width = temp + iSpeed +"px";
 				document.title = iSpeed;
 				if(temp == iTarget) {
-					clearInterval(timer);
+					clearInterval(obj.timer);
 				}
 			},30);
 		}
