@@ -10,10 +10,13 @@
 	#timekeeping {font-size:24px; font-family:"微软雅黑", "新宋体"; margin: 20px;}
 	#wrapper { height:500px; width: 500px;border: 1px solid #000;position: relative; left: 0px; top: 0px;overflow: hidden;background: #EA8E67;}
 	#begin {position: absolute; left: 220px; top: 220px;}
-	#reload {position: absolute; left: 220px; top: 220px; display: none; z-index:999;}
+	#reload {position: absolute; left: 180px; top: 260px;display: none; z-index:998;}
+	#showsub {position: absolute; left: 260px; top: 260px;display: none; z-index:998;}
 	#carrot div{position: absolute;left: 0;top: 0; width: 10px; height: 10px; background: #F00;}
 	#man {position: absolute;left: 220px;top: 220px; width: 40px; height: 40px; display: none;}
 	#man img{position: absolute; left: -6px; top: -4px;}
+	#form {width: 270px; height: 100px; position: absolute;left: 114px; top: 160px;background:#3FADF4;padding: 30px 0;display: none;z-index:998;}
+	.ranklist { position: absolute; right: 0; top: 200px;}
 </style>
 <script>
 	window.onload = function () {
@@ -23,6 +26,11 @@
 		var carrotDiv = document.getElementById('carrot');
 		var aCarrot = carrotDiv.getElementsByTagName('div');
 		var oTime = document.getElementById('timekeeping');
+		var oShowBtn = document.getElementById('showsub');
+		var oForm = document.getElementById('form');
+		oShowBtn.onclick = function () {
+			oForm.style.display = 'block';
+		};
 		var nowTime = null;
 		aBtn[0].onclick = function () {
 			nowTime = new Date().getTime();	
@@ -99,6 +107,7 @@
 					clearInterval(oTime.timer);
 					alert('GAME OVER!');
 					aBtn[1].style.display = 'block';
+					aBtn[2].style.display = 'block';
 				}
 			},30);
 		}
@@ -148,6 +157,7 @@
     <div id="wrapper">
         <input id="begin" type="button" value="开始游戏"/>
         <input id="reload" onclick="window.location.reload()" type="button" value="重新开始"/>
+        <input id="showsub" type="button" value="提交分数"/>
         <div id="carrot">
             <div></div>
             <div style="left:480px;top:490px;"></div>
@@ -158,14 +168,51 @@
             <div style="left:20px;top:470px;"></div>
         </div>
         <div id="man"><img width="50px" height="50px" src="img/go.gif"/></div>
+        <div id="form">
+            <p>姓名：</p><input type="text" value=""/>
+            <p>获奖感言：</p><input type="text" value=""/><br/><br/>
+            <input type="button" value="提交"/>
+            <input type="button" value="算了"/>
+        </div>
     </div>
+</div>
+<div class="ranklist">
+	<ul id="ranking"></ul>
 </div>
 </body>
 <script src="js/jquery-1.4.2.min.js"></script><br />
 <script>
-	var str = 'asd';
+	var rank = ['一','二','三','四','五','六','七','八','九','十',];
+	var str = '';
 	$.post("http://localhost:2103/lengtooyinxiang/gamerankinglist.do",str,function (data) {
-		alert(data);
+		var list = data.gamerankinglist;
+		var oRank = document.getElementById('ranking');
+		if(data.msg == '11') {
+			var str = '';
+			for(var i=0;i<list.length; i++) {
+				var oTemp = list[i];
+				str += '<li>现世界排名第'+rank[i]+'：'+oTemp.Username+' 坚持了： ' + oTemp.Score + '秒~！他说：'+oTemp.Declaration+' </li>';
+			}
+			oRank.innerHTML = str;
+		} 
 	},"json");
+	var oForm = document.getElementById('form');
+	var aBtn = oForm.getElementsByTagName('input');
+	var username = aBtn[0].value;
+	var declaration = aBtn[1].value;
+	var oTime = document.getElementById('timekeeping');
+	var oScore = parseFloat(oTime.innerHTML);
+	aBtn[2].onclick = function () {
+		var username = aBtn[0].value;
+		var declaration = aBtn[1].value;
+		var oTime = document.getElementById('timekeeping');
+		var oScore = parseFloat(oTime.innerHTML);
+		var str = 'username=' + username + '&declaration=' + declaration + '&score=' + oScore;
+		//alert(str);
+		$.post("http://localhost:2103/lengtooyinxiang/addgameranking.do", str, function (data) {
+			if(data.msg == '1') alert('提交成功！');
+			oForm.style.display = 'none';
+		});	
+	};
 </script>
 </html>
