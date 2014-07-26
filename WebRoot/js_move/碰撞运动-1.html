@@ -12,11 +12,18 @@
 		
 		var oWrap = document.getElementById('wrapper');
 		var oMan = document.getElementById('man');
+		var aBtn = document.getElementsByTagName('input');
+		aBtn[0].onclick = function () {
+			move();
+		};
+		aBtn[1].onclick = function () {
+			clearInterval(oMan.timer);
+		};
 		//var iWCur = parseInt(getStyle(oWrap,'left')); //不用计算得出
 		//alert(iWCur);
 		//leftright('left');
 		//updown('top');
-		move();
+		//move();
 		function updown(attr) {
 			var iSpeed = 10;
 			clearInterval(oMan.timer);
@@ -43,7 +50,7 @@
 			var iUDSpeed = 5;
 			var iLRSpeed = 8;
 			clearInterval(oMan.timer);
-			oMan.lrtimer = setInterval(function () {
+			oMan.timer = setInterval(function () {
 				var iLRCur = parseInt(getStyle(oMan,'left'));  //相对父级元素的left值
 				var iUDCur = parseInt(getStyle(oMan,'top'));  //相对父级元素的top值
 				if(iLRCur < 0 || iLRCur > (parseInt(getStyle(oWrap,'width'))-parseInt(getStyle(oMan,'width')))) {
@@ -62,6 +69,8 @@
 </head>
 
 <body>
+<input type="button" value="start"/>
+<input type="button" value="stop"/>
 <div id="wrapper">
 	<div id="man"></div>
 </div>
