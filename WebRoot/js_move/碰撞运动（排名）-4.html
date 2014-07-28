@@ -184,7 +184,7 @@
 <script>
 	var rank = ['一','二','三','四','五','六','七','八','九','十',];
 	var str = '';
-	$.post("http://localhost:2103/lengtooyinxiang/gamerankinglist.do",str,function (data) {
+	$.post("http://lengtoo.com/lengtooyinxiang/gamerankinglist.do",str,function (data) {
 		var list = data.gamerankinglist;
 		var oRank = document.getElementById('ranking');
 		if(data.msg == '11') {
@@ -209,7 +209,7 @@
 		var oScore = parseFloat(oTime.innerHTML);
 		var str = 'username=' + username + '&declaration=' + declaration + '&score=' + oScore;
 		//alert(str);
-		$.post("http://localhost:2103/lengtooyinxiang/addgameranking.do", str, function (data) {
+		$.post("http://lengtoo.com/lengtooyinxiang/addgameranking.do", str, function (data) {
 			if(data.msg == '1') alert('提交成功！');
 			oForm.style.display = 'none';
 		});	

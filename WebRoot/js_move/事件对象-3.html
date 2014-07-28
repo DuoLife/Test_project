@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>键盘事件</title>
+<style>
+	div {width: 100px; height: 100px; background: #96F; position: absolute; left: 0px; top: 0px;}
+</style>
+<script>
+	window.onload = function () {
+		var oDiv = document.getElementsByTagName('div')[0];
+		document.onkeydown = function (ev) {
+			var oEvent = ev || event;
+			//zuo 37   you 39  shang 38  xia  40
+			switch(oEvent.keyCode) {
+				case 37: divMove('left', -10); break;
+				case 38: divMove('top', -10); break;
+				case 39: divMove('left', 10); break;
+				case 40: divMove('top', 10); break;
+			}
+		};
+		document.onkeyup = function () {
+			clearInterval(oDiv.timer);
+		};
+		function divMove(attr, iSpeed) {
+			clearInterval(oDiv.timer);
+			oDiv.timer = setInterval( function () {
+				oDiv.style[attr] = parseInt(getStyle(oDiv, attr)) + iSpeed + "px";
+			},30);
+		}
+		function getStyle(obj, attr){ return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj)[attr];}
+	};
+</script>
+</head>
+
+<body>
+<div></div>
+</body>
+</html>

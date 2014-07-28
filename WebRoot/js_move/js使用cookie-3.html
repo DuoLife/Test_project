@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>cookie</title>
+<style>
+	#div1 {width: 200px; height: 200px; background: #999;position: ;}
+</style>
+<script>
+	window.onload = function () {
+		var aDiv = document.getElementById('div1');
+		
+	};
+	
+	function setCookie (name, value, day) {
+		var oDate = new Date();
+		oDate.setDate(oDate.getDate()+day);
+		document.cookie = name + '=' + value +';expires=' + oDate;
+	}
+	function getCookie (name) {
+		var aCookie = document.cookie.split('; ');
+		for(var i=0; i<aCookie.length; i++) {
+			var aTemp = aCookie[i].split('=');
+			if(name == aTemp[0]){
+				return aTemp[1];
+			}
+		}
+		return '';
+	}
+	function removeCookie (name) {
+		setCookie(name, '', -1);
+	}
+</script>
+</head>
+
+<body>
+<div id="div1">
+</div>
+</body>
+</html>
