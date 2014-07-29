@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Ajax封装</title>
+<script>
+	window.onload = function () {
+		/*
+		1.创建Ajax对象
+		2.创建连接
+		3.发送请求
+		4.接受信息
+		*/
+		var url = 'abc.txt';
+		var str = '';
+		Ajax(url, str, function (data) {
+			alert(data);
+		}, function () {
+			alert('shibai');
+		});
+	};
+	function Ajax(url, str, fnsuces, fnfailed) {
+		var oAjax = window.XMLHttpRequest? new XMLHttpRequest(): new ActiveXObject("Microsoft.XMLHTTP");
+		oAjax.open('GET', url + str, 'true');
+		oAjax.send();
+		oAjax.onreadystatechange = function () {
+			if(oAjax.readyState == 4) {
+				if(oAjax.status == 200){
+					fnsuces && fnsuces(oAjax.responseText);
+				}else {
+					fnfailed && fnfailed();
+				}
+			}
+		};
+	}
+</script>
+</head>
+
+<body>
+</body>
+</html>

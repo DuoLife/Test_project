@@ -5,7 +5,32 @@
  * 
  * email: vip6ming@126.com
  */
-
+/*
+ * ajax 封装
+ *
+ * 1.创建Ajax
+ * 2.创建连接
+ * 3.发送请求
+ * 4.接受信息
+ *
+ * @params(请求连接, 参数字符串, 请求成功回调函数, 请求失败回调函数)
+ *
+ */
+ function Ajax(url, str, fnsuces, fnfailed) {
+    var oAjax = window.XMLHttpRequest? new XMLHttpRequest(): new ActiveXObject("Microsoft.XMLHTTP");
+    oAjax.open('GET', url + '?' + str, 'true');
+    oAjax.send();
+    oAjax.onreadystatechange = function () {
+        if(oAjax.readyState == 4) {
+            if(oAjax.status == 200){
+                fnsuces && fnsuces(oAjax.responseText);
+            }else {
+                fnfailed && fnfailed();
+            }
+        }
+    };
+}
+ 
 /*
  * 移动函数
  * 
