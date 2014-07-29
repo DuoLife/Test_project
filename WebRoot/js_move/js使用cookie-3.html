@@ -4,14 +4,47 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>cookie</title>
 <style>
-	#div1 {width: 200px; height: 200px; background: #999;position: ;}
+	#div1 {width: 200px; height: 200px; background: #999;position: absolute; left: 0; top: 500px;}
 </style>
 <script>
 	window.onload = function () {
-		var aDiv = document.getElementById('div1');
-		
+		var oDiv = document.getElementById('div1');
+		var divx = getCookie('x');
+		var divy = getCookie('y');
+		if(divx) {
+			//alert(divx);
+			oDiv.style.left = divx + 'px';
+			oDiv.style.top = divy + 'px';
+		}
+		oDiv.onmousedown = function (ev) {
+			var oEvent = ev || event;
+			var sL = document.body.scrollLeft || document.documentElement.scrollLeft;
+			var sT = document.body.scrollTop || document.documentElement.scrollTop;
+			var mOndX = oEvent.clientX + sL - oDiv.offsetLeft; 
+			var mOndY = oEvent.clientY + sT - oDiv.offsetTop; 
+			//alert('down');
+			//console.log(oEvent.clientY+':'+oDiv.offsetTop);
+			document.onmousemove = function (ev) {
+				var oEvent = ev || event;
+				var x = oEvent.clientX;
+				var y = oEvent.clientY;
+				var sL = document.body.scrollLeft || document.documentElement.scrollLeft;
+				var sT = document.body.scrollTop || document.documentElement.scrollTop;
+				//alert(x+':'+y);
+				//console.log(mOndX+':'+mOndY);
+				oDiv.style.left = x + sL - mOndX + 'px';
+				oDiv.style.top = y + sT - mOndY + 'px';
+			};
+			document.onmouseup = function () {
+				document.onmousemove = null;
+				document.onmouseup = null;
+				setCookie('x', oDiv.offsetLeft, 30);
+				setCookie('y', oDiv.offsetTop, 30);
+			};
+			return false;
+		};
 	};
-	
+	function getStyle (obj, attr) {return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj)[attr];}
 	function setCookie (name, value, day) {
 		var oDate = new Date();
 		oDate.setDate(oDate.getDate()+day);
@@ -33,7 +66,7 @@
 </script>
 </head>
 
-<body>
+<body style="height: 2000px;">
 <div id="div1">
 </div>
 </body>
