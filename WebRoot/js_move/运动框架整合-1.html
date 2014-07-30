@@ -36,7 +36,7 @@
 			/*startMove5(oDiv, 'opacity', 30, function () {
 				startMove5(oDiv, 'width', 100);
 			});*/
-			//startMove6(oDiv, {width: 100, opacity: 30});
+			startMove6(oDiv, {width: 100, opacity: 30});
 		};
 		oDiv2.onmouseover = function () {
 			startMove3(oDiv2, 503);
@@ -159,7 +159,7 @@
 		function startMove6(obj, json) {
 			//透明度用到小数，很多时候浏览器会将得到的结果如95记为94.99999999999999999，但下次获取时会去除小数得到94，所以透明度就会一直卡住永远不能到达iTarget。
 			//所以，外部定义一个数，每次累加，不会受到小数取整所带来的bug
-			alert(json.opacity);
+			//alert(json.opacity);
 			if(json.opacity) {
 				var iiCur = parseInt(parseFloat(getStyle(obj, 'opacity'))*100);
 			}
@@ -183,15 +183,14 @@
 					iSpeed = iSpeed>0?Math.ceil(iSpeed):Math.floor(iSpeed);
 					//判断是否终止运动
 					if(iCur != iTarget) {
-						isStop = false
+						isStop = false;
+					}
+					if(attr == 'opacity') {
+						iiCur += iSpeed;
+						obj.style.filter = 'alpha(opacity:' + iiCur + ')';
+						obj.style.opacity = iiCur/100;
 					}else {
-						if(attr == 'opacity') {
-							iiCur += iSpeed;
-							obj.style.filter = 'alpha(opacity:' + iiCur + ')';
-							obj.style.opacity = iiCur/100;
-						}else {
-							obj.style[attr] = iCur + iSpeed + 'px';
-						}
+						obj.style[attr] = iCur + iSpeed + 'px';
 					}
 				}
 				if(isStop){ 
