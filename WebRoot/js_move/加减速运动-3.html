@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>弹性运动_弹力</title>
+<style>
+#div1 {width: 10px; height: 100px; background: #F00; position: absolute; left: 0px; top: 50px;}
+#div2 {width: 1px; height: 300px; background: #F00; position: absolute; left: 500px; top: 0px;}
+</style>
+<script>
+	window.onload = function () {
+		var oDiv = document.getElementById('div1');
+		var oBtn = document.getElementById('input1');
+		
+		var iSpeed = 0;
+		oBtn.onclick = function () {
+			startMove(oDiv, 'left', 500);			
+		};
+		function startMove(obj, attr, iTarget) {
+			clearInterval(obj.timer);
+			obj.timer = setInterval(function () {
+				var iCur = parseInt(getStyle(oDiv, attr));
+				if(iCur>iTarget) {
+					iSpeed-=(iCur-iTarget)/70;
+				}else {
+					iSpeed+=(iTarget-iCur)/70;
+				}
+				/*if(iCur>=iTarget) {
+					clearInterval(obj.timer);
+				}*/
+				obj.style.left = iCur + iSpeed + 'px';
+			},30);
+		}
+	};
+	function getStyle(obj, attr) {return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj)[attr]}
+</script>
+</head>
+
+<body>
+<input id="input1" type="button" value="运动"/>
+<div id="div1"></div>
+<div id="div2"></div>
+</body>
+</html>

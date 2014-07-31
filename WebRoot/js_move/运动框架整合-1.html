@@ -26,7 +26,7 @@
 			/*startMove5(oDiv, 'opacity', 100, function () {
 				startMove5(oDiv, 'width', 500);
 			});*/
-			startMove6(oDiv, {width: 500, opacity: 100});
+			startMove6(oDiv, {width: 500, opacity: 100},function () {alert('zanzanzan')});
 		};
 		oDiv.onmouseout = function () {
 			//startMove1(100);
@@ -156,7 +156,7 @@
 			},30);
 		}
 		//多值运动: 
-		function startMove6(obj, json) {
+		function startMove6(obj, json, fn) {
 			//透明度用到小数，很多时候浏览器会将得到的结果如95记为94.99999999999999999，但下次获取时会去除小数得到94，所以透明度就会一直卡住永远不能到达iTarget。
 			//所以，外部定义一个数，每次累加，不会受到小数取整所带来的bug
 			//alert(json.opacity);
@@ -195,6 +195,7 @@
 				}
 				if(isStop){ 
 					clearInterval(obj.timer);
+					fn && fn();
 				}
 			},30);
 		}
