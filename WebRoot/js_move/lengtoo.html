@@ -1,0 +1,251 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>冷兔官方网站</title>
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="css/basis.css">
+		<link rel="stylesheet" type="text/css" href="css/jquery.fancybox-1.3.4.css" media="screen" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<meta name="author" content="Orange" />
+	<!-- Date: 2014-06-30 -->
+	<style>
+		.wrapper{ padding-bottom: 220px;}
+		.li0, .li1, .li2, .li3, .li4{ width: 100%; height: 1020px;}
+		.li0 {background:#2184C5;}
+		/*.li0 .img1 {position: absolute;top: 180px;left: 550px; filter: alpha(opacity: 0;); opacity: 0;}
+		.li0 .img2 {position: absolute;top: 380px;left: 100px; filter: alpha(opacity: 0;); opacity: 0;}*/
+		.li0 .img1 {position: absolute;top: 380px;left: 550px; filter: alpha(opacity: 0;); opacity: 0;}
+		.li0 .img2 {position: absolute;top: 180px;left: 100px; filter: alpha(opacity: 0;); opacity: 0;}
+		.li1 {background:#A1E0A9;}
+		.li1 .img1 {position: absolute;top: 400px;left: 60px; filter: alpha(opacity: 0;); opacity: 0;}
+		.li1 .img2{position: absolute;top: 220px;left: 600px; filter: alpha(opacity: 0;); opacity: 0;}
+		/*.li1 .img1 {position: absolute;top: 200px;left: 60px; filter: alpha(opacity: 0;); opacity: 0;}
+		.li1 .img2{position: absolute;top: 420px;left: 600px; filter: alpha(opacity: 0;); opacity: 0;}*/
+		.li2 {background:#9DC02E;}
+		.li2 .img1 {position: absolute;top: 550px;left: 80px; filter: alpha(opacity: 0;); opacity: 0;}
+		.li2 .img2 {position: absolute;top: 500px;left: 80px; filter: alpha(opacity: 0;); opacity: 0;}
+		/*.li2 .img1 {position: absolute;top: 350px;left: 80px; filter: alpha(opacity: 0;); opacity: 0;}
+		.li2 .img2 {position: absolute;top: 700px;left: 80px; filter: alpha(opacity: 0;); opacity: 0;}*/
+		.li3 {background:#D9CD3D;}
+		.li3 .img1 {position: absolute;top: 550px;left: 60px; filter: alpha(opacity: 0;); opacity: 0;}
+		.li3 .img2 {position: absolute;top: 500px;left: 240px; filter: alpha(opacity: 0;); opacity: 0;}
+		/*.li3 .img1 {position: absolute;top: 350px;left: 60px; filter: alpha(opacity: 0;); opacity: 0;}
+		.li3 .img2 {position: absolute;top: 700px;left: 240px; filter: alpha(opacity: 0;); opacity: 0;}*/
+		.li4 {background:#C24704;}
+		.li4 .img1 {position: absolute;top: 550px;left: 650px; filter: alpha(opacity: 0;); opacity: 0;}
+		.li4 .img2 {position: absolute;top: 270px;left: 80px; filter: alpha(opacity: 0;); opacity: 0;}
+		/*.li4 .img1 {position: absolute;top: 350px;left: 650px; filter: alpha(opacity: 0;); opacity: 0;}
+		.li4 .img2 {position: absolute;top: 470px;left: 80px; filter: alpha(opacity: 0;); opacity: 0;}*/
+		.centerDiv{ width: 960px; height: 1020px;margin: 0 auto; position: relative;}
+		
+	.ipt1 {width: 50px; height:30px;position: fixed; top:20px; right: 50px; display: none;}
+	.ipt2 {width: 50px; height:30px;position: fixed; top:60px; right: 50px; display: none;}
+	</style>
+    <script type="text/javascript" src="addEvent.js"></script>
+	<script>
+		window.onload = function () {
+			var aPos = [
+				[180, 550, 380, 100],
+				[200, 60, 420, 600],
+				[350, 80, 700, 80],
+				[350, 60, 700, 240],
+				[350, 650, 470, 80]
+				
+			];
+			var oLst = document.getElementById('lst');
+			var aLi = oLst.getElementsByTagName('li');
+			var num = 0;
+			window.onscroll = function () {
+				var site = document.body.scrollTop || document.documentElement.scrollTop;
+				if(site > 80) {
+					document.body.onmousewheel = function(event) {
+						mouseMove(event);
+					};
+					hidden();
+					num = 0;
+					show();
+				}
+				if(site > (1020+80)) {
+					hidden();
+					num = 1;
+					show();
+				}
+				if(site > (1020*2+80)) {
+					hidden();
+					num = 2;
+					show();
+				}
+				if(site > (1020*3+80)) {
+					hidden();
+					num = 3;
+					show();
+				}
+				if(site > (1020*4+80)) {
+					document.body.onmousewheel = function(event) {
+						mouseMove(event);
+					};
+					hidden();
+					num = 4;
+					show();
+				}
+			};
+			function show() {
+				var aImg = aLi[num].getElementsByTagName('img');
+				changeOpacity(aImg[0],100);
+				changeOpacity(aImg[1],100);
+				startMove(aImg[0], aPos[num][0], 'top');
+				startMove(aImg[1], aPos[num][2], 'top');
+			}
+			function hidden() {
+				var aImg = aLi[num].getElementsByTagName('img');
+				changeOpacity(aImg[0], 0);
+				changeOpacity(aImg[1], 0);
+				startMove(aImg[0], aPos[num][0]+200, 'top');
+				startMove(aImg[1], aPos[num][2]-200, 'top');
+			}
+			function changeOpacity(obj, iTarget) {
+					clearInterval(obj.otimer);
+					obj.otimer = setInterval(function () {
+						var iCur = parseInt(parseFloat(getStyle(obj, 'opacity'))*100);
+						var iSpeed = (iTarget-iCur) / 20;    
+						iSpeed = iSpeed>0? Math.ceil(iSpeed):Math.floor(iSpeed);
+						if(iCur==iTarget) {
+							clearInterval(obj.otimer);
+						}else {
+							obj.style.filter = 'alpha(opacity:'+(iCur+iSpeed)+')';
+							obj.style.opacity = (iCur+iSpeed)/100;
+						}
+						//document.title = iCur+'速度：'+iSpeed;
+						
+					},30);
+			}
+			function startMove(obj, iTarget, attr) {
+				clearInterval(obj.timer);
+				obj.timer = setInterval(function () {
+					var temp = parseInt(getStyle(obj, attr));
+					var iSpeed = (iTarget-temp) / 12;
+					iSpeed = iSpeed > 0 ? Math.ceil(iSpeed):Math.floor(iSpeed);
+					obj.style[attr] = temp + iSpeed +"px";
+					//document.title = iSpeed;
+					if(temp == iTarget) {
+						clearInterval(obj.timer);
+					}
+				},30);
+			}
+			function getStyle( obj, attr ) {return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj)[attr]}
+			var aBtn = document.getElementsByTagName('input');
+			aBtn[0].onclick = function () {
+				if(num==0) {
+				}else {
+					hidden();
+					num--;
+					num %= 5;
+				}
+				screenMove(document, 1020*num+100);
+			};
+			aBtn[1].onclick = function () {
+				if(num==4) {
+				}else {
+					hidden();
+					num++;
+					num %= 5;
+				}
+				screenMove(document, 1020*num+100);
+			};
+			function screenMove(obj, iTarget) {
+				clearInterval(obj.timer);
+				obj.timer = setInterval(function () {
+					var iCur = document.body.scrollTop;
+					var iSpeed = (iTarget-iCur)/8;
+					iSpeed = iSpeed > 0? Math.ceil(iSpeed):Math.floor(iSpeed);
+					if(iCur == iTarget) {
+						clearInterval(obj.timer);
+					}else {
+						obj.body.scrollTop= (iCur + iSpeed);
+						text.value = document.body.scrollTop+" iSpeed:"+iSpeed;
+					}
+				},30);
+			}
+			function mouseMove (ev) {
+				var oEvent = ev || window.event;
+				if(oEvent.wheelDelta>0){
+					if(num==0) {
+						document.body.scrollTop = 0;
+						document.body.onmousewheel=null;
+					}else {
+						hidden();
+						num--;
+						num %= 5;
+						screenMove(document, 1020*num+100);
+					}
+					//alert('shang');
+				}else if(oEvent.wheelDelta<0){
+					if(num==4) {
+						document.body.onmousewheel=null;
+					}else {
+						hidden();
+						num++;
+						num %= 5;
+						screenMove(document, 1020*num+100);
+					}
+					//alert('xia');
+				}
+			}
+		};
+	</script>
+	</head>
+	<body>
+		
+<input id="text" class="ipt1" type="button" value="up"/>
+<input class="ipt2" type="button" value="down"/>
+	 <div class="wrapper">
+		<div class="header">
+		 	<div class="title_bar">
+		 		<p class="logo"><img src="img/logo.png" /></p>
+		 		<ul>
+		 			<li class="active"><a href="lengtoo.html">Lengtoo</a></li>
+		 			<li><a href="news.html">News</a></li>
+		 			<li><a href="products.html">Products</a></li>
+		 			<li><a href="downloads.html">Downloads</a></li>
+		 			<li><a href="#">Licensees</a></li>
+		 			<li><a href="#">Contacts</a></li>
+		 		</ul>
+		 	</div>
+		 </div>
+		 <ul id="lst">
+			<li class="li0">
+				<div class="centerDiv">
+					<img class="img1" src="/lengtoo/img/homepage/div00.png"/><br/>
+					<img class="img2" src="/lengtoo/img/homepage/div01.png"/>
+				</div>
+			</li>
+			<li class="li1">
+				<div class="centerDiv">
+					<img class="img1" src="/lengtoo/img/homepage/div10.png"/><br/>
+					<img class="img2" src="/lengtoo/img/homepage/div11.png"/>
+				</div>
+			</li>
+			<li class="li2">
+				<div class="centerDiv">
+					<img class="img1" src="/lengtoo/img/homepage/div20.png"/><br/>
+					<img class="img2" src="/lengtoo/img/homepage/div21.png"/>
+				</div>
+			</li>
+			<li class="li3">
+				<div class="centerDiv">
+					<img class="img1" src="/lengtoo/img/homepage/div30.png"/><br/>
+					<img class="img2" src="/lengtoo/img/homepage/div31.png"/>
+				</div>
+			</li>
+			<li class="li4">
+				<div class="centerDiv">
+					<img class="img1" src="/lengtoo/img/homepage/div40.png"/><br/>
+					<img class="img2" src="/lengtoo/img/homepage/div41.png"/>
+				</div>
+			</li>
+		</ul>
+	</div>
+	</body>
+</html>
+

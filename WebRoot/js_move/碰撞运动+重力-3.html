@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>弹性运动_弹力</title>
+<title>碰撞运动</title>
 <style>
 #div1 {width: 10px; height: 100px; background: #F00; position: absolute; left: 0px; top: 50px;}
 #div2 {width: 1px; height: 300px; background: #F00; position: absolute; left: 500px; top: 0px;}
@@ -12,25 +12,38 @@
 		var oDiv = document.getElementById('div1');
 		var oBtn = document.getElementById('input1');
 		
-		var iSpeed = 0;
+		//var iSpeed = 0;
 		oBtn.onclick = function () {
-			startMove(oDiv, 'left', 500);			
+			startMove(oDiv);			
 		};
-		function startMove(obj, attr, iTarget) {
+		function startMove(obj) {
+			var iSpeedX = 8;
+			var iSpeedY = 6;
 			clearInterval(obj.timer);
 			obj.timer = setInterval(function () {
-				var iCur = parseInt(getStyle(oDiv, attr));
-				iSpeed+=(iTarget-iCur)/5;
-				iSpeed*=0.7;//摩擦力指数，每次都会使速度总值减小，直到速度为零，运动停止
-				
-				//检测运动停止：只有当物体运动到目标点并且速度为零时，物体才是真正的停止。
-				//因为有小数，所以趋近于零时就判断物体为停止
-				if(Math.abs(iTarget-iCur) < 1 && Math.abs(iSpeed) < 1) {
-					clearInterval(obj.timer);
-					obj.style.left = iTarget + 'px';
-				}else {
-					obj.style.left = iCur + iSpeed + 'px';
+				iSpeedY+=3;
+				var iCurX = parseInt(getStyle(oDiv, 'left'));
+				var iCurY = parseInt(getStyle(oDiv, 'top'));
+				var screenH = document.documentElement.clientHeight;
+				var screenW = document.documentElement.clientWidth;
+				var L = iCurX + iSpeedX;
+				var T = iCurY + iSpeedY;
+				if(T >= (screenH-obj.offsetHeight)) {
+					iSpeedY *= -1;
+					iSpeedX *= 0.8;
+					T = screenH-obj.offsetHeight;
+				}else if(T <= 0) {
+					iSpeedY *=-1;
+					iSpeedX *= 0.8;
 				}
+				if(L >= (screenW-obj.offsetWidth)) {
+					iSpeedX *= -0.8;
+					L = screenW-obj.offsetWidth;
+				}else if(L <= 0) {
+					iSpeedX *= -0.8;
+				}
+				obj.style.left = L + 'px';
+				obj.style.top = T + 'px';
 			},30);
 		}
 	};
