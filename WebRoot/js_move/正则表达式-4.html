@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>正则表达式-替换</title>
+<script>
+/*
+将所有方法foo(a,b,c)的实例改为foo(b,a,c)。这里a、b和c可以是任何提供给方法foo()的参数。也就是说我们要实现这样的转换：
+之前 之后
+foo(10,7,2) foo(7,10,2)
+foo(x+13,y-2,10) foo(y-2,x+13,10)
+foo( bar(8), x+y+z, 5) foo( x+y+z, bar(8), 5)
+下面这条替换命令能够实现这一魔法：
+
+:%s/foo(\([^,]*\),\([^,]*\),\([^)]*\))/foo(\2,\1,\3)/g
+*/
+window.onload = function () {
+	var oTxt1 = document.getElementById('txt1');
+	var oBtn1 = document.getElementById('btn1');
+	var re = /foo\([^,]*,[^,]*,[^)]*\)/foo(\1,\2,\3)/g;
+	oBtn1.onclick = function() {
+		alert(re.test(oTxt1.value));
+	};
+};
+</script>
+
+</head>
+
+<body>
+<input type="text" id="txt1" value='foo(10,7,2)'/>
+<input id="btn1" type="button" value="test"  />
+</body>
+</html>
