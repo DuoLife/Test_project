@@ -42,7 +42,6 @@
 	.ipt1 {width: 50px; height:30px;position: fixed; top:20px; right: 50px; display: none;}
 	.ipt2 {width: 50px; height:30px;position: fixed; top:60px; right: 50px; display: none;}
 	</style>
-    <script type="text/javascript" src="addEvent.js"></script>
 	<script>
 		window.onload = function () {
 			var aPos = [
@@ -59,9 +58,8 @@
 			window.onscroll = function () {
 				var site = document.body.scrollTop || document.documentElement.scrollTop;
 				if(site > 80) {
-					document.body.onmousewheel = function(event) {
-						mouseMove(event);
-					};
+					addEvent(document, 'mousewheel', mouseMove);
+					addEvent(document, 'DOMMouseScroll', mouseMove);
 					hidden();
 					num = 0;
 					show();
@@ -82,9 +80,8 @@
 					show();
 				}
 				if(site > (1020*4+80)) {
-					document.body.onmousewheel = function(event) {
-						mouseMove(event);
-					};
+					addEvent(document, 'mousewheel', mouseMove);
+					addEvent(document, 'DOMMouseScroll', mouseMove);
 					hidden();
 					num = 4;
 					show();
@@ -156,23 +153,25 @@
 			function screenMove(obj, iTarget) {
 				clearInterval(obj.timer);
 				obj.timer = setInterval(function () {
-					var iCur = document.body.scrollTop;
+					var iCur = document.body.scrollTop || document.documentElement.scrollTop;
 					var iSpeed = (iTarget-iCur)/8;
 					iSpeed = iSpeed > 0? Math.ceil(iSpeed):Math.floor(iSpeed);
 					if(iCur == iTarget) {
 						clearInterval(obj.timer);
 					}else {
 						obj.body.scrollTop= (iCur + iSpeed);
-						text.value = document.body.scrollTop+" iSpeed:"+iSpeed;
+						obj.documentElement.scrollTop= (iCur + iSpeed);
+						//text.value = iCur+" iSpeed:"+iSpeed;
 					}
 				},30);
 			}
 			function mouseMove (ev) {
 				var oEvent = ev || window.event;
-				if(oEvent.wheelDelta>0){
+				if(oEvent.wheelDelta>0 || oEvent.detail<0){
 					if(num==0) {
 						document.body.scrollTop = 0;
-						document.body.onmousewheel=null;
+						rmEvent(document, 'mousewheel', mouseMove);
+						rmEvent(document, 'DOMMouseScroll', mouseMove);
 					}else {
 						hidden();
 						num--;
@@ -180,9 +179,10 @@
 						screenMove(document, 1020*num+100);
 					}
 					//alert('shang');
-				}else if(oEvent.wheelDelta<0){
+				}else if(oEvent.wheelDelta<0 || oEvent.detail>0){
 					if(num==4) {
-						document.body.onmousewheel=null;
+						rmEvent(document, 'mousewheel', mouseMove);
+						rmEvent(document, 'DOMMouseScroll', mouseMove);
 					}else {
 						hidden();
 						num++;
@@ -190,6 +190,21 @@
 						screenMove(document, 1020*num+100);
 					}
 					//alert('xia');
+				}
+			}
+			function addEvent (obj, ev, fn) {
+				if(obj.attachEvent) {
+					obj.attachEvent('on' + ev, fn);
+					//alert('go');
+				}else {
+					obj.addEventListener(ev, fn, false);
+				}
+			}
+			function rmEvent(obj, ev, fn) {
+				if(obj.detachEvent) {
+					obj.detachEvent('on' + ev, fn);
+				}else {
+					obj.removeEventListener(ev, fn, false);
 				}
 			}
 		};
