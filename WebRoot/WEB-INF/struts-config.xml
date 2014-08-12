@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN" "http://struts.apache.org/dtds/struts-config_1_3.dtd">
+
+<struts-config>
+  <form-beans />
+  <global-exceptions />
+  <global-forwards />
+  <action-mappings>
+  	<action path="/img_post" type="com.imgupload.web.action.ImgPostAction"></action>
+  	<action path="/img_multipart" type="com.imgupload.web.action.ImgMultipartAction"></action>
+  </action-mappings>
+  <message-resources parameter="com.imgupload.web.ApplicationResources" />
+</struts-config>
+

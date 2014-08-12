@@ -46,5 +46,6 @@
 		<nature>com.genuitec.eclipse.j2eedt.core.webnature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
+		<nature>com.genuitec.eclipse.cross.easystruts.eclipse.easystrutsnature</nature>
 	</natures>
 </projectDescription>

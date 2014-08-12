@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowViewLayout Version="1.2">
+  <StrutsActivity path="/img_post.do" location="50,50" dimension="125,76" />
+  <StrutsActivity path="/img_multipart.do" location="350,50" dimension="394,116" />
+</FlowViewLayout>
+
