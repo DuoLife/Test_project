@@ -2,16 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>进度条</title>
+<title>进度条-封装</title>
 <style>
 	body{background: #E5F2FB;}
 	#progress_d {height: 100%; width: 100%; position: fixed; left: 0; top: 0; background: #CCC;}
 	#progress_d .progressBox{position: absolute;left: 40%;top: 45%;width: 250px;height: 2px;border: 0px solid;background: #FFF;}
 	#progress_d .progressBar{position: absolute;left: 0px;top: 0px;width: 0px;height: 2px;background: #E93826;}
 	#progress_d .percentP{margin: 0;position: absolute;left: 256px;top: -8px;color: #E93826;}
-	.wrapper {display: none;}
+	.wrapper {display: none; filter: alpha(opacity:0);opacity: 0;}
 </style>
-<script type="text/javascript" src="ming.js"></script>
 <script type="text/javascript">
 	window.onload = function () {
 		var isNow = 0;
@@ -27,7 +26,9 @@
 					progressFn(parseInt(isNow/aImg.length*100));
 					if(isNow == aImg.length) {
 						oProgress_d.style.display = 'none';
+						startMove(oProgress_d, {opacity: 0});
 						oWrapper.style.display = 'block';
+						startMove(oWrapper, {opacity: 100});
 					}
 				};
 			yImg.src = aImg[i].src;
@@ -45,6 +46,46 @@
 	function getStyle( obj, attr) {
 		return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj)[attr];
 	}
+	function startMove(obj, json, fn) {
+			if(json.opacity) {
+				var iiCur = parseInt(parseFloat(getStyle(obj, 'opacity'))*100);
+			}
+			clearInterval(obj.timer);
+			obj.timer = setInterval( function () {
+				//多值运动的标志位
+				var isStop = true;
+				var iCur = 0;
+				for(var a in json) {
+					var attr = a;
+					var iTarget = json[a];
+					//alert(a+' : '+iTarget);
+					if(attr == 'opacity') { 
+						iCur = parseInt(parseFloat(getStyle(obj, attr))*100);
+					}else {
+						iCur = parseInt(getStyle(obj, attr));
+					}
+					//速度的获取必须放在定时器内，这样速度值才会发生变化。
+					var iSpeed = (iTarget-iCur)/8;  
+					//注意小数，发生抖动
+					iSpeed = iSpeed>0?Math.ceil(iSpeed):Math.floor(iSpeed);
+					//判断是否终止运动
+					if(iCur != iTarget) {
+						isStop = false;
+					}
+					if(attr == 'opacity') {
+						iiCur += iSpeed;
+						obj.style.filter = 'alpha(opacity:' + iiCur + ')';
+						obj.style.opacity = iiCur/100;
+					}else {
+						obj.style[attr] = iCur + iSpeed + 'px';
+					}
+				}
+				if(isStop){ 
+					clearInterval(obj.timer);
+					fn && fn();
+				}
+			},30);
+		}
 </script>
 </head>
 
