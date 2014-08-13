@@ -49,18 +49,31 @@ public class ImgMultipartAction extends Action{
 		    System.out.println(name + " = " + value);
 	    }
 		InputStream in = request.getInputStream();
-		byte[] b = new byte[1024*1024];
+		byte[] b = new byte[1024*4];
 		int i = 0; //每次读取的字节数
 		FileOutputStream outs = new FileOutputStream("F:/test.jpg");
+		StringBuffer s = new StringBuffer();
 		while ( (i = in.read(b)) != -1) {
+//			for(int j=0; j<i;j++) {
+//				//System.out.print(b[j]);
+//			}
+			s.append(new String(b,0,i));
 			outs.write(b, 0, i);
 			outs.flush();
 		}
+		System.out.println(s);
 		in.close();
 		outs.close();
 		String content_type = request.getContentType();
 		System.out.println("content_type:" + content_type);
 		return null;
+	}
+	
+	public byte[] doProcess(byte[] b) {
+		byte[] result = null;
+		String str = new String(b);
+		System.out.println(str);
+		return result;
 	}
 
 }
