@@ -7,7 +7,15 @@
 /*var str = 'function a() {alert("ok")}';
 eval(str);
 a();*/
-
+//var str = 'function a() {alert("ok")}';
+var str = '{"a":"123","b":"456"}';  //parse为严格类型转换，属性名称（key）也必须加上“”
+//JSON.stringify(str);
+alert(str.a);
+var j = JSON.parse(str);
+alert(j.a);
+alert(j);		//此时j为object对象。
+var b = JSON.stringify(j);
+alert(b);		//此时为String类型，会打印出字符串内容。
 </script>
 </head>
 
