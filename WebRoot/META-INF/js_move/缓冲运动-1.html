@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>缓冲运动</title>
+<style>
+	* {padding: 0; margin: 0;}
+	div {width: 100px; height: 50px; background: #F00; border:#666 1px solid; margin-top: 10px}
+</style>
+<script>
+	window.onload = function () {
+		var aDiv = document.getElementsByTagName('div');
+		var oBtn = document.getElementsByTagName('input')[0];
+		var timer = null;
+		for(var i=0;i<aDiv.length;i++) {
+			aDiv[i].onclick = function () {
+				var iTarget = 300;
+				startMove(this, iTarget);
+			};
+		}
+		
+		function startMove(obj, iTarget) {
+			clearInterval(timer);
+			timer = setInterval(function () {
+				var temp = parseInt(getStyle(obj, 'width'));
+				var iSpeed = (iTarget-temp) / 8;
+				iSpeed = iSpeed > 0 ? Math.ceil(iSpeed):Math.floor(iSpeed);
+				obj.style.width = temp + iSpeed +"px";
+				document.title = iSpeed;
+				if(temp == iTarget) {
+					clearInterval(timer);
+				}
+			},30);
+		}
+	};
+	function getStyle(obj, attr) {
+		return obj.getCurrentStyle?obj.getCurrentStyle[attr]:getComputedStyle(obj)[attr];
+	}
+</script>
+</head>
+
+<body>
+<input type="button"  value="move"/>
+<div></div>
+<div style="width: 1px; height: 300px; background:#333; position: absolute; left: 300px;top: 10px;"></div>
+<div></div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>html5-拖放-3</title>
+<style>
+.div1 {background: #F00; width: 100px; height: 100px; position: absolute; left: 50px; top: 50px;}
+.target {background: #F00; width: 200px; height: 200px; position: absolute; left: 500px; top: 500px;}
+</style>
+<script>
+window.onload = function () {
+	var oDivDrag = document.getElementsByClassName('div1')[0];
+	var oDivTarget = document.getElementsByClassName('target')[0];
+	oDivDrag.ondragstart = function (ev) {
+		//var ev = ev || window.event; 
+		ev.dataTransfer.setData('name','xuming');
+		oDivDrag.style.background = '#FFF234';
+		//设置拖拽至目标位置时的显示图标
+		ev.dataTransfer.effectAllowed = 'link';
+		//设置拖拽目标显示图案
+		ev.dataTransfer.setDragImage(oDivTarget, -10, -10);
+	};
+	oDivDrag.ondragend = function (ev) {
+		//此处无法获得dataTransfer中的值
+		//alert(ev.dataTransfer.getData('name'));
+		console.log(ev.dataTransfer);
+		console.log(ev.dataTransfer.getData('name'));
+		oDivDrag.style.background = 'red';
+	};
+	oDivTarget.ondragenter = function () {
+		//此处设置dataTransfer中的值
+		//在ondrop中也无法获取该值
+		//ev.dataTransfer.setData('sex','nan');
+		oDivTarget.style.background = '#666';
+	};
+	oDivTarget.ondragover = function (ev) {
+		ev.preventDefault();
+	};
+	oDivTarget.ondragleave = function () {
+		oDivTarget.style.background = 'red';
+	};
+	oDivTarget.ondrop = function (ev) {
+		alert(ev.dataTransfer.getData('name'));
+		oDivTarget.style.background = 'red';
+	};
+};
+</script>
+</head>
+
+<body>
+<div class="div1" draggable='true'></div>
+<div class="target"></div>
+</body>
+</html>

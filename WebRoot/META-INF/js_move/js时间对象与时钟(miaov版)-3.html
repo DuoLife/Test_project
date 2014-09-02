@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>js时间对象与时钟</title>
+<style>
+	ul { position: relative; top: 200px; left: 350px;list-style: none; display:inline-block; margin: 0;padding: 0; overflow: hidden;height: 174px;}
+	ul li {width: 150px; position: absolute; top: 0px;height: 174px;}
+</style>
+<script>
+	
+	window.onload = function () {
+		var aWeek = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+		//元素初始化
+		//var oP = document.getElementsByTagName('p')[0];
+		var oUl = document.getElementById('xmTime');
+		var aLi = oUl.getElementsByTagName('li');
+		
+		//日期
+		var date = new Date();
+		var nowStr = toTwo(date.getHours()) + ':' + toTwo(date.getMinutes()) + ':' + toTwo(date.getSeconds());
+		var ulStr = '';
+		for(var i=0; i<nowStr.length; i++) {
+			var imgName = nowStr.charAt(i);
+			if(imgName == ':') {
+				imgName = 'colon';
+			}
+			oUl.innerHTML += '<li><img src="dateImg/'+ imgName +'.JPG" /></li>';
+		}
+		for(var i=0; i<aLi.length; i++) {
+			aLi[i].style.left = i*150 + 'px';
+		}
+		
+		
+		setWidtn();
+		
+		var aImg = oUl.getElementsByTagName('img');
+		var nextStr = '';
+		var a = [];
+		setInterval(change,1000);
+		
+		function change() {
+			var odate = new Date();
+			var nextStr = toTwo(odate.getHours()) + ':' + toTwo(odate.getMinutes()) + ':' + toTwo(odate.getSeconds());
+			document.title = nowStr+'::::'+nextStr;
+			timeDiff(nowStr, nextStr);
+			nowStr = nextStr;
+		}
+		
+		function timeDiff(nowStr, nextStr) {
+			a = [];
+			for(var i=0; i<nextStr.length; i++) {
+				if(nowStr.charAt(i) != nextStr.charAt(i)) {
+					a.push(i);
+				}
+			}
+			for(var i=0; i<a.length; i++) {
+				var num = a[i];
+				var obj = aLi[num];
+				var attr = 'top';
+				var iTarget = -174;
+				
+				startMove(obj, attr, iTarget, nextStr, num);
+			}
+		}
+		
+		function startMove(obj, attr, iTarget, nextStr, num) {
+			
+				clearInterval(obj.timer)
+				var oImg = obj.children[0].cloneNode(true)
+				oImg.src = 'dateImg/' + nextStr[num] + '.JPG';
+				obj.appendChild(oImg);
+				//obj.innerHTML += '<img src="dateImg/'+ nextStr[num] +'.JPG" />';
+				obj.timer = setInterval(function () {
+					var iCur = parseInt(getStyle(obj,attr));
+					var iSpeed = (iTarget - iCur)/7;
+					iSpeed = iSpeed>0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+					obj.style[attr] = iCur + iSpeed + 'px';
+					if(iCur == iTarget) {
+						clearInterval(obj.timer);
+						obj.removeChild(obj.children[0]);
+						obj.style[attr] = 0+'px';
+					}
+				}, 30);
+		}
+		function getStyle(obj, attr) {
+			return obj.currentStyle ? obj.currentStyle[attr] : getComputedStyle(obj)[attr];	
+		}
+		function setWidtn() {
+			oUl.style.width = aLi.length * parseInt(getStyle(aLi[0], 'width')) + 'px';
+		}
+		function toTwo(n) {
+			return n<10 ? '0' + n: '' + n;
+		}
+	};
+</script>
+</head>
+
+<body>
+<ul id="xmTime">
+</ul>
+</body>
+</html>

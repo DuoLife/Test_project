@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>运动框架.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+	<script type="text/javascript">
+		window.onload = function() {
+			var oBtn = document.getElementsByTagName('input');
+			var oDiv = document.getElementById('div');
+			
+			oBtn[1].onclick = function () {doMove( oDiv, 'height', 10, 500, function () {doMove(oDiv, 'left', 20, 500)});};
+			oBtn[0].onclick = function () {doMove( oDiv, 'left', 10, 50, function () {doMove(oDiv, 'height', 20, 50)});};
+		};
+		function doMove ( obj, attr, dir, target, endFn) {
+			clearInterval( obj.timer);
+			dir = target>parseInt(getStyle( obj, attr))?dir:-dir;
+			obj.timer = setInterval( function () {
+				var speed = parseInt(getStyle( obj, attr)) + dir;
+				if( dir > 0 && speed > target || dir < 0 && speed < target) {
+					speed = target;
+				}
+				obj.style[attr] = speed + 'px';
+				if( speed == target ) {
+					clearInterval( obj.timer);
+					endFn && endFn();
+				}
+			}, 30);
+		}
+		function getStyle( obj, attr ) {return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj)[attr]}
+	</script>
+  </head>
+  
+  <body>
+  	<input type="button" id="back" value="←" />
+  	<input type="button" id="go" value="→" />
+  	<div id="div" style="width:50px; height:50px; background:red; position: absolute; left: 50px; top: 40px;"></div>
+  </body>
+</html>

@@ -8,6 +8,7 @@
   <action-mappings>
   	<action path="/img_post" type="com.imgupload.web.action.ImgPostAction"></action>
   	<action path="/img_multipart" type="com.imgupload.web.action.ImgMultipartAction"></action>
+  	<action path="/duotu" type="com.imgupload.web.action.ImagesUPload"></action>
   </action-mappings>
   <message-resources parameter="com.imgupload.web.ApplicationResources" />
 </struts-config>

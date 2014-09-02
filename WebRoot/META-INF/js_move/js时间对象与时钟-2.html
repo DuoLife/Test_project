@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>js时间对象与时钟</title>
+<style>
+	ul { position: relative; top: 200px; left: 200px;list-style: none; display:inline-block; margin: 0;padding: 0;}
+	ul li {width: 150px;float: left;}
+</style>
+<script>
+	
+	window.onload = function () {
+		var aWeek = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+		//var oP = document.getElementsByTagName('p')[0];
+		var aImg = document.getElementsByTagName('img');
+		setInterval(fnTime,30);
+		function fnTime() {
+			var date = new Date();
+			//alert(date);
+			var iYear = date.getFullYear();
+			var iMonth = date.getMonth()+1;
+			var iDay = date.getDate();
+			var iWeek = date.getDay();
+			
+			var iHour = date.getHours();
+			var iMinutes = date.getMinutes();
+			var iSeconds = date.getSeconds();
+			
+			var str =toTwo(iHour) + ':' + toTwo(iMinutes) + ':' + toTwo(iSeconds);
+			str.charAt(1);
+			//oP.innerHTML = str;
+			//alert(str);
+			for(var i=0; i<aImg.length; i++) {
+				var imgName = str.charAt(i);
+				if(imgName == ':') {
+					imgName = 'colon';
+				}
+				aImg[i].src = 'dateImg/' + imgName + '.JPG';
+			}
+		}
+		function toTwo(n) {
+			return n<10 ? '0' + n: '' + n;
+		}
+	};
+</script>
+</head>
+
+<body>
+<ul>
+	<li><img src="dateImg/0.JPG" /></li>
+	<li><img src="dateImg/0.JPG" /></li>
+	<li><img src="dateImg/colon.JPG" /></li>
+	<li><img src="dateImg/0.JPG" /></li>
+	<li><img src="dateImg/0.JPG" /></li>
+	<li><img src="dateImg/colon.JPG" /></li>
+	<li><img src="dateImg/0.JPG" /></li>
+	<li><img src="dateImg/0.JPG" /></li>
+</ul>
+</body>
+</html>

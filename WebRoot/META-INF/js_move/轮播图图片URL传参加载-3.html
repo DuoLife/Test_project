@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>轮播图4_图片URL加载</title>
+<style>
+* {padding: 0px; margin: 0px;}
+	input {position: absolute; left: 50px; top: 50px; width: 70px; height: 30px;}
+	#wrapper {position: relative; width: 700px; height: 300px; left: 300px; top: 60px; border: solid 2px #999; overflow: hidden; }
+	#ul {position: absolute; left: 0px;}
+	#ul img {width: 200px; height: 300px;}
+	#ul li {width: 200px; height: 300px; margin-right: 50px; float: left; left: 50px; list-style: none;}
+	
+</style>
+<script src="ming.js"></script>
+<script language="javascript">
+window.onload = function () {
+	var arrImg = ['img/01.png', 'img/02.png', 'img/03.png'];
+	carouselImage("ul", arrImg, 1);
+};
+
+function carouselImage( id, arrImg, num, evt) {
+	var oUl = document.getElementById(id);
+	var oLi = oUl.getElementsByTagName('li');
+	num = Number(num);
+	var doWhat = 'onclick';
+	evt && (doWhat = evt);
+	for(var i=0; i<arrImg.length; i++) {
+		oUl.innerHTML += "<li><img src='"+ arrImg[i] +"'/></li>";
+	}
+	var liWidth = parseInt(getStyle(oLi[0], 'width'));
+	var margin = parseInt(getStyle(oLi[0], 'marginRight'));
+	getWidth( oUl, oLi, margin);
+	var oBtn = document.getElementsByTagName('input');
+	oBtn[0].flag = false;
+	oBtn[0][doWhat] = function () {
+		if(!oBtn[0].flag) {
+			oBtn[0].flag = true;
+			for( var i=0; i<num; i++) {
+				var li = oUl.children[i].cloneNode(true);
+				oUl.appendChild(li);
+				getWidth( oUl, oLi, margin);
+			}
+			doMove( oUl, 'left', 10, - num * (liWidth+margin), function () {
+				for(var j=0; j<num; j++) {
+					oUl.removeChild(oLi[0]);
+				}
+				oUl.style.left = 0;
+				oBtn[0].flag = false;
+			});
+		}
+	};
+	function getWidth ( obj, subElement, margin ) {
+		var oneSize = subElement[0].offsetWidth + margin;
+		obj.style.width = oneSize * subElement.length + 'px';
+	}
+}
+
+</script>
+
+</head>
+
+<body>
+ <input type="button" value="←"/>
+ <div id="wrapper">
+ 	<ul id="ul">
+    </ul>
+ </div>
+</body>
+</html>

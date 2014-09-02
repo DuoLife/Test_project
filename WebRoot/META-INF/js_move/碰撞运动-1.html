@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>碰撞运动</title>
+<style>
+	#wrapper { height:500px; width: 500px;border: 1px solid #666;position: relative; left: 300px; top: 100px;overflow: hidden;}
+	#man {position: absolute;left: 0;top: 0; width: 100px; height: 100px; background: #F00;}
+</style>
+<script>
+	window.onload = function () {
+		
+		var oWrap = document.getElementById('wrapper');
+		var oMan = document.getElementById('man');
+		var aBtn = document.getElementsByTagName('input');
+		aBtn[0].onclick = function () {
+			move();
+		};
+		aBtn[1].onclick = function () {
+			clearInterval(oMan.timer);
+		};
+		//var iWCur = parseInt(getStyle(oWrap,'left')); //不用计算得出
+		//alert(iWCur);
+		//leftright('left');
+		//updown('top');
+		//move();
+		function updown(attr) {
+			var iSpeed = 10;
+			clearInterval(oMan.timer);
+			oMan.udtimer = setInterval(function () {
+				var iCur = parseInt(getStyle(oMan,attr));  //相对父级元素的left值
+				if(iCur < 0 || iCur > (parseInt(getStyle(oWrap,'height'))-parseInt(getStyle(oMan,'height')))) {
+					iSpeed = -iSpeed;
+				}
+				oMan.style[attr] = iCur + iSpeed + 'px';
+			},30);
+		}
+		function leftright(attr) {
+			var iSpeed = 5;
+			clearInterval(oMan.timer);
+			oMan.lrtimer = setInterval(function () {
+				var iCur = parseInt(getStyle(oMan,attr));  //相对父级元素的left值
+				if(iCur < 0 || iCur > (parseInt(getStyle(oWrap,'width'))-parseInt(getStyle(oMan,'width')))) {
+					iSpeed = -iSpeed;
+				}
+				oMan.style[attr] = iCur + iSpeed + 'px';
+			},30);
+		}
+		function move() {
+			var iUDSpeed = 5;
+			var iLRSpeed = 8;
+			clearInterval(oMan.timer);
+			oMan.timer = setInterval(function () {
+				var iLRCur = parseInt(getStyle(oMan,'left'));  //相对父级元素的left值
+				var iUDCur = parseInt(getStyle(oMan,'top'));  //相对父级元素的top值
+				if(iLRCur < 0 || iLRCur > (parseInt(getStyle(oWrap,'width'))-parseInt(getStyle(oMan,'width')))) {
+					iLRSpeed = -iLRSpeed;
+				}
+				if(iUDCur < 0 || iUDCur > (parseInt(getStyle(oWrap,'height'))-parseInt(getStyle(oMan,'height')))) {
+					iUDSpeed = -iUDSpeed;
+				}
+				oMan.style.left = iLRCur + iLRSpeed + 'px';
+				oMan.style.top = iUDCur + iUDSpeed + 'px';
+			},30);
+		}
+	};
+	function getStyle(obj, attr) {return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj)[attr];}
+</script>
+</head>
+
+<body>
+<input type="button" value="start"/>
+<input type="button" value="stop"/>
+<div id="wrapper">
+	<div id="man"></div>
+</div>
+</body>
+</html>

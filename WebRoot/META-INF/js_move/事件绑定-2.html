@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>事件绑定</title>
+<script>
+window.onload = function () {
+	var btn = document.getElementById('btn');
+	
+/*	if(btn.attachEvent) {
+		btn.attachEvent('onclick', fn);
+	}else {
+		btn.addEventListener('click',fn);
+	}*/
+	addEvent(btn, 'click', alertABC);
+	function alertABC () {
+		alert('abc');
+	}
+	function addEvent (obj, ev, fn) {
+		if(obj.attachEvent) {
+			obj.attachEvent('on' + ev, fn);
+		}else {
+			obj.addEventListener(ev, fn, false);
+		}
+	}
+};
+</script>
+</head>
+
+<body>
+<input id="btn" type="button" value="绑定"/>
+</body>
+</html>

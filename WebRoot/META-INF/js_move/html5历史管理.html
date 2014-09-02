@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>历史管理</title>
+<script>
+window.onload = function () {
+	var oBtn = document.querySelector('#btn');
+	var oDiv = document.querySelector('div');
+	
+	var json = {};
+	oBtn.onclick = function () {
+		//alert('ok');
+		var result = randomNum(35, 7);
+		//alert(result);
+		var num = Math.random();
+		json[num] = result;
+		oDiv.innerHTML = result;
+		window.location.hash = num;
+	};
+	window.onhashchange = function () {
+		oDiv.innerHTML = json[window.location.hash.substring(1)];
+		alert(window.json);
+	};
+	function randomNum(count, num) {
+		var arr = [];
+		var result = [];
+		for(var i=1; i<=count; i++) {
+			arr.push(i);
+		}
+		for(var j=0; j<num; j++) {
+			result.push(arr.splice(Math.floor(Math.random()*arr.length), 1)); //count-j  ->  这个实际上就是每次变化后的arr的长度
+		}
+		result.sort(function (a, b) {
+			return a-b;
+		});
+		return result;
+	}
+};
+</script>
+</head>
+
+<body>
+<input type="button" id="btn" value="走你"/>
+<div></div>
+</body>
+</html>

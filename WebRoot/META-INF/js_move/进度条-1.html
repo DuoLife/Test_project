@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>进度条</title>
+<style>
+	body{background: #E5F2FB;}
+	#progress_d {height: 100%; width: 100%; position: fixed; left: 0; top: 0; background: #CCC;}
+	#progress_d .progressBox{position: absolute;left: 40%;top: 45%;width: 250px;height: 2px;border: 0px solid;background: #FFF;}
+	#progress_d .progressBar{position: absolute;left: 0px;top: 0px;width: 0px;height: 2px;background: #E93826;}
+	#progress_d .percentP{margin: 0;position: absolute;left: 256px;top: -8px;color: #E93826;}
+	.wrapper {display: none;}
+</style>
+<script type="text/javascript" src="ming.js"></script>
+<script type="text/javascript">
+	window.onload = function () {
+		var isNow = 0;
+		var oProgress_d = document.getElementById('progress_d');
+		var aImg = document.getElementsByTagName('img');
+		var oPB = document.getElementById('progressBox');
+		var oWrapper = document.getElementById('wrapper');
+		for(var i=0; i<aImg.length; i++) {
+			(function(i) {
+				var yImg = new Image();
+				yImg.onload = function() {
+					isNow++;
+					progressFn(parseInt(isNow/aImg.length*100));
+					if(isNow == aImg.length) {
+						oProgress_d.style.display = 'none';
+						oWrapper.style.display = 'block';
+					}
+				};
+			yImg.src = aImg[i].src;
+			})(i);
+		}
+		function progressFn(cent) {
+			var oPB = document.getElementById('progressBox');
+			var oBar = document.getElementById('progressBar');
+			var oCentP = document.getElementById('percentP');
+			
+			oBar.style.width = parseInt(getStyle(oPB,'width')) * cent/100 + 'px';
+			oCentP.innerHTML = cent + '%';
+		}
+	};
+	function getStyle( obj, attr) {
+		return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj)[attr];
+	}
+</script>
+</head>
+
+<body>
+<div id="progress_d">
+    <div id="progressBox" class="progressBox">
+        <div id="progressBar" class="progressBar"></div>
+        <p id="percentP" class="percentP">0%</p>
+    </div>
+</div>
+<div class="wrapper" id="wrapper">
+    <img src="http://static.oschina.net/uploads/img/201303/19140341_pIjJ.png"/>
+    <img src="http://imgsrc.baidu.com/forum/pic/item/01213a2442a7d93363892d9cad4bd11372f0014a.jpg"/>
+    <img src="http://new.uplook.cn/data/uploads/day_130118/201301182158317907.png"/>
+    <img src="http://www.bz55.com/uploads1/allimg/120206/1_120206115858_1.jpg"/>
+    
+    <img src="http://www.kkdesk.com/d/file/99043e600dc6dc2ea9242cca49b7422d.jpg"/>
+    <img src="http://pic.4j4j.cn/upload/pic/20130415/b9c8d0c960.jpg"/>
+    <img src="http://soft.tu6.cn/uploads/wallpaper/art/110-5-1280x800.jpg"/>
+    <img src="http://pic1.win4000.com/wallpaper/b/50a06956560a6.jpg"/>
+</div>
+</body>
+</html>
