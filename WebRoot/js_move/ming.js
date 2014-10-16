@@ -170,3 +170,27 @@ function getWidth ( obj, subElement ) {
 	var oneSize = subElement[0].offsetWidth + 100;
 	obj.style.width = oneSize * subElement.length + 'px';
 }
+
+
+/*fileQuery是指input type为file的对象，在事件中使用this来替代，fakepath， 
+比如:obj.onChange=function(){ 
+var file_img=document.getElementById("img"); 
+getPath(file_img,this,transImg); 
+} 
+transImg是解决IE左上角图标的那张透明图片的路径;*/
+function getPath(obj,fileQuery){ 
+	if(window.navigator.userAgent.indexOf("MSIE")>=1){ 
+		fileQuery.select(); 
+		var path=document.selection.createRange().text; 
+		obj.removeAttribute("src"); 
+		obj.setAttribute("src",path); 
+		//obj.style.filter= "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"+path+"', sizingMethod='scale');";  
+	}else { 
+		var file =fileQuery.files[0];  
+		var reader = new FileReader();  
+		reader.onload = function(e){ 
+		obj.setAttribute("src",e.target.result) 
+		} 
+		reader.readAsDataURL(file);  
+	}
+} 

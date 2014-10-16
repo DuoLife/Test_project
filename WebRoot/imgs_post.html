@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>post</title>
+<style>
+	#f { width: 400px; margin: 100px auto;}
+</style>
+<script>
+window.onload = function () {
+	
+	//uploadImg();
+};
+var name_ch = {
+	textHeight : '文本框高度',
+	textWidth : '文本框宽度',
+	originSite : '文本框原点坐标',
+	defaultText : '默认文本',
+	img : '原图',
+	thumbnail : '缩略图'
+};
+function uploadImg() {
+	var url = '/Test_project/duotu.do';
+	var paramStr = '';
+	
+	var oContent = document.getElementById('content');
+	var aDataForm = oContent.getElementsByClassName('data-form');
+	
+	for(var i=0; i<aDataForm.length; i++) {
+		var aInputs = aDataForm[i].getElementsByTagName('input');
+		for(var j=0; j<aInputs.length;j++) {
+			//alert(aInputs[j].name);
+			if(aInputs[j].value == '') {
+				alert('第' + (i+1) + '组上传信息， *' + (name_ch[aInputs[j].name]) + '*  项未填写。');
+				break;
+			}
+			paramStr += aInputs[j].name + '=' + aInputs[j].value + '&';
+			//AJAX();
+		}
+		//alert('*********** next ***********');
+		alert(paramStr);
+	}
+}
+function aMethods() {
+	alert('ok');
+}
+</script>
+</head>
+
+<body>
+<div id="f">
+    <form action="/Test_project/duotu.do" method="post" enctype="multipart/form-data">
+    </form>
+    <div id="content">
+        <div class='data-form'>
+            文本框高：<input type="text" name="textHeight" value="img_width" /><br />
+            文本框宽：<input type="text" name="textWidth" value="img_name"/><br />
+            原点坐标：<input type="text" name="originSite" value="img_height"/><br />
+            默认文本：<input type="text" name="defaultText" value="img_height"/><br />
+            原点坐标：<input type="text" name="height" value="img_height"/><br />
+            原点坐标：<input type="text" name="height" value="img_height"/><br />
+            原点坐标：<input type="text" name="height" value="img_height"/><br />
+            原图：<input type="file" name="img"/><br />
+            缩略图：<input type="file" name="thumbnail"/><br />
+        </div>
+        <br /><br /><br /><br /><br />
+        <div class='data-form'>
+            文本框高：<input type="text" name="height" value="img_width" /><br />
+            文本框宽：<input type="text" name="width" value="img_name"/><br />
+            原点坐标：<input type="text" name="originSite" value="img_height"/><br />
+            默认文本：<input type="text" name="default" value="img_height"/><br />
+            原点坐标：<input type="text" name="height" value="img_height"/><br />
+            原点坐标：<input type="text" name="height" value="img_height"/><br />
+            原点坐标：<input type="text" name="height" value="img_height"/><br />
+            原图：<input type="file" name="img"/><br />
+            缩略图：<input type="file" name="thumbnail"/><br />
+        </div>
+        <input type="button" value="go" onclick="uploadImg()" />
+    </div>
+</div>
+</body>
+</html>

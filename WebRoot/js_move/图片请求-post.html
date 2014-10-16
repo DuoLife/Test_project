@@ -10,10 +10,12 @@
 
 <body>
 <div id="f">
-    <form action="/Test_project/img_post.do" method="post">
-        图片名称：<input type="text" name="name" value="img_name"/><br />
+    <form action="/Test_project/duotu.do" method="post" enctype="multipart/form-data">
         图片宽度：<input type="text" name="width" value="img_width"/><br />
+        图片名称：<input type="text" name="name" value="img_name"/><br />
         图片高度：<input type="text" name="height" value="img_height"/><br />
+        <input type="file" name="img"/>
+        <input type="file" name="thumbnail"/>
         <input type="submit" value="go" />
     </form>
 </div>

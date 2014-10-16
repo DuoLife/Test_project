@@ -2,13 +2,15 @@
 <html>
 	<head>
 		<title>test</title>
-		<script language="JavaScript">     
-		alert("asd");
-					document.getElementById('xuming').setAttribute("style","display:none;");
-                if (window != top) {
-                    document.getElementById('header').setAttribute("style","display:none;");
-                } 
-            </script>
+<script language="JavaScript"> 
+window.onload = function () {    
+	alert("asd");
+	document.getElementById('xuming').setAttribute("style","display:none;");
+	if (window != top) {
+	    document.getElementById('header').setAttribute("style","display:none;");
+	}
+};
+</script>
 	</head>
 	<body>
 		<div id="xuming">this is testpager!</div>

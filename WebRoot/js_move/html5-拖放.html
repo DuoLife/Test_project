@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>html5-拖放</title>
+<style>
+	#div1 {background:#F00; width: 100px; height: 100px; position: absolute; left: 500px; top: 500px;}
+	#div2 {background:#F00; width: 100px; height: 100px;}
+</style>
+<script>
+window.onload = function () {
+	var oDivDrag = document.getElementById('div2');
+	var oTargetDiv = document.getElementById('div1');
+	oDivDrag.ondragstart = function () {
+		oDivDrag.style.background = 'green';
+	};
+	oDivDrag.ondragend = function () {
+		oDivDrag.style.background = 'red';
+	};
+	oTargetDiv.ondragenter = function () {
+		oTargetDiv.style.background = 'blue';
+	};
+	oTargetDiv.ondragover = function (ev) {
+		//enter和leave之间连续触发
+		//要想触发drop事件，就 必须在dragover中阻止默认事件
+		//document.title = i++;
+		//return false;   //此种方法也可以阻止默认事件。
+		ev.preventDefault();
+	};
+	oTargetDiv.ondragleave = function () {
+		oTargetDiv.style.background = 'red';
+	};
+	oTargetDiv.ondrop = function () {
+		alert(123);
+	};
+};
+</script>
+</head>
+
+<body>
+<div id="div2" draggable='true'></div>
+<div id="div1"></div>
+</body>
+</html>

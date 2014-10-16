@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script>
+window.onload = function () {
+	//alert();
+	var oUname = document.getElementById('username');
+	var oPw = document.getElementById('password');
+	var oEmail = document.getElementById('email');
+	
+	var nameRE = /^[\w_\u4e00-\u9fa5]{2,8}$/;  //用户名：只允许数字，字母，下划线（—），中文。长度2-8位。
+	var pwRE = /^[\w-_.,<>?\/;:'"`~!@#$%^&*()=+]{6,16}$/;  //密码：数字，字母，特殊符号（仅包括：-_.,<>?\/;:'"`~!@#$%^&*()=+）。
+	var emailRE = /^[\w-_.]+@[\w-_.]+\.{1}[a-zA-Z]{1,}$/;
+	
+	oUname.onblur = function () {
+		reTest(nameRE, oUname.value);
+	};
+	oPw.onblur = function () {
+		reTest(pwRE, oPw.value);
+	};
+	oEmail.onblur = function () {
+		reTest(emailRE, oEmail.value);
+	};
+	function reTest(re, str) {
+		if( ! re.test(str)) {
+			alert('输入不合法~');
+		}
+	}
+	var aBtn = document.getElementsByName('test');
+	aBtn[0].onclick = function () {
+		alert(nameRE.test(oUname.value));
+	};
+	aBtn[1].onclick = function () {
+		alert(pwRE.test(oPw.value));
+	};
+	aBtn[2].onclick = function () {
+		alert(emailRE.test(oEmail.value));
+	};
+};
+</script>
+</head>
+
+<body>
+<div>
+	用户名：<input name="username" id="username" type="text"/><input name="test" type="button" value="test"/><br />
+	密码：<input name="password" id="password" type="password"/><input name="test" type="button" value="test"/><br />
+	邮箱：<input name="email" id="email" type="text"/><input name="test" type="button" value="test"/><br />
+</div>
+</body>
+</html>

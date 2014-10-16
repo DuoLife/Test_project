@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>lengtoo（屏幕滚动指定位置）-1</title>
+<style>
+	* {margin: 0; padding: 0;}
+	.ipt1 {width: 50px; height:30px;position: fixed; top:20px; right: 50px;}
+	.ipt2 {width: 50px; height:30px;position: fixed; top:60px; right: 50px;}
+	.div1, .div2, .div3, .div4, .div5{ width: 100%; height: 1020px; }
+	.div1 {background:#2184C5;}
+	.div2 {background:#A1E0A9;}
+	.div3 {background:#9DC02E;}
+	.div4 {background:#D9CD3D;}
+	.div5 {background:#C24704;}
+</style>
+<script>
+	window.onload = function () {
+		//var n = 1;
+		//screenMove(document, n*1020);
+		//document.body.scrollTop = 4020;
+		/*window.onscroll = function () {
+			var sTop = document.body.scrollTop;
+			var n = sTop/1020;
+			//document.body.scrollTop = 1020;
+			//if(parseInt(n)*1020-sTop) {
+				//document.body.scrollTop = parseInt(n+1)*1020;
+				//document.title = document.body.scrollTop+" n:"+n;
+			//}else if((n-parseInt(n))>0.2){
+				//document.body.scrollTop = parseInt(n)*1020;
+				//document.title = document.body.scrollTop+" n:"+n;
+			//}
+			//var n = 1;
+			if((n-parseInt(n))>0.9) {
+				screenMove(document, (n)*1020);
+			}
+			
+		};*/
+		/*var num = 0;
+		var isWork = false;
+		document.body.onmousewheel = function(event) {
+			event = event || window.event;
+			if(!isWork) {
+				isWork = true;
+				if(event.wheelDelta < 0) {
+					alert('down');
+					isWork = false;
+				}else if(event.wheelDelta > 0) {
+					alert('up');
+					isWork = false;
+				}
+			}
+		};*/
+		var num=0;
+		var aBtn = document.getElementsByTagName('input');
+		aBtn[0].onclick = function () {
+			if(num==0) {
+			}else {
+				num--;
+				num %= 5;
+			}
+			screenMove(document, 1020*num);
+		};
+		aBtn[1].onclick = function () {
+			if(num==4) {
+			}else {
+				num++;
+				num %= 5;
+			}
+			screenMove(document, 1020*num);
+		};
+	};
+	function screenMove(obj, iTarget) {
+		clearInterval(obj.timer);
+		obj.timer = setInterval(function () {
+			var iCur = document.body.scrollTop;
+			var iSpeed = (iTarget-iCur)/8;
+			iSpeed = iSpeed > 0? Math.ceil(iSpeed):Math.floor(iSpeed);
+			if(iCur == iTarget) {
+				clearInterval(obj.timer);
+			}else {
+				obj.body.scrollTop= (iCur + iSpeed);
+				text.value = document.body.scrollTop+" iSpeed:"+iSpeed;
+			}
+		},30);
+	}
+	function doMove(obj, attr, iTarget) {
+		clearInterval(obj.timer);
+		obj.timer = setInterval(function () {
+			var iCur = parseInt(getStyle(obj, attr));
+			var iSpeed = (iTarget-iCur)/20;
+			iSpeed = iSpeed > 0? Math.ceil(iSpeed):Math.floor(iSpeed);
+			if(iCur == iTarget) {
+				clearInterval(obj.timer);
+			}else {
+				obj.style[attr] = iCur + iSpeed + 'px';
+			}
+		},30);
+	}
+	function getStyle(obj, attr) {return obj.getCurrentStyle? obj.getCurrentStyle[attr]:getComputedStyle(obj)[attr];}
+</script>
+</head>
+
+<body>
+<input id="text" class="ipt1" type="button" value="up"/>
+<input class="ipt2" type="button" value="down"/>
+<div class="div1">
+</div>
+<div class="div2">
+</div>
+<div class="div3">
+</div>
+<div class="div4">
+</div>
+<div class="div5">
+</div>
+</body>
+</html>

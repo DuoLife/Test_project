@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>运动框架综合</title>
+<style>
+	* {margin: 0; padding: 0;}
+	div {filter: alpha(opacity:30); opacity: 0.3;}
+	#div1 { width: 100px; height: 100px; background: #F00; position: absolute; left: 0;  top: 0;}
+	#div2 { width: 100px; height: 100px; background: #F00; position: absolute; left: 0;  top: 110px;}
+</style>
+<script>
+//1.取当前值；
+//2.算速度
+//3.检测停止
+	window.onload = function () {
+		var oDiv = document.getElementById('div1');
+		var oDiv2 = document.getElementById('div2');
+		oDiv.onmouseover = function () {
+			//var json = {width: 500, opacity: 100};
+			//alert(json.opacity);
+			//startMove1(500);
+			//startMove2(503);
+			//startMove3(oDiv, 503);
+			//startMove4(oDiv, 'opacity', 100);
+			/*startMove5(oDiv, 'opacity', 100, function () {
+				startMove5(oDiv, 'width', 500);
+			});*/
+			startMove6(oDiv, {width: 500, opacity: 100},function () {alert('zanzanzan')});
+		};
+		oDiv.onmouseout = function () {
+			//startMove1(100);
+			//startMove2(103);
+			//startMove3(oDiv, 103);
+			//startMove4(oDiv, 'opacity', 30);
+			/*startMove5(oDiv, 'opacity', 30, function () {
+				startMove5(oDiv, 'width', 100);
+			});*/
+			startMove6(oDiv, {width: 100, opacity: 30});
+		};
+		oDiv2.onmouseover = function () {
+			startMove3(oDiv2, 503);
+		};
+		oDiv2.onmouseout = function () {
+			startMove3(oDiv2, 103);
+		};
+		//匀速运动：单参数
+		function startMove1(iTarget) {
+			var iSpeed = iTarget>oDiv.offsetWidth?10:-10;
+			//防止重复点击，加速运动
+			clearInterval(oDiv.timer);
+			oDiv.timer = setInterval( function () {
+				var iCur = oDiv.offsetWidth + iSpeed;
+				if(iSpeed > 0 && iCur > iTarget || iSpeed < 0 && iCur < iTarget) {
+					iCur = iTarget;
+				}
+				//开始运动
+				oDiv.style.width = iCur + 'px';
+				//运动终止的条件
+				if(oDiv.offsetWidth == iTarget) {
+					clearInterval(oDiv.timer);
+				}
+			},30);
+		}
+		//变速运动：单参数
+		function startMove2(iTarget) {
+			clearInterval(oDiv.timer);
+			oDiv.timer = setInterval( function () {
+				//速度的获取必须放在定时器内，这样速度值才会发生变化。
+				var iSpeed = (iTarget-oDiv.offsetWidth)/8;  
+				//注意小数，发生抖动
+				iSpeed = iSpeed>0?Math.ceil(iSpeed):Math.floor(iSpeed);
+				//判断是否终止运动
+				if(oDiv.offsetWidth == iTarget) {
+					clearInterval(oDiv.timer);
+				}else {
+					oDiv.style.width = oDiv.offsetWidth + iSpeed + 'px';
+				}
+			},30);
+		}
+		//多个物体同时运动：不共用一个timer，多个物体可同时运动，互不影响。
+		function startMove3(obj, iTarget) {
+			clearInterval(obj.timer);
+			obj.timer = setInterval( function () {
+				//速度的获取必须放在定时器内，这样速度值才会发生变化。
+				var iSpeed = (iTarget-obj.offsetWidth)/8;  
+				//注意小数，发生抖动
+				iSpeed = iSpeed>0?Math.ceil(iSpeed):Math.floor(iSpeed);
+				//判断是否终止运动
+				if(obj.offsetWidth == iTarget) {
+					clearInterval(obj.timer);
+				}else {
+					obj.style.width = obj.offsetWidth + iSpeed + 'px';
+				}
+			},30);
+		}
+		//任意值运动：将要变化的值以参数的形式传递进函数，可以让任意值运动。
+		function startMove4(obj, attr, iTarget) {
+			var iiCur = parseInt(parseFloat(getStyle(obj, attr))*100);
+			clearInterval(obj.timer);
+			obj.timer = setInterval( function () {
+				 
+				if(attr == 'opacity') { 
+					iCur = parseInt(parseFloat(getStyle(obj, attr))*100);
+				}else {
+					var iCur = parseInt(getStyle(obj, attr));
+				}
+				//速度的获取必须放在定时器内，这样速度值才会发生变化。
+				var iSpeed = (iTarget-iCur)/8;  
+				//注意小数，发生抖动
+				iSpeed = iSpeed>0?Math.ceil(iSpeed):Math.floor(iSpeed);
+				//判断是否终止运动
+				if(iCur == iTarget) {
+					clearInterval(obj.timer);
+					//alert('od');
+				}else {
+					if(attr == 'opacity') {
+						iiCur += iSpeed;
+						obj.style.filter = 'alpha(opacity:' + iCur+iSpeed + ')';
+						obj.style.opacity = iiCur/100;
+					}else {
+						obj.style[attr] = iCur + iSpeed + 'px';
+					}
+				}
+			},30);
+		}
+		//链式运动: 运动结束后，会自动调用传递进来的函数，开始下一个动作或者其他操作，本质是回调函数的使用。
+		function startMove5(obj, attr, iTarget, fn) {
+			var iiCur = parseInt(parseFloat(getStyle(obj, attr))*100);
+			clearInterval(obj.timer);
+			obj.timer = setInterval( function () {
+				 
+				if(attr == 'opacity') { 
+					iCur = parseInt(parseFloat(getStyle(obj, attr))*100);
+				}else {
+					var iCur = parseInt(getStyle(obj, attr));
+				}
+				//速度的获取必须放在定时器内，这样速度值才会发生变化。
+				var iSpeed = (iTarget-iCur)/8;  
+				//注意小数，发生抖动
+				iSpeed = iSpeed>0?Math.ceil(iSpeed):Math.floor(iSpeed);
+				//判断是否终止运动
+				if(iCur == iTarget) {
+					clearInterval(obj.timer);
+					//alert('od');
+					fn && fn();
+				}else {
+					if(attr == 'opacity') {
+						iiCur += iSpeed;
+						obj.style.filter = 'alpha(opacity:' + iCur+iSpeed + ')';
+						obj.style.opacity = iiCur/100;
+					}else {
+						obj.style[attr] = iCur + iSpeed + 'px';
+					}
+				}
+			},30);
+		}
+		//多值运动: 
+		function startMove6(obj, json, fn) {
+			//透明度用到小数，很多时候浏览器会将得到的结果如95记为94.99999999999999999，但下次获取时会去除小数得到94，所以透明度就会一直卡住永远不能到达iTarget。
+			//所以，外部定义一个数，每次累加，不会受到小数取整所带来的bug
+			//alert(json.opacity);
+			if(json.opacity) {
+				var iiCur = parseInt(parseFloat(getStyle(obj, 'opacity'))*100);
+			}
+			clearInterval(obj.timer);
+			obj.timer = setInterval( function () {
+				//多值运动的标志位
+				var isStop = true;
+				var iCur = 0;
+				for(var a in json) {
+					var attr = a;
+					var iTarget = json[a];
+					//alert(a+' : '+iTarget);
+					if(attr == 'opacity') { 
+						iCur = parseInt(parseFloat(getStyle(obj, attr))*100);
+					}else {
+						iCur = parseInt(getStyle(obj, attr));
+					}
+					//速度的获取必须放在定时器内，这样速度值才会发生变化。
+					var iSpeed = (iTarget-iCur)/8;  
+					//注意小数，发生抖动
+					iSpeed = iSpeed>0?Math.ceil(iSpeed):Math.floor(iSpeed);
+					//判断是否终止运动
+					if(iCur != iTarget) {
+						isStop = false;
+					}
+					if(attr == 'opacity') {
+						iiCur += iSpeed;
+						obj.style.filter = 'alpha(opacity:' + iiCur + ')';
+						obj.style.opacity = iiCur/100;
+					}else {
+						obj.style[attr] = iCur + iSpeed + 'px';
+					}
+				}
+				if(isStop){ 
+					clearInterval(obj.timer);
+					fn && fn();
+				}
+			},30);
+		}
+		function getStyle(obj, attr) {return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj)[attr];}
+	};
+</script>
+</head>
+
+<body>
+<div id="div1"></div>
+<div id="div2"></div>
+</body>
+</html>

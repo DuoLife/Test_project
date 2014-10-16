@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>正则表达式</title>
+<script>
+//var re = new RegExp('0');
+var re = /我/g;
+var str = '每天，我们都会收到大量的用户来信，给我们提出一些功能的建议和改正的意见，在这里我们再次表示衷心的感谢。邀请方式的调整，正是缘由一位用户提出的意见。快速邀请团队成员的链接，需要一次性大量邀请成员的朋友再也不用去雇佣非法劳工了。';
+alert(str.match(re));
+
+
+alert(str);
+str = str.replace(re, '*臭傻逼*');
+alert(str);
+</script>
+
+</head>
+
+<body>
+</body>
+</html>

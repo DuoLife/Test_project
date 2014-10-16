@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+body { background:#666; }
+.box { width: 300px; height: 500px; border: 1px solid #CCC; position: relative; margin: 40px auto; background: url(img/loading.gif) #FFF no-repeat center; }
+.box p { width: 100%; position: absolute; left: 0px; background:#333; line-height: 30px; text-align: center; margin: 0px; padding: 0px; color: #CCC}
+.box img {width: 300px; height: 500px;}
+.box .count { top: 0px;}
+.box .desc { bottom: 0px;}
+.box ul { position: absolute; left: 310px; top: 0px; list-style: none; margin: 0px; padding: 0px; }
+.box li { width: 40px; height: 40px; background: #036; margin-bottom: 10px;}
+.box .active { width: 52px; height: 52px; background:#FFC; }
+</style>
+
+<script type="text/javascript">
+	window.onload = function () {
+		imageSwitch('pic2', ['img/01.png', 'img/02.png', 'img/03.png'], ['第1张照片', '第2张照片', '第3张照片'], 'onclick');
+		imageSwitch('pic1', ['img/01.png', 'img/02.png', 'img/03.png', 'img/02.png',], ['第1张照片', '第2张照片', '第3张照片', '第2张照片'], 'onmouseover');
+	};
+	
+	/*
+	注意：
+		最开始忘记写var，导致只有最后一次传递进来的id对应的元素有效。
+		因为每次调用方法都将id对应的元素付给同一个变量，所以之前的就会被覆盖。
+	参数：
+		1.对应父级元素的id。
+		2.图片URL数组。
+		3.图片对应描述的数组。
+		4.li元素的图片切换事件触发方式。
+	使用：
+		imageSwitch('pic2', ['img/01.png', 'img/02.png', 'img/03.png'], ['第1张照片', '第2张照片', '第3张照片'], 'onclick');
+	*/
+	function  imageSwitch(targetId, arrImg, arrP, evt) {
+		
+		var oDiv = document.getElementById(targetId, arrImg, arrP);
+		var oP1 = oDiv.getElementsByTagName('p')[0];
+		var oP2 = oDiv.getElementsByTagName('p')[1];
+		var oImg = oDiv.getElementsByTagName('img')[0];
+		var oUl = oDiv.getElementsByTagName('ul')[0];
+		var oLi = oUl.getElementsByTagName('li');
+		
+		var num = 0;
+		var len = arrImg.length;
+		var flag = 0;
+		for(var i=0; i<len; i++) {
+			oUl.innerHTML += '<li></li>'
+		}
+		change();
+		
+		for(var i=0; i<len; i++) {
+			oLi[i].index = i;
+			oLi[i][evt] = function () {
+				num = this.index;
+				change();
+			};
+		}
+		function change() {
+			oLi[flag].className = '';
+			flag = num;
+			oLi[num].className = 'active';
+			oP1.innerHTML = num+1 + '/' + len;
+			oP2.innerHTML = arrP[num];
+			oImg.src = arrImg[num];
+		}
+	}
+	
+	
+</script>
+</head>
+
+<body>
+<div id="pic1" class="box">
+	<p class="count">图片数量加载中。。。</p>
+    <img src=""/>
+    <p class="desc">图片描述加载中。。。</p>
+    <ul>
+    </ul>
+</div>
+<div id="pic2" class="box">
+	<p class="count">图片数量加载中。。。</p>
+    <img src=""/>
+    <p class="desc">图片描述加载中。。。</p>
+    <ul>
+    </ul>
+</div>
+</body>
+</html>

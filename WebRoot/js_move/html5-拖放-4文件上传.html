@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>html5-拖放-4文件上传</title>
+<style>
+#targetDiv {position: absolute; left: 40%;top: 200px; background:#999;width: 400px;height: 400px;line-height: 400px;text-align: center;}
+</style>
+<script>
+window.onload = function () {
+	var oTarget = document.getElementById('targetDiv');
+	oTarget.ondragenter = function () {
+		oTarget.innerHTML = '松开鼠标即可上传！';
+	};
+	oTarget.ondragover = function (ev) {
+		//此处阻止默认事件，浏览器不会默认打开拖拽文件
+		ev.preventDefault();
+	};
+	oTarget.ondragleave = function () {
+		oTarget.innerHTML = '将文件拖至此处！';
+	};
+	oTarget.ondrop = function (ev) {
+		//此处也要阻止默认事件，否则浏览器会在松开鼠标后打开拖拽文件
+		ev.preventDefault();
+		var fs = ev.dataTransfer.files;
+		alert(fs[0].type);
+		alert(fs.length);
+	};
+};
+</script>
+</head>
+
+<body>
+<div id="targetDiv">将文件拖至此处！</div>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>缓冲运动</title>
+<style>
+	* {padding: 0; margin: 0;}
+	div {width: 100px; height: 50px; background: #F00; border:#666 0px solid; margin-top: 10px; filter:alpha(opacity:0); opacity: 0;position: absolute; left: -100px; top: 100px; }
+</style>
+<script>
+	window.onload = function () {
+		var aDiv = document.getElementsByTagName('div');
+		var oBtn = document.getElementsByTagName('input');
+		//var timer = null;
+		for(var i=0;i<oBtn.length;i++) {
+			oBtn[i].index = i;
+			oBtn[i].onmouseover = function () {
+				//alert(this.index);
+				changeOpacity(aDiv[this.index], 100);
+				startMove(aDiv[this.index], 300);
+			};
+			oBtn[i].onmouseout = function () {
+				changeOpacity(aDiv[this.index],0);
+				startMove(aDiv[this.index], -100);
+			};
+		}
+		function changeOpacity(obj, iTarget) {
+			//alert(getStyle(this, 'opacity')*100);
+				clearInterval(obj.otimer);
+				obj.otimer = setInterval(function () {
+					var iCur = parseInt(parseFloat(getStyle(obj, 'opacity'))*100);  //93
+					var iSpeed = (iTarget-iCur) / 8;    
+					iSpeed = iSpeed>0? Math.ceil(iSpeed):Math.floor(iSpeed);     // >0 =1
+					if(iCur==iTarget) {
+						//alert('ok');
+						clearInterval(obj.otimer);
+					}else {
+						//alert("iSpeed");
+						obj.style.filter = 'alpha(opacity:'+(iCur+iSpeed)+')';
+						obj.style.opacity = (iCur+iSpeed)/100;
+					}
+					document.title = iCur+'速度：'+iSpeed;
+					
+				},30);
+		}
+		function startMove(obj, iTarget) {
+			clearInterval(obj.timer);
+			obj.timer = setInterval(function () {
+				var temp = parseInt(getStyle(obj, 'left'));
+				var iSpeed = (iTarget-temp) / 8;
+				iSpeed = iSpeed > 0 ? Math.ceil(iSpeed):Math.floor(iSpeed);
+				obj.style.left = temp + iSpeed +"px";
+				document.title = iSpeed;
+				if(temp == iTarget) {
+					clearInterval(obj.timer);
+				}
+			},30);
+		}
+	};
+function getStyle( obj, attr ) {return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj)[attr]}
+</script>
+</head>
+
+<body>
+<input type="button"  value="move"/>
+<input type="button"  value="move"/>
+<input type="button"  value="move"/>
+<div></div>
+<div style="width: 1px; height: 300px; background:#333; position: absolute; left: 300px;top: 10px;"></div>
+<div style="top: 200px;"></div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Ajax</title>
+<script>
+	window.onload = function () {
+		/*
+		1.创建Ajax对象
+		2.创建连接
+		3.发送请求
+		4.接受信息
+		
+		
+		*/
+	var url = 'abc.txt';//'http://www.baidu.com';
+		//1.创建Ajax对象
+		var oAjax = window.XMLHttpRequest? new XMLHttpRequest(): new ActiveXObject("Microsoft.XMLHTTP");
+		//alert(oAjax.readyState);
+	/*	if(window.XMLHttpRequest) {
+			oAjax = new XMLHttpRequest();
+		}else {
+			oAjax = new ActiveXObject("Microsoft.XMLHTTP");
+		}*/
+		//2.创建连接
+		oAjax.open('GET', url, 'true');// 方法， 链接， 是否异步；
+		//alert(oAjax.readyState);
+		//3.发送请求
+		oAjax.send();
+		//alert(oAjax.readyState);
+		//4.接受信息
+		oAjax.onreadystatechange = function () {
+			//alert(oAjax.readyState);
+			if(oAjax.readyState == 4) {
+				if(oAjax.status == 200){
+					alert(oAjax.responseText);
+				}
+			}
+		};
+	};
+</script>
+</head>
+
+<body>
+</body>
+</html>

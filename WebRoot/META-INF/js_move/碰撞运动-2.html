@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>碰撞运动</title>
+<style>
+	* {margin: 0; padding: 0;}
+	#wrapper { height:500px; width: 500px;border: 1px solid #666;position: relative; left: 300px; top: 100px;overflow: hidden;}
+	#begin {position: absolute; left: 220px; top: 220px;}
+	#reload {position: absolute; left: 220px; top: 220px; display: none;}
+	#man {position: absolute;left: 0;top: 0; width: 10px; height: 10px; background: #F00;}
+	#wrapper #carrot {position: absolute;left: 220px;top: 220px; width: 40px; height: 40px; display: none;}
+	#carrot img{position: absolute; left: -6px; top: -4px;}
+</style>
+<script>
+	window.onload = function () {
+		
+		var oWrap = document.getElementById('wrapper');
+		var oMan = document.getElementById('man');
+		var aBtn = oWrap.getElementsByTagName('input');
+		var oCarrot = document.getElementById('carrot');
+		aBtn[0].onclick = function () {
+			aBtn[0].style.display = 'none';
+			oCarrot.style.display = 'block';
+			move();
+			/*
+				鼠标跟随
+			*/
+			//alert(oWrap.offsetLeft);
+			document.onmousemove = function (ev) {
+				var oEvent = ev || event;
+				var oCW = getIntStyle(oCarrot, 'width');
+				var oCH = getIntStyle(oCarrot, 'height');
+				var oCarX = oEvent.clientX-oWrap.offsetLeft - parseInt(oCW/2);
+				var oCarY = oEvent.clientY-oWrap.offsetTop - parseInt(oCH/2);
+				if(oCarX<=0) {
+					oCarX = 0;
+				}
+				if(oCarY<=0) {
+					oCarY = 0;
+				}
+				if(oCarX>=(getIntStyle(oWrap, 'width') - oCW)) {
+					oCarX = (getIntStyle(oWrap, 'width') - oCW);
+				}
+				if(oCarY>=(getIntStyle(oWrap, 'height') - oCH)) {
+					oCarY = (getIntStyle(oWrap, 'height') - oCH);
+				}
+				oCarrot.style.left = oCarX + 'px';
+				oCarrot.style.top = oCarY + 'px';
+			};
+		};
+		/*aBtn[1].onclick = function () {
+			clearInterval(oMan.timer);
+		};*/
+		//var iWCur = parseInt(getStyle(oWrap,'left')); //不用计算得出
+		//alert(iWCur);
+		//leftright('left');
+		//updown('top');
+		//move();
+		
+		function move() {
+			var iUDSpeed = 5;
+			var iLRSpeed = 8;
+			clearInterval(oMan.timer);
+			oMan.timer = setInterval(function () {
+				var iLRCur = parseInt(getStyle(oMan,'left'));  //相对父级元素的left值
+				var iUDCur = parseInt(getStyle(oMan,'top'));  //相对父级元素的top值
+				if(iLRCur < 0 || iLRCur > (parseInt(getStyle(oWrap,'width'))-parseInt(getStyle(oMan,'width')))) {
+					iLRSpeed = -iLRSpeed;
+				}
+				if(iUDCur < 0 || iUDCur > (parseInt(getStyle(oWrap,'height'))-parseInt(getStyle(oMan,'height')))) {
+					iUDSpeed = -iUDSpeed;
+				}
+				oMan.style.left = iLRCur + iLRSpeed + 'px';
+				oMan.style.top = iUDCur + iUDSpeed + 'px';
+				if(isCollision(oMan, oCarrot)) {
+					clearInterval(oMan.timer);
+					document.onmousemove = null;
+					alert('GAME OVER!');
+					aBtn[1].style.display = 'block';
+				}
+			},30);
+		}
+		/*
+			判断是否碰撞：
+				碰撞的情况有很多种，判断起来也比较麻烦，所以我们干脆判断两个元素是不是一定没有碰撞就简单方便了！
+		*/
+		function isCollision(obj1, obj2) {
+			
+			//获取两个碰撞元素的四个边
+			var lobj1 = getIntStyle(obj1, 'left');
+			var robj1 = getIntStyle(obj1, 'left')+getIntStyle(obj1, 'width');
+			var tobj1 = getIntStyle(obj1, 'top');
+			var bobj1 = getIntStyle(obj1, 'top')+getIntStyle(obj1, 'height');
+			//判断边是否相交
+			var lobj2 = getIntStyle(obj2, 'left');
+			var robj2 = getIntStyle(obj2, 'left')+getIntStyle(obj2, 'width');
+			var tobj2 = getIntStyle(obj2, 'top');
+			var bobj2 = getIntStyle(obj2, 'top')+getIntStyle(obj2, 'height');
+			if(robj1 < lobj2 || lobj1 > robj2 || bobj1 < tobj2  || tobj1 > bobj2) {
+				return false;
+			}else {
+				return true;
+				/*console.log('pengzhuang');
+				alert('GAME OVER');
+				clearInterval(oMan.timer);*/
+			}
+		}
+	};
+	function getIntStyle (obj, attr) {return parseInt(getStyle(obj, attr))};
+	function getStyle (obj, attr) {return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj)[attr];}
+</script>
+</head>
+
+<body>
+
+<div id="wrapper">
+    <input id="begin" type="button" value="开始游戏"/>
+    <input id="reload" onclick="window.location.reload()" type="button" value="重新开始"/>
+	<div id="man"></div>
+    <div id="carrot"><img width="50px" height="50px" src="img/10.gif"/></div>
+</div>
+</body>
+</html>

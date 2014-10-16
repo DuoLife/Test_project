@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>HTML5选择器</title>
+<style>
+	.gan {width: 200px; height: 200px; background:#006;margin-bottom: 10px;}
+</style>
+<script>
+window.onload = function () {
+	var oBtn1 = document.querySelectorAll('#btn')[0];
+	var oBtn2 = document.querySelectorAll('#btn')[1];
+	var oDiv = document.querySelector('.div1');
+	oBtn1.onclick = function () {
+		oDiv.innerHTML = oDiv.classList;
+		oDiv.style.background = "red";
+	};
+	oBtn2.onclick = function () {
+		oDiv.classList.add('shuigan?');
+		aDiv[1].style.background = 'red';
+		//aDiv[1].classList.remove('gan');
+		aDiv[1].classList.toggle('gan');
+	};
+	var aDiv = document.getElementsByClassName('ni');
+	
+};
+</script>
+</head>
+
+<body>
+<input id="btn" type="button" value="变变变"/>
+<input id="btn" type="button" value="class"/>
+<div class="div1 gan ni mei"></div>
+<div class="gan ni shui?">abc</div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>JSON的新方法</title>
+<script>
+/*var str = 'function a() {alert("ok")}';
+eval(str);
+a();*/
+//var str = 'function a() {alert("ok")}';
+var str = '{"a":"123","b":"456"}';  //parse为严格类型转换，属性名称（key）也必须加上“”
+//JSON.stringify(str);
+alert(str.a);
+var j = JSON.parse(str);
+alert(j.a);
+alert(j);		//此时j为object对象。
+var b = JSON.stringify(j);
+alert(b);		//此时为String类型，会打印出字符串内容。
+</script>
+</head>
+
+<body>
+</body>
+</html>

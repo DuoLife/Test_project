@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+#ad {margin: 200px auto; position: relative;width: 300px; height: 230px;background: #999;}
+#ad .lad, #ad .rad{ list-style:none; padding:0; margin: 0px;}
+#ad .lad li, #ad .rad li{width: 50px; height: 26px; background:#C9F;margin: 6px 4px; line-height: 26px; text-align:center;}
+#ad .lad {position: absolute; left: 0px;}
+#ad .rad {position: absolute; right: 0px;}
+#ad #desc {position: absolute; left: 60px; top: 150px; padding: 0;}
+#ad #price {position: absolute; left: 60px; top: 172px; padding: 0;}
+#ad img {background: url(img/loading.gif) no-repeat center #fff; position: absolute; left: 54PX;top: 4px; width: 190px; height: 220px;}
+#ad .lad .active, #ad .rad .active {background: #CCC;}
+</style>
+</head>
+<script>
+	var aMsg = [
+	['按钮1','描述1','11','img/01.png'], 
+	['按钮2','asdf述','22','img/02.png'], 
+	['按钮3','henhenhao','33','img/03.png'],
+	['按钮1','描述1','11','img/04.png'], 
+	['按钮2','asdf述','22','img/05.png'], 
+	['按钮3','henhenhao','33','img/06.png'],
+	['按钮1','描述1','11','img/07.png'], 
+	['按钮2','asdf述','22','img/08.png'], 
+	['按钮3','henhenhao','33','img/01.png'],
+	['按钮1','描述1','11','img/02.png'], 
+	['按钮2','asdf述','22','img/03.png'], 
+	['按钮3','henhenhao','33','img/04.png'],
+	['按钮2','asdf述','22','img/05.png'], 
+	['按钮3','henhenhao','33','img/06.png']
+	];
+	
+	window.onload = function () {
+		var oAd = $("ad");
+		var oImg = $("adimg");
+		var oDesc = $('desc');
+		var oPirce = $('price');
+		var aLi = oAd.getElementsByTagName('li');
+		var num = 0;
+		var timer = null;
+		change();
+		startChange();
+		for(var i=0; i<aMsg.length; i++) {
+			aLi[i].index = i;
+			aLi[i].innerHTML = aMsg[i][0];
+			aLi[i].onmouseover = function () {
+				aLi[num].className = '';
+				num = this.index;
+				stopChange();
+				change();
+			};
+			aLi[i].onmouseout = startChange;
+		}
+		oImg.onmouseover = function () {
+			stopChange();
+		};
+		oImg.onmouseout = function () {
+			startChange();
+		};
+		function startChange() {
+			clearInterval(timer);
+			timer = setInterval(function() {
+				aLi[num].className = '';
+				num++;
+				num %= aMsg.length;
+				change();
+			},1000);
+		}
+		function change() {
+			aLi[num].className = 'active';
+			oDesc.innerHTML = aMsg[num][1];
+			oPirce.innerHTML = aMsg[num][2];
+			oImg.src = aMsg[num][3];
+		}
+		function stopChange() {
+			clearInterval(timer);
+		}
+	};
+	function $(id) {
+		return document.getElementById(id);
+	}
+</script>
+
+<body>
+<div id="ad">
+	<ul class="lad">
+    	<li class="active">1</li>
+    	<li>2</li>
+    	<li>3</li>
+    	<li>1</li>
+    	<li>2</li>
+    	<li>3</li>
+    	<li>2</li>
+    </ul>
+    <img id="adimg" />
+    <p id="desc">描述加载中</p>
+    <p id="price">价格加载中</p>
+    <ul class="rad">
+    	<li>1</li>
+    	<li>2</li>
+    	<li>3</li>
+    	<li>1</li>
+    	<li>2</li>
+    	<li>3</li>
+    	<li>2</li>
+
+    </ul>
+</div>
+</body>
+</html>
