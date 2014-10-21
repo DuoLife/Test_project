@@ -107,8 +107,8 @@ public class ImagesUPload extends Action{
 					// 拒绝接受规定文件格式之外的文件类型
 					boolean isAllowe = false;   
 					int allowedExtCount = allowedExt.length;   
-					for (int allowFlag= 0; allowFlag < allowedExtCount; allowFlag++) {   
-						if (allowedExt[allowFlag].equals(t_ext))   
+					for (int allowFlag= 0; allowFlag < allowedExtCount; allowFlag++) {
+						if (allowedExt[allowFlag].equals(t_ext))
 							isAllowe = true;
 					}   
 					if (!isAllowe) {   
