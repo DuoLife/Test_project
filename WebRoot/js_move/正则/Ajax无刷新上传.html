@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Ajax无刷新上传</title>
+<script>
+window.onload = function () {
+	var oMyFile = document.getElementById('myfile');
+	var upBtn = document.getElementById('uploadBtn');
+	upBtn.onclick = upload;
+	function upload() {
+		//alert('ol'+this.value);
+		/*for(var attr in oMyFile.files) {
+			console.log(attr + " : " + oMyFile.files[attr]);
+		}
+		alert(oMyFile.files.length);*/
+		/*for(var attr in oMyFile.files[0]) {
+			console.log(attr + " : " + oMyFile.files[0][attr]);
+		}*/
+		var xhr = new XMLHttpRequest();
+		xhr.onload = function () {
+			alert(xhr.responseText);
+		};
+		var oFormData = new FormData();
+		oFormData.append('file', oMyFile.files[0]);
+		console.log(oFormData);
+		xhr.open('post', '../../duotu.do', 'true');
+		//xhr.send('type=file');
+		xhr.send(oFormData);
+	};
+};
+</script>
+</head>
+
+<body>
+<form action="../../duotu.do" method="post" enctype="multipart/form-data">
+	<input type="file" name="file" id="myfile" multiple/><input type="button" id="uploadBtn" value="上传"/>
+	<input type="text" value="测试用户" name="username"/>
+	<input type="text" value="没有性别" name="sex"/>
+	<input type="text" value="thisPW" name="password"/>
+	<input type="text" value="18岁" name="age"/>
+    <input type="submit"/>
+</form>
+</body>
+</html>

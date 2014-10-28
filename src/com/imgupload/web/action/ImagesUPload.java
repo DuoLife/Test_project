@@ -1,13 +1,15 @@
 package com.imgupload.web.action;
 
 import java.io.File;
-import java.io.PrintWriter;
-import java.util.Date;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,124 +23,261 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+
 public class ImagesUPload extends Action{
 
 
+	private final static boolean writeToFile = true;
+	private static String projectPath;
+	private static String mesg;
+	private static String[] allowFileTypes = {"jpg", "jpeg", "png","JPG", "JPEG", "PNG"};
+	
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		StringBuffer sf = new StringBuffer();
-			
-			final long MAX_SIZE = 512 * 1024;// 设置上传文件最大为 512k   
-			// 允许上传的文件格式的列表   
-			final String[] allowedExt = new String[] { "jpg", "jpeg", "png","JPG", "JPEG", "PNG"};
-			// 实例化一个硬盘文件工厂,用来配置上传组件ServletFileUpload   
-			DiskFileItemFactory dfif = new DiskFileItemFactory();   
-			dfif.setSizeThreshold(4096);// 设置上传文件时用于临时存放文件的内存大小,这里是4K.多于的部分将临时存在硬盘   
-			String temppath = request.getRealPath("/")+"ImagesUploadTemp/";
-			File tempfile=new File(temppath);
-			if(!tempfile.exists()){
-				tempfile.mkdirs();
-			}else{
-				//System.out.println("判断为路径存在！");
+		request.setCharacterEncoding("UTF-8");
+		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
+		projectPath = request.getSession().getServletContext().getRealPath("/");
+//		System.out.println(isMultipart);
+		if(isMultipart) {
+			try {
+				//获取FileItem
+				List<FileItem> items = setDiskFactoryAndGetFileItem(request, response);
+				//从FileItem中获取表单数据，以及上传文件，并存储进Map结构中，方便获取
+				Map m = processUpload(items);
+				if(m == null) {
+					outStream(response, mesg);
+					return null;
+				}
+				System.out.println(m);
+				//success
+				mesg = ExceptionMessage.Success;
+			} catch (Exception e) {
+				//异常终止
+				//无需处理，只为终止正常操作。
+				//下层已做处理，只为保留mesg中存储的为异常状况。并返回给客服端。
 			}
-			dfif.setRepository(tempfile);// 设置存放临时文件的目录,web根目录下的ImagesUploadTemp目录   
-			
-			// 用以上工厂实例化上传组件   
-			ServletFileUpload sfu = new ServletFileUpload(dfif);   
-			// 设置最大上传尺寸   
-			sfu.setSizeMax(MAX_SIZE);   
-			
-			PrintWriter out = response.getWriter();   
-			// 从request得到 所有 上传域的列表   
-			List fileList = null;   
-			try {   
-				fileList = sfu.parseRequest(request);   
-			} catch (FileUploadException e) {
-				// 处理文件尺寸过大异常   
-				//e.printStackTrace();   
-				if (e instanceof SizeLimitExceededException) {
-					//msg = 211;//图片超过规定大小
-					//System.out.println("图片大小");
-					return null;   
-				}   
-			}   
-			// 得到所有上传的文件   
-			Iterator fileItr = fileList.iterator();
-			// 循环处理所有文件
-			while (fileItr.hasNext()) {   
-				FileItem fileItem = null;   
-				String path = null;   
-				long size = 0;   
-				// 得到当前文件   
-				fileItem = (FileItem) fileItr.next();
-				//**** 通过此方法获取表单中的其他字段信息！****
-				//*** action
-				if(fileItem.isFormField()){
-//					if(((String)fileItem.getFieldName()).equals("action")) {  
-//						//action = fileItem.getString("utf-8");  
-//					}
-					System.out.println(fileItem.getFieldName()+"     888     ");
-				}
-				// 忽略简单form字段而不是上传域的文件域(<input type="text" />等)   
-				if (fileItem == null || fileItem.isFormField()) {   
-					continue;
-				}   
-				// 得到文件的完整路径   
-				path = fileItem.getName();
-				System.out.println(fileItem.getFieldName()+"    能否获取到上传文件的key呢？？？？");  
-				//判断是原图还是缩略图
-				String isThumbnail = "";
-				if(fileItem.getFieldName().equals("img")) {
-					//原图
-				}else if(fileItem.getFieldName().equals("thumbnail")) {
-					//缩略图
-					isThumbnail = "small_";
-				}
-				// 得到文件的大小
-				size = fileItem.getSize();
-				if (!"".equals(path) || size != 0) {   
-					// 得到去除路径的文件名   
-					String t_name = path.substring(path.lastIndexOf("\\") + 1);   
-					// 得到文件的扩展名(无扩展名时将得到全名)
-					String t_ext = t_name.substring(t_name.lastIndexOf(".") + 1);  
-					//System.out.println("文件扩展名为："+t_ext);
-					// 拒绝接受规定文件格式之外的文件类型
-					boolean isAllowe = false;   
-					int allowedExtCount = allowedExt.length;   
-					for (int allowFlag= 0; allowFlag < allowedExtCount; allowFlag++) {
-						if (allowedExt[allowFlag].equals(t_ext))
-							isAllowe = true;
-					}   
-					if (!isAllowe) {   
-						out.println("请上传以下类型的文件<p />");   
-						for (int allowFlag = 0; allowFlag < allowedExtCount; allowFlag++)   
-//			    			out.println("*." + allowedExt[allowFlag] + "&nbsp;&nbsp;&nbsp;");   
-//			    		out.println("<p /><a href=\"javascript:history.go(-1);\" target=\"_top\">返回</a>");   
-						//失败返回
-						//msg = 212;//图片类型不正确
-						return null;   
-					}   
-					
-					long now = System.currentTimeMillis();   
-					// 根据系统时间生成上传后保存的文件名   
-					String prefix = String.valueOf(now);   
-					
-					//************************ 上传附件保存 ************************
-					
-					// 保存的最终文件完整路径,保存在web根目录下的ImagesUploaded目录下   
-					File uploadfile=new File(request.getRealPath("/") + "ImagesUploaded");
-					//System.out.println(uploadfile);
-					if(!uploadfile.exists()){
-						uploadfile.mkdirs();
-					}
-					//数据库 保存文件的"/ImagesUploaded/prefix(服务器端保存名称).t_ext(格式)"
-					String u_name = request.getRealPath("/") + "ImagesUploaded/" + isThumbnail + prefix + "." + t_ext; 
-					//保存数据至本地
-					fileItem.write(new File(u_name));   
-				}
+		}else {
+			mesg = ExceptionMessage.Shit;
+		}
+		outStream(response, mesg);
+		return null;	
+	}
+	/**
+	 * 
+	 * @author xuming
+	 * 
+	 * @param 
+	 * 
+	 * @return 
+	 * 
+	 * @date 2014-10-28
+	 */
+	public List<FileItem> setDiskFactoryAndGetFileItem(HttpServletRequest request, HttpServletResponse response) {
+		//create a factory for disk-based file items
+		DiskFileItemFactory factory = new DiskFileItemFactory();
+		
+		//set factory constraints 约束条件
+		int sizeOfTempDirThreshold = 4*1024;    //4KB
+		String tempPath = projectPath+ "tempDir/";
+		File repository = new File(tempPath);
+		if(!repository.exists()) {
+			System.out.println("创建缓存文件夹：" + repository.mkdir());
+		}
+		factory.setSizeThreshold(sizeOfTempDirThreshold);
+		factory.setRepository(repository);
+		
+		//create a new File upload handler
+		ServletFileUpload upload = new ServletFileUpload(factory);
+		//set overall request size constraint
+		long sizeMax = 4 * 1024 * 1024;    //4MB
+		upload.setSizeMax(sizeMax);
+		
+		//parse the request
+		try {
+			List<FileItem> items = upload.parseRequest(request);
+			if(null == items.get(0).getName()) {
+				throw new NULLFileItemException();
 			}
+			return items;
+		} catch (FileUploadException e) {
+			//e.printStackTrace();
+			if(e instanceof SizeLimitExceededException) {
+				mesg = ExceptionMessage.OverSize;
+				return null;
+			}
+		} catch (NULLFileItemException e) {
+			mesg = ExceptionMessage.NULLFileItemException;
+		}
 		return null;
+	}
+	/**
+	 * 表单元素的处理方法，提取出表单字段与对应值，并按照Key-Value形式保存Map结构中。
+	 * 
+	 * @author xuming
+	 * 
+	 * @param 
+	 * 
+	 * @return 
+	 * 
+	 * @date 2014-10-28
+	 */
+	public Map processUpload(List<FileItem> items) {
+		Map result = new HashMap();
+		Iterator iter = items.iterator();
+		while(iter.hasNext()) {
+			try {
+				FileItem item = (FileItem) iter.next();
+				if(item.isFormField()) {
+					//process Form field
+					result = processFormField(item, result);
+				}else {
+					//process upload file
+					result = processUploadFile(item, result);
+				}
+			} catch (WriteToFileException e) {
+				mesg = ExceptionMessage.WriteToFileException;
+				return null;
+			} catch (UnsupportedEncodingException e) {
+				mesg = ExceptionMessage.UnsupportedEncodingException;
+				return null;
+			} catch (MismatchingFileTypeException e) {
+				mesg = ExceptionMessage.MismatchingFileTypeException;
+				return null;
+			}
+		}
+		return result;
+	}
+	/**
+	 * 处理上传文件。将文件进行存储，并获取文件在服务器的路径。并将上传的表单字段作为Key，文件路径作为Value，存储进原Map
+	 * 
+	 * @author xuming
+	 * 
+	 * @param FileItem item, Map result
+	 * 
+	 * @return 带有文件路径的Map结构，Key为上传时的表单字段Name
+	 * 
+	 * @throws WriteToFileException, MismatchingFileTypeException 
+	 * 
+	 * @date 2014-10-28
+	 */
+	private Map processUploadFile(FileItem item, Map result) throws WriteToFileException, MismatchingFileTypeException {
+		if(!item.isFormField()) {
+			String key = item.getFieldName();
+			String value = "";
+			String filename = item.getName();
+			//get file type
+			String fileType = getFileType(filename);
+			//is upload file in allow file types
+			if(!isAllowFileType(fileType)) {
+				throw new MismatchingFileTypeException();
+			}
+//			System.out.println(fileType);
+//			String contentType = item.getContentType();
+//			long sizeInBytes = item.getSize();
+//			System.out.println("key:" + key);
+//			System.out.println("value:" + value);
+//			System.out.println("filename:" + filename);
+//			System.out.println("contentType:" + contentType);
+//			System.out.println("sizeInBytes:" + sizeInBytes/1024 + "KB");
+			//write to file
+			if(writeToFile) {
+				try {
+					String uploadFilePath = projectPath + "uploadFile/";
+					File uploadDir = judgeDirectoryAndCreate(uploadFilePath);
+					//具体上传文件名称应后期生成
+					UUID uuid = UUID.randomUUID();
+					String uuidName = uuid.toString().replace("-", "");
+					String uploadFileName = uploadFilePath + uuidName + "." + fileType;
+					File uploadFile = new File(uploadFileName);
+					item.write(uploadFile);
+					value = uploadFileName;
+					result.put(key, value);
+				} catch (Exception e) {
+					throw new WriteToFileException();
+				}
+			}
+		}
+		return result;
+	}
+	/**
+	 * @author xuming
+	 * 
+	 * @param 
+	 * 
+	 * @return 
+	 * 
+	 * @date 2014-10-28
+	 */
+	private boolean isAllowFileType(String fileType) {
+		boolean isAllow = false;
+		for(String s: allowFileTypes) {
+			if(s.equals(fileType))
+				isAllow = true;
+		}
+		return isAllow;
+	}
+	/**
+	 * 处理表单元素，将表单元素按Key-Value添加进原Map结构。方便别处调用。
+	 * 
+	 * @author xuming
+	 * 
+	 * @param FileItem item, Map result
+	 * 
+	 * @return 将表单元素按Key-Value添加进原Map结构
+	 * 
+	 * @throws UnsupportedEncodingException 
+	 * 
+	 * @date 2014-10-28
+	 */
+	private Map processFormField(FileItem item, Map result) throws UnsupportedEncodingException {
+		if(item.isFormField()) {
+			String key = item.getFieldName();
+			String value = item.getString("utf-8");
+			result.put(key, value);
+		}
+		return result;
+	}
+	
+	public void outStream(HttpServletResponse response, String mesg) {
+		try {
+			response.setCharacterEncoding("utf-8");
+			response.getWriter().print(mesg);
+			response.getWriter().flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	/**
+	 * 判断文件夹是否存在，如果不存在就创建一个新的文件夹
+	 * 
+	 * @author xuming
+	 * 
+	 * @param String filePath
+	 * 
+	 * @return 
+	 * 
+	 * @date 2014-10-28
+	 */
+	public File judgeDirectoryAndCreate(String filePath) {
+		File dir = new File(filePath);
+		if(!dir.exists()) {
+			dir.mkdir();
+		}
+		return dir;
+	}
+	/**
+	 * 获取文件尾缀，也就是文件的类型
+	 * @author xuming
+	 * 
+	 * @param String filename
+	 * 
+	 * @return 
+	 * 
+	 * @date 2014-10-28
+	 */
+	private String getFileType(String filename) {
+		return filename.substring(filename.lastIndexOf(".") + 1);
 	}
 }
