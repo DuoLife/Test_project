@@ -48,6 +48,7 @@ public class ImgMultipartAction extends Action{
 		    String value = request.getHeader(name);
 		    System.out.println(name + " = " + value);
 	    }
+		DiskFileUpload fu = new DiskFileUpload(); 
 		InputStream in = request.getInputStream();
 		byte[] b = new byte[1024*4];
 		int i = 0; //每次读取的字节数

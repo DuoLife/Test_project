@@ -10,10 +10,12 @@ window.onload = function () {
 	var oPw = document.getElementById('password');
 	var oEmail = document.getElementById('email');
 	
+	//var nameRE = /^[\w_\u4e00-\u9fa5]{2,8}$/;  //用户名：只允许数字，字母，下划线（—），中文。长度2-8位。
+	//var pwRE = /^[\w-_.,<>?\/;:'"`~!@#$%^&*()=+]{6,16}$/;  //密码：数字，字母，特殊符号（仅包括：-_.,<>?\/;:'"`~!@#$%^&*()=+）。
+	//var emailRE = /^[\w-_.]+@[\w-_.]+\.{1}[a-zA-Z]{1,}$/;
 	var nameRE = /^[\w_\u4e00-\u9fa5]{2,8}$/;  //用户名：只允许数字，字母，下划线（—），中文。长度2-8位。
-	var pwRE = /^[\w-_.,<>?\/;:'"`~!@#$%^&*()=+]{6,16}$/;  //密码：数字，字母，特殊符号（仅包括：-_.,<>?\/;:'"`~!@#$%^&*()=+）。
-	var emailRE = /^[\w-_.]+@[\w-_.]+\.{1}[a-zA-Z]{1,}$/;
-	
+	var pwRE = /^(?=.*[a-zA-Z0-9]).{6,12}$/;  //密码：数字，字母。
+	var emailRE = /^\s*\w+(?:\.{0,1}[\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\.[a-zA-Z]+\s*$/;
 	oUname.onblur = function () {
 		reTest(nameRE, oUname.value);
 	};
