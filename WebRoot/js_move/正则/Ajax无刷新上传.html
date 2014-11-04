@@ -23,6 +23,10 @@ window.onload = function () {
 		};
 		var oFormData = new FormData();
 		oFormData.append('file', oMyFile.files[0]);
+		oFormData.append('username', "测试用户");
+		oFormData.append('sex', "没有性别");
+		oFormData.append('password', "thisPW");
+		oFormData.append('age', "18岁");
 		console.log(oFormData);
 		xhr.open('post', '../../duotu.do', 'true');
 		//xhr.send('type=file');

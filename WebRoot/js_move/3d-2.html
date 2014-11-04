@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>3D翻转</title>
+<style>
+body, ul {margin: 0; padding: 0;}
+li {list-style: none;}
+#rollimg_ul {width: 600px; height: 420px; margin: 50px auto;}
+#rollimg_ul li{width: 58px; height: 58px; background: red; border:#096 1px solid; float: left;}
+
+</style>
+<script>
+window.onload = function () {
+	var wrapDiv = document.getElementById('rollimg_wrap');
+	var oUl = document.getElementById('rollimg_ul');
+	var aLi = oUl.getElementsByTagName('li');
+	var oBtns = document.getElementsByTagName('input');
+	//get li rows,ceils
+	var iRows = oUl.offsetHeight/aLi[0].offsetHeight;
+	var iCeils = aLi.length/iRows;
+	var arrLi = setXy(aLi, iRows, iCeils);
+	//btn bind
+	oBtns[0].onclick = function () {
+		tab(arrLi, iRows-1, iCeils-1, -1, function () {
+				this.style.background = 'yellow';
+			}, 50);
+	};
+	oBtns[1].onclick = function () {
+		tab(arrLi, 0, 0, 1, function () {
+				this.style.background = 'red';
+			}, 50);
+	};
+	for(var i=0; i<aLi.length; i++) {
+		aLi[i].onclick = function () {
+			tab(arrLi, this.xIndex, this.yIndex, -1, function () {
+				this.style.background = 'yellow';
+			}, 50);
+		};
+	}
+	function tab(obj, x, y, iSpeed, fn, iDelay) {
+		if(!obj[x] || !obj[x][y]) {
+			return;
+		}
+		if(fn) {
+			fn.call(obj[x][y]);
+			clearTimeout(obj[x][y].timer);
+			obj[x][y].timer = setTimeout(function () {
+				tab(obj, x+iSpeed, y, iSpeed, fn, iDelay);
+				tab(obj, x, y+iSpeed, iSpeed, fn, iDelay);
+			}, iDelay);
+		}
+	}
+	//alert(iRows + " : " + iCeils);
+	function setXy(obj, iRows, iCeils) {
+		var arrLi = [];
+		for(var i=0; i<iRows; i++) {
+			var arr2 = [];
+			for(var j=0; j<iCeils; j++) {
+				obj[i*iCeils+j].xIndex = i;
+				obj[i*iCeils+j].yIndex = j;
+				arr2.push(obj[i*iCeils+j]);
+			}
+			arrLi.push(arr2);
+		}
+		return arrLi;
+	}
+};
+</script>
+</head>
+
+<body>
+<div id="rollimg_wrap">
+<input type="button" value="zou~"/>
+<input type="button" value="hui~"/>
+	<ul id="rollimg_ul">
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script>
+window.onload = function () {
+	var dataArr = [['baidumotu21', 21], ['feizaoju', 8], ['jingxiapian', 8], ['moxingtaocan', 8], ['shendoushi', 8], ['shijinpian1029', 9]];
+	//alert(dataArr[1][1]);
+	var str ='';
+	for(var j=0; j<dataArr.length; j++) {
+		var arr = dataArr[j];
+		for(var i=0; i<arr[1]; i++) {
+			str += "'/lengtoo/img/download/tietu/"+ arr[0] +"/" +i+ ".png', ";
+			console.log("'/lengtoo/img/download/tietu/"+ arr[0] +"/" +i+ ".png', ");
+		}
+		str += '<br/><br/><br/>';
+	}
+	document.body.innerHTML = str;
+};
+</script>
+</head>
+
+<body>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>定位啊，宝贝儿~</title>
+<style>
+#output {width: 200px; height: 200px; background:#C39;}
+</style>
+<script>
+window.onload = function () {
+	var oBtn = document.getElementById('whereBtn');
+	var oDiv = document.getElementById('output');
+	oBtn.onclick = function () {
+		alert('begin');
+		navigator.geolocation.getCurrentPosition(function (position) {
+			alert('ok');
+			console.log(position.coords.longitude);
+			alert(position.coords.longitude);
+		}, function (err) {
+			console.log(err.code);
+			alert(err.code);
+		});
+	};
+};
+</script>
+</head>
+
+<body>
+<p>this is the test page.don`t afraid!</p>
+<input type="button" id="whereBtn" value="where"/>
+<div id="output">ffff</div>
+</body>
+</html>

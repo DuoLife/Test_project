@@ -81,10 +81,7 @@ public class ImagesUPload extends Action{
 		//set factory constraints 约束条件
 		int sizeOfTempDirThreshold = 4*1024;    //4KB
 		String tempPath = projectPath+ "tempDir/";
-		File repository = new File(tempPath);
-		if(!repository.exists()) {
-			System.out.println("创建缓存文件夹：" + repository.mkdir());
-		}
+		File repository = judgeDirectoryAndCreate(tempPath);
 		factory.setSizeThreshold(sizeOfTempDirThreshold);
 		factory.setRepository(repository);
 		
