@@ -7,7 +7,7 @@
 body, ul {margin: 0; padding: 0;}
 li {list-style: none;}
 #rollimg_ul {width: 600px; height: 420px; margin: 50px auto;  -webkit-perspective:600px; -webkit-transform-style:preserve-3d;}
-#rollimg_ul li{width: 58px; height: 58px; background: red; border:1px solid rgba(0,0,0,0); float: left;background:url(img/14070800.png); transition: 1s .2s background, 2s -webkit-transform,1s .5s opacity;}
+#rollimg_ul li{width: 58px; height: 58px; background: red; border:1px solid rgba(0,0,0,0); float: left;background:url(img/14070800.png); transition:1s background;}
 
 </style>
 <script>
@@ -24,10 +24,10 @@ window.onload = function () {
 	oBtns[0].onclick = function () {
 		tab(arrLi, iRows-1, iCeils-1, -1, function () {
 				with(this.style) {
-					transition = '1s .2s background, 2s -webkit-transform,1s .5s opacity';
+					transition = '.2s border, 1s .5s background, 1s -webkit-transform ease-in, 1s opacity';
 					borderColor="rgba(0,0,0,0.6)";
 					boxShadow='0 0 20px #666666';
-					WebkitTransform="translate(-350px,-200px) rotateX(1080deg) rotateY(360deg)";
+					WebkitTransform="translate(-800px, -500px) rotateX(720deg) rotateY(-360deg)";
 					opacity=0;
 				}
 			}, 50);
@@ -35,7 +35,7 @@ window.onload = function () {
 	oBtns[1].onclick = function () {
 		tab(arrLi, 0, 0, 1, function () {
 				with(this.style) {
-					transition = '1s .2s background, 1s -webkit-transform,.5s opacity';
+					transition = '1.5s border, 1s .5s background, 1s -webkit-transform ease-out, .8s opacity';
 					borderColor="rgba(0,0,0,0)";
 					boxShadow='0 0 00px #666666';
 					WebkitTransform="translate(0px,0px) rotateX(0deg) rotateY(0deg)";

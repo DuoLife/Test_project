@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>3D翻转</title>
+<style>
+body, ul {margin: 0; padding: 0;}
+li {list-style: none;}
+#rollimg_wrap {position: relative; margin: 50px auto; width: 960px; height: 300px;}
+#rollimg_wrap input {width: 100px; height: 100px; position: absolute; top: 100px; border: 0;}
+#rollimg_wrap input:nth-of-type(1) {left: -100px;background: url(img/leftbtn.png) center no-repeat;}
+#rollimg_wrap input:nth-of-type(2) {right: -100px;background: url(img/rightbtn.png) center no-repeat;}
+#rollimg_wrap input:nth-of-type(1):hover {left: -102px;}
+#rollimg_wrap input:nth-of-type(2):hover {right: -102px;}
+#rollimg_ul {width: 960px; height: 300px; -webkit-perspective:600px; -webkit-transform-style:preserve-3d; position: absolute; left: 0; top: 0;}
+#rollimg_ul li{width: 58px; height: 58px; background: red; border:1px solid rgba(0,0,0,0); float: left;background:url(img/banner0.jpg); transition:1s background;}
+#rollimg_ul:nth-of-type(2) li{background:url(img/banner1.jpg);}
+#rollimg_ul:nth-of-type(3) li{background:url(img/small_33.jpg);}
+#rollimg_ul:nth-of-type(4) li{background:url(img/small_34.jpg);}
+#rollimg_ul:nth-of-type(5) li{background:url(img/small_35.jpg);}
+</style>
+<script>
+window.onload = function () {
+	var wrapDiv = document.getElementById('rollimg_wrap');
+	var aUl = wrapDiv.getElementsByTagName('ul');
+	var oBtns = wrapDiv.getElementsByTagName('input');
+	//get li rows,ceils
+	var iRows = wrapDiv.offsetHeight/aUl[0].children[0].offsetHeight;
+	var iCeils = wrapDiv.offsetWidth/aUl[0].children[0].offsetWidth;
+	var liNum = iRows * iCeils;
+	alert(liNum);
+	var liStr = '';
+	for(var n=0; n<liNum; n++) {
+		liStr += '<li></li>';
+	}
+	var iNow = 0;
+	var aXy = [];
+	for(var i=0; i<aUl.length; i++) {
+		aUl[i].innerHTML = liStr;
+		aUl[i].style.zIndex = aUl.length - i;
+		aXy.push(setXy(aUl[i].children,iRows,iCeils));
+	}
+	//var arrLi = setXy(aLi, iRows, iCeils);
+	//btn bind
+	oBtns[1].onclick = function () {
+		if(iNow >= aUl.length-1) {
+			return;
+		}
+		tab(aXy[iNow], iRows-1, iCeils-1, -1, function () {
+				with(this.style) {
+					transition = '.2s border, 1s .5s background, 1s -webkit-transform ease-in, 1s opacity';
+					borderColor="rgba(0,0,0,0.6)";
+					boxShadow='0 0 20px #666666';
+					WebkitTransform="translate(-800px, -500px) rotateX(720deg) rotateY(-360deg)";
+					opacity=0;
+				}
+			}, 50);
+			iNow++;
+	};
+	oBtns[0].onclick = function () {
+		if(iNow <= 0) {
+			return;
+		}
+		iNow--;
+		tab(aXy[iNow], 0, 0, 1, function () {
+				with(this.style) {
+					transition = '1s border, 1s background, .5s -webkit-transform ease-out, .8s opacity';
+					borderColor="rgba(0,0,0,0)";
+					boxShadow='0 0 00px #666666';
+					WebkitTransform="translate(0px,0px) rotateX(0deg) rotateY(0deg)";
+					opacity=1;
+				}
+			}, 50);
+	};
+	//
+	function tab(obj, x, y, iSpeed, fn, iDelay) {
+		if(!obj[x] || !obj[x][y]) {
+			return;
+		}
+		if(fn) {
+			fn.call(obj[x][y]);
+			clearTimeout(obj[x][y].timer);
+			obj[x][y].timer = setTimeout(function () {
+				tab(obj, x+iSpeed, y, iSpeed, fn, iDelay);
+				tab(obj, x, y+iSpeed, iSpeed, fn, iDelay);
+			}, iDelay);
+		}
+	}
+	//alert(iRows + " : " + iCeils);
+	function setXy(obj, iRows, iCeils) {
+		var arrLi = [];
+		for(var i=0; i<iRows; i++) {
+			var arr2 = [];
+			for(var j=0; j<iCeils; j++) {
+				//console.log(i*iCeils+j);
+				obj[i*iCeils+j].xIndex = i;
+				obj[i*iCeils+j].yIndex = j;
+				obj[i*iCeils+j].style.backgroundPosition = -j*58 + 'px -' + i*58 + 'px';
+				arr2.push(obj[i*iCeils+j]);
+			}
+			arrLi.push(arr2);
+		}
+		return arrLi;
+	}
+};
+</script>
+</head>
+
+<body background="img/small_32.jpg">
+<div id="rollimg_wrap">
+<input type="button" value=""/>
+<input type="button" value=""/>
+	<ul id="rollimg_ul">
+    	<li></li>
+    </ul>
+	<ul id="rollimg_ul"></ul>
+	<ul id="rollimg_ul"></ul>
+	<ul id="rollimg_ul"></ul>
+	<ul id="rollimg_ul"></ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>3D翻转</title>
+<style>
+body, ul {margin: 0; padding: 0;}
+li {list-style: none;}
+#rollimg_wrap {position: relative; margin: 50px auto; width: 960px; height: 300px;}
+#rollimg_wrap input {width: 100px; height: 100px; position: absolute; top: 100px; border: 0;}
+#rollimg_wrap input:nth-of-type(1) {left: -100px;background: url(img/leftbtn.png) center no-repeat;}
+#rollimg_wrap input:nth-of-type(2) {right: -100px;background: url(img/rightbtn.png) center no-repeat;}
+#rollimg_wrap input:nth-of-type(1):hover {left: -102px;}
+#rollimg_wrap input:nth-of-type(2):hover {right: -102px;}
+#rollimg_ul {width: 960px; height: 300px; -webkit-perspective:600px; -webkit-transform-style:preserve-3d; position: absolute; left: 0; top: 0;}
+#rollimg_ul li{width: 58px; height: 58px; background: red; border:1px solid rgba(0,0,0,0); float: left;background:url(img/banner0.jpg); transition:1s background;}
+#rollimg_ul:nth-of-type(2) li{background:url(img/banner1.jpg);}
+#rollimg_ul:nth-of-type(3) li{background:url(img/small_33.jpg);}
+#rollimg_ul:nth-of-type(4) li{background:url(img/small_34.jpg);}
+#rollimg_ul:nth-of-type(5) li{background:url(img/small_35.jpg);}
+</style>
+<script type="text/javascript" src="3d-rollimg.js"></script>
+<script>
+window.onload = function () {
+	rollimg3D();
+};
+</script>
+</head>
+
+<body background="img/small_32.jpg">
+<div id="rollimg_wrap">
+<input type="button" value=""/>
+<input type="button" value=""/>
+	<ul id="rollimg_ul">
+    	<li></li>
+    </ul>
+	<ul id="rollimg_ul">
+    	<li></li>
+    </ul>
+</div>
+</body>
+</html>
