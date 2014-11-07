@@ -194,3 +194,17 @@ function getPath(obj,fileQuery){
 		reader.readAsDataURL(file);  
 	}
 } 
+
+/*
+事件绑定：
+	IE浏览器为target.attachEvent(type, linstener);   //$1: 字符串类型，事件名称。IE加‘on’。$2: 响应事件，多为function。
+	Moz,google浏览器为target.addEventLinstener(type, linstener, useCaptrue);   //$1: 字符串类型，事件名称。不加‘on’。$2: 响应事件，多为function。$3: 是否捕获，多数为false。
+http://www.jb51.net/article/18220.htm
+*/
+function addEvent (obj, ev, fn) {
+	if(obj.attachEvent) {
+		obj.attachEvent('on' + ev, fn);
+	}else {
+		obj.addEventListener(ev, fn, false);
+	}
+}

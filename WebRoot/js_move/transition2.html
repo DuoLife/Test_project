@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>transition</title>
+<style>
+body, .demoDiv {margin: 0; padding: 0;}
+.demoDiv  {margin: 100px auto; background: url(img/small_32.jpg); width: 300px; height: 300px; border-radius: 5px;transition:1.5s border-radius, 2s background, 1s -webkit-transform ease-in;}
+
+</style>
+<script>
+//hover 效果不好，换成onclick或者 onmouseover试试看
+
+//实验证明，点击最靠谱，因为鼠标滑过事件，停留在div上也是会重复触发的
+window.onload = function () {
+	var oDiv = document.getElementById('demoDiv');
+	var isW = true;
+	oDiv.onclick = function () {
+		if(isW) {
+			isW = false;
+			with(this.style) {
+				borderRadius = '50%';
+				webkitTransform = 'rotateY(360deg)';
+				transition = '1.5s border-radius, 2s background, 1s -webkit-transform ease-in, 1s opacity';
+				background = 'url(img/small_33.jpg)';
+			}
+		}else {
+			isW = true;
+			with(this.style) {
+				borderRadius = '5px';
+				webkitTransform = 'rotateY(0deg)';
+				transition = '1.5s border-radius, 1.5s background, 1s -webkit-transform;';
+				background = 'url(img/small_32.jpg)';
+			}
+		}
+	};
+};
+</script>
+</head>
+
+<body style='background: #996;'>
+<div class="demoDiv" id="demoDiv"></div>
+</body>
+</html>
