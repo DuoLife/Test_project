@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=320,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,target-densitydpi=meduim-dpi">
+<title>touch</title>
+<style>
+body, #touchDiv, #list {margin:0; padding: 0;}
+#touchDiv {width: 100%; height: 100%; position: absolute; left: 0; top: 0; overflow: hidden;}
+#list {width: 100%; height: 100%;position: relative; left: 0; top: 0;}
+#list li{float: left;list-style:none; width: 100%; height: 100%; position: absolute; left: 0; top: 0; background: url(img/touch/01.png) #55B8FF center no-repeat; background-size: 100% 100%;}
+#list li:nth-of-type(2) {background: url(img/touch/02.png) #55B8FF center no-repeat; background-size: 100% 100%;}
+#list li:nth-of-type(3) {background: url(img/touch/03.png) #55B8FF center no-repeat; background-size: 100% 100%;}
+#list li:nth-of-type(4) {background: url(img/touch/04.png) #55B8FF center no-repeat; background-size: 100% 100%;}
+#list li:nth-of-type(5) {background: url(img/touch/05.jpg) #E0F2FF no-repeat; background-size: 100% 100%;}
+</style>
+<script>
+document.ontouchmove = function(ev){
+     ev.preventDefault();
+};
+window.onload = function () {
+	var oDiv = document.getElementById('touchDiv');
+	var oUl = document.getElementById('list');
+	var aLi = oUl.getElementsByTagName('li');
+	var iDivWidth = parseInt(getStyle(oDiv, 'width'));
+	setWidth(oUl);
+	var iUlWidth = parseInt(getStyle(oUl, 'width'));
+	//console.log(iLiWidth);
+	for(var i=0; i<aLi.length; i++) {
+		aLi[i].index = i;
+		with(aLi[i].style) {
+			width = iDivWidth + 'px';
+			left = i * iDivWidth + 'px';
+		}
+	}
+	var iLiWidth = parseInt(getStyle(aLi[0], 'width'));
+	function setWidth(obj) {
+		obj.style.width = obj.children.length * parseInt(getStyle(obj.children[0], 'width'))+ 'px';
+	}
+	var bBtn = true;
+	var iNow = 0;
+	var downLeft = 0;
+	var downX =0;
+	addEvent(oUl, 'touchstart', tStart);
+	function tStart(ev) {
+		var touch = ev.changedTouches[0];
+		downX = touch.pageX;
+		downLeft = parseInt(getStyle(oUl, 'left'));
+		addEvent(this, 'touchmove', tMove);
+		addEvent(this, 'touchend', tEnd);
+	}
+	function tMove(ev) {
+		console.log('touch  move');
+		clearInterval(oUl.timer);
+		var touch = ev.changedTouches[0];
+		var pageX = touch.pageX;
+		if(parseInt(getStyle(oUl, 'left')) >= 0) {
+			if(bBtn) {
+				bBtn = false;
+				downX = touch.pageX;
+			}
+			oUl.style.left = (pageX - downX)/3 + 'px';
+		}else if(parseInt(getStyle(oUl, 'left')) <= -(iUlWidth - iDivWidth)) {
+			if(bBtn) {
+				bBtn = false;
+				downX = touch.pageX;
+			}
+			oUl.style.left = (pageX - downX)/3 - (iUlWidth - iDivWidth) + 'px';
+		}else {
+			oUl.style.left = (pageX - downX) + downLeft + 'px';
+		}
+	}
+	function tEnd(ev) {
+		var touch = ev.changedTouches[0];
+		if(touch.pageX > downX) { //->  屏幕向右滑动
+			if(iNow != 0) {
+				iNow--;
+			}
+		}else if(touch.pageX < downX) { //<-  屏幕向左滑动
+			if(iNow != aLi.length-1) {
+				iNow++;
+			}
+		}
+		console.log('end');
+		removeEvent(oUl, 'touchmove', tMove);
+		removeEvent(oUl, 'touchend', tEnd);
+		doMove(oUl, {left:-iNow*iLiWidth}, function () {
+			console.log('move end~');
+		});
+	}
+	function doMove(obj, jsonData, fn) {
+		console.log('domove:' + jsonData);
+		clearInterval(obj.timer);
+		obj.timer = setInterval(function () {
+			var isStop = true;
+			for(var attr in jsonData) {
+				var iTarget = jsonData[attr];
+				var iCur = parseInt(getStyle(obj, attr));
+				console.log('domove:' + attr);
+				var iSpeed = (iTarget - iCur) / 5;
+				iSpeed = iSpeed > 0 ? Math.ceil(iSpeed):Math.floor(iSpeed);
+				if(iCur != iTarget) {
+					isStop = false;
+					obj.style[attr] = iCur + iSpeed + 'px';
+				}
+			}
+			if(isStop) {
+				clearInterval(obj.timer);
+				fn && fn();
+			}
+		}, 30);
+	}
+	function addEvent(obj, attr, fn) {
+		obj.attachEvent?obj.attachEvent('on' + attr, fn):obj.addEventListener(attr, fn, false);
+	}
+	function removeEvent(obj, attr, fnName) {
+		obj.detachEvent?obj.detachEvent('on' + attr, fnName):obj.removeEventListener(attr, fnName, false);
+	}
+	function getStyle(obj, attr) {
+		return obj.currentStyle?obj.currentStyle()[attr]:getComputedStyle(obj)[attr];
+	}
+};
+</script>
+</head>
+
+<body>
+<div id="touchDiv">
+	<ul id="list">
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    </ul>
+</div>
+</body>
+</html>
