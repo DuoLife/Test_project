@@ -1,3 +1,12 @@
+/**
+* <p>Title: Uploadfile.java</p>
+* <p>Description: </p>
+* <p>Copyright: Copyright (c) 2014</p>
+* <p>Company: ColdWorks</p>
+* @author xuming
+* @date 2014-11-12
+* @version 1.0
+*/
 package com.imgupload.web.action;
 
 import java.io.File;
@@ -17,39 +26,41 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.FileUploadBase.SizeLimitExceededException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.struts.action.Action;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
 
-
-public class ImagesUPload extends Action{
-
+/**
+ * <p>Title: Uploadfile.java</p>
+ * <p>Description: </p>
+ * <p>Copyright: Copyright (c) 2014</p>
+ * <p>Company: ColdWorks</p>
+ * @author xuming
+ * @date 2014-11-12
+ * Email: vip6ming@126.com
+ */
+public class UploadFileUtil {
 
 	private final static boolean writeToFile = true;
 	private static String projectPath;
+	private static long sizeMax = 4 * 1024 * 1024;    //4MB
 	private static String mesg;
 	private static String[] allowFileTypes = {"jpg", "jpeg", "png","JPG", "JPEG", "PNG"};
 	
-	@Override
-	public ActionForward execute(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+	public Map getUploadFile2Map(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("UTF-8");
 		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
 		projectPath = request.getSession().getServletContext().getRealPath("/");
-//		System.out.println(isMultipart);
+//			System.out.println(isMultipart);
+		Map result = new HashMap();
 		if(isMultipart) {
 			try {
 				//获取FileItem
 				List<FileItem> items = setDiskFactoryAndGetFileItem(request, response);
 				//从FileItem中获取表单数据，以及上传文件，并存储进Map结构中，方便获取
-				Map m = processUpload(items);
-				if(m == null) {
+				result = processUpload(items);
+				if(result == null) {
 					outStream(response, mesg);
 					return null;
 				}
-				System.out.println(m);
+				System.out.println(result);
 				//success
 				mesg = ExceptionMessage.Success;
 			} catch (Exception e) {
@@ -61,7 +72,7 @@ public class ImagesUPload extends Action{
 			mesg = ExceptionMessage.Shit;
 		}
 		outStream(response, mesg);
-		return null;	
+		return result;
 	}
 	/**
 	 * 
@@ -87,7 +98,7 @@ public class ImagesUPload extends Action{
 		//create a new File upload handler
 		ServletFileUpload upload = new ServletFileUpload(factory);
 		//set overall request size constraint
-		long sizeMax = 4 * 1024 * 1024;    //4MB
+		//long sizeMax = 4 * 1024 * 1024;    //4MB
 		upload.setSizeMax(sizeMax);
 		
 		//parse the request
@@ -169,14 +180,14 @@ public class ImagesUPload extends Action{
 			if(!isAllowFileType(fileType)) {
 				throw new MismatchingFileTypeException();
 			}
-//			System.out.println(fileType);
-//			String contentType = item.getContentType();
-//			long sizeInBytes = item.getSize();
-//			System.out.println("key:" + key);
-//			System.out.println("value:" + value);
-//			System.out.println("filename:" + filename);
-//			System.out.println("contentType:" + contentType);
-//			System.out.println("sizeInBytes:" + sizeInBytes/1024 + "KB");
+//				System.out.println(fileType);
+//				String contentType = item.getContentType();
+//				long sizeInBytes = item.getSize();
+//				System.out.println("key:" + key);
+//				System.out.println("value:" + value);
+//				System.out.println("filename:" + filename);
+//				System.out.println("contentType:" + contentType);
+//				System.out.println("sizeInBytes:" + sizeInBytes/1024 + "KB");
 			//write to file
 			if(writeToFile) {
 				try {
@@ -276,4 +287,5 @@ public class ImagesUPload extends Action{
 	private String getFileType(String filename) {
 		return filename.substring(filename.lastIndexOf(".") + 1);
 	}
+
 }
