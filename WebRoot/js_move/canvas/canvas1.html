@@ -1,0 +1,61 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>canvas1</title>
+<style>
+#canvas {}
+</style>
+<script type="text/javascript" src="numberData.js"></script>
+<script>
+window.onload = function () {
+	var canvas = document.getElementById('canvas');
+	canvas.width = 1024;
+	canvas.height = 860;
+	var ctx = canvas.getContext('2d');
+	ctx.moveTo(100, 100);
+	ctx.lineTo(100, 200);
+	ctx.lineTo(200, 200);
+	ctx.lineWidth = 10;
+	ctx.closePath();
+	ctx.strokeStyle = 'red';
+	ctx.stroke();
+	
+	ctx.beginPath();
+	ctx.lineWidth = 10;
+	ctx.strokeStyle = 'rgba(0, 102, 136, 0.8)';
+	ctx.arc(100, 100, 50, 0, 1*Math.PI);
+	ctx.closePath();
+	ctx.stroke();
+	
+	drawNumber(ctx, 0, 200, 200);
+	drawNumber(ctx, 1, 400, 200);
+	drawNumber(ctx, 4, 600, 200);
+};
+function drawNumber(ctx, n, startX, startY) {
+	for(var i=0; i<60; i++) {
+		var y = Math.floor(i/6);
+		var x = i%6;
+		//console.log(dNumber[0][n][j]);
+		//console.log('y:' + y);
+		//console.log('x:' + x);
+		if(dNumber[n][y][x]) {
+			drawArc(ctx, x * 25 + startX, y * 25 + startY, 10);
+		}
+	}
+}
+function drawArc(ctx, x, y, radius, startingAngle, endingAngle) {
+	startingAngle = startingAngle || 0;
+	endingAngle = endingAngle || 2 * Math.PI;
+	ctx.beginPath();
+	ctx.fillStyle = 'rgba(0, 102, 136, 1)';
+	ctx.arc(x, y, radius, startingAngle, endingAngle, false);
+	ctx.closePath();
+	ctx.fill();
+}
+</script>
+</head>
+
+<body>
+<canvas id='canvas' style='display: block;margin: 0 auto;background: #eee;'></canvas>
+</body> 
+</html>
