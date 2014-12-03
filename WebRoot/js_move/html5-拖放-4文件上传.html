@@ -23,6 +23,7 @@ window.onload = function () {
 		//此处也要阻止默认事件，否则浏览器会在松开鼠标后打开拖拽文件
 		ev.preventDefault();
 		var fs = ev.dataTransfer.files;
+		console.log(ev.dataTransfer);
 		alert(fs[0].type);
 		alert(fs.length);
 	};

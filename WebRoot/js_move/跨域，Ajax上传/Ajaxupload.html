@@ -1,0 +1,162 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="css/base.css" />
+<title>冷兔实验室-壁纸</title>
+<style>
+li{list-style: none;}
+/*二级导航*/
+#wrap_2nav {background: #F2F9FF; position: relative;}
+.nav {width: 1032px; height: 64px; margin: 0 auto;line-height: 64px; text-align: center;}
+.nav li{width: 164px;float: left; list-style: none; font-size:24px; color: #333;}
+.nav li:hover,.nav .active_2nav  {background: #829BD1; color: #FFF;}
+/*base样式重置*/
+#upload_div {width: 100px; height: 64px;position: absolute; right: 10px; font-size: 16px;}
+#upload_div a{display: block; width: 100px; height: 46px; line-height: 46px;margin-top: 8px;padding-left: 30px; background: url('/lengtooyinxiang/admin/img/upload0.png') 30px center no-repeat; text-align: center; text-decoration: none; color: #666; border: #06F solid 1px;border-radius: 5px;}
+#upload_div a:hover {background: url('/lengtooyinxiang/admin/img/upload1.png') 30px center no-repeat; color: #A3B5C3;}
+/***upload list***/
+#content {width: 100%; margin: 0 auto;}
+.content-nav {background: #F2F6FF; width: 100%; height: 40px; border-top:1px solid #DDD; border-bottom: 1px solid #DDD;}
+.content-nav span {display: block; float: left; line-height: 40px; padding-left: 16px;}
+.content-nav span:nth-of-type(1) {width: 65%;}
+.content-nav span:nth-of-type(2) {width: 15%;}
+.content-nav span:nth-of-type(3) {width: 15%;}
+#contentList {width: 100%; margin: 0 auto;}
+#contentList li {width: 100%; height: 40px; border-bottom: 1px solid #DDD;}
+#contentList li span {display: block; float: left; line-height: 40px; padding-left: 16px;}
+#contentList li  span:nth-of-type(1) {width: 65%;}
+#contentList li  span:nth-of-type(2) {width: 15%;}
+#contentList li  span:nth-of-type(3) {width: 15%;}
+/***upload-float***/
+#upload-float {border: 1px solid #CCC; background: #F2F6FF; width: 600px; height: 400px; position: absolute; bottom: 0; right: 0;}
+.upload-nav {background: #829BD1; width: 100%; height: 40px; border-bottom: 1px solid #DDD;}
+.upload-nav span {display: block; float: left; line-height: 40px; padding-left: 16px;}
+.upload-nav span:nth-of-type(1) {width: 40%;}
+.upload-nav span:nth-of-type(2) {width: 35%;}
+.upload-nav span:nth-of-type(3) {width: 15%;}
+#uploadlist li {width: 100%; height: 40px; border-bottom: 1px solid #DDD;}
+#uploadlist li span {display: block; float: left; line-height: 40px; padding-left: 16px;}
+#uploadlist li span:nth-of-type(1) {width: 40%;}
+#uploadlist li span:nth-of-type(2) {width: 35%;}
+#uploadlist li span:nth-of-type(3) {width: 6%;}
+#uploadlist li span:nth-of-type(4) {width: 6%;}
+/***targetDiv***/
+#targetDiv {border: 1px solid #CCC; background: #999; width: 600px; height: 400px; position: absolute; bottom: 0; right: 0;line-height: 400px;text-align: center; display: none;}
+</style>
+<script>
+window.onload = function () {
+	var oUpTargetDiv = document.getElementById('upload-float');
+	var oDragTarget = document.getElementById('targetDiv');
+	addEvent(document.body, 'dragenter', docAlert);
+	function docAlert(ev) {
+		var ev = ev || event;
+		oDragTarget.style.display = 'block';
+		addEvent(document.body, 'dragover', docDragOver);
+		addEvent(document.body, 'dragleave', docRecover);
+		addEvent(document.body, 'drop', docDragOver);
+	}
+	function docDragOver(ev) {
+		oDragTarget.style.display = 'block';
+	}
+	function docRecover(ev) {
+		removeEvent(document.body, 'dragover', docDragOver);
+		removeEvent(document.body, 'dragleave', docRecover);
+		oDragTarget.style.display = 'none';
+	}
+	addEvent(oDragTarget, 'dragenter', targetChange);
+	function targetChange() {
+		oDragTarget.style.display = 'block';
+		oDragTarget.innerHTML = '松开鼠标即可上传！';
+		addEvent(oDragTarget, 'drop', targetDrop);
+		addEvent(oDragTarget, 'dragover', targetDragover);
+		addEvent(oDragTarget, 'dragleave', targetRecover);
+	}
+	function targetDrop(ev) {
+		var ev = ev || event;
+		alert(ev.dataTransfer.files);
+		ev.preventDefault();
+		oDragTarget.style.display = 'none';
+		oDragTarget.innerHTML = '将文件拖至此处！';
+		removeEvent(oDragTarget, 'dragover', targetDragover);
+		removeEvent(oDragTarget, 'dragleave', targetRecover);
+		removeEvent(oDragTarget, 'drop', targetDrop);
+	}
+	function targetDragover(ev) {
+		var ev = ev || event
+		ev.preventDefault();
+	}
+	function targetRecover() {
+		oDragTarget.style.display = 'block';
+		oDragTarget.innerHTML = '将文件拖至此处！';
+		removeEvent(oDragTarget, 'dragover', targetDragover);
+		removeEvent(oDragTarget, 'dragleave', targetRecover);
+		removeEvent(oDragTarget, 'drop', targetDrop);
+	}
+};
+function addEvent(obj, attr, fn) {
+	obj.attachEvent ? obj.attachEvent('on' + attr, fn) : obj.addEventListener(attr, fn, false);
+}
+function removeEvent(obj, attr, fn) {
+	obj.detachEvent ? obj.detachEvent('on' + attr, fn) : obj.removeEventListener(attr, fn, false);
+}
+</script>
+</head>
+
+<body>
+<div id="wrap_header">
+    <header>
+        <div id="logo">
+            <img src="img/logo.png"/>
+            <p id="logo_title">冷兔实验室</p>
+            <p id="logo_version">后台管理系统V1.0</p>
+        </div>
+        <div id="upload_div">
+            <a id="submit" href="javascript: void(0);">
+                <p>上传</p>
+            </a>
+        </div>
+    </header>
+</div>
+<div id="wrap_2nav">
+    <div class="nav">
+        <a href='uploadwallpaper.html'><li>上传壁纸</li></a>
+        <a href='#'><li class="active_2nav">上传卡片</li></a>
+    </div>
+</div>
+<form name="upCard" action="/lengtooyinxiang/web/uploadlengtoocard.do" method="post" enctype="multipart/form-data">
+    <div>
+        <div id="content">
+            <div class="content-nav">
+                <span>文件名</span>
+                <span>大小</span>
+                <span>上传时间</span>
+            </div>	
+        	<ul id="contentList">
+            	<li>
+                	<span><a href="#" target="_blank">tututututu</a></span>
+                    <span>250M</span>
+                    <span>2014-10-30 11:51</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</form>
+<div id="upload-float">
+	<div class="upload-nav">
+        <span>文件名</span>
+        <span>进度</span>
+        <span>操作</span>
+    </div>
+    <div>
+    	<ul id="uploadlist">
+        	<li>
+            	<span>突突突</span>
+            	<span>50%</span>
+            	<span>取消</span>
+            </li>
+        </ul>
+    </div>
+	<div id="targetDiv">将文件拖至此处！</div>
+</div>
+</body>
+</html>
