@@ -47,6 +47,7 @@ li{list-style: none;}
 window.onload = function () {
 	var oUpTargetDiv = document.getElementById('upload-float');
 	var oDragTarget = document.getElementById('targetDiv');
+	var oUploadUl = document.getElementById('uploadlist');
 	addEvent(document.body, 'dragenter', docAlert);
 	function docAlert(ev) {
 		var ev = ev || event;
@@ -56,12 +57,11 @@ window.onload = function () {
 		addEvent(document.body, 'drop', docDragOver);
 	}
 	function docDragOver(ev) {
-		oDragTarget.style.display = 'block';
+		ev.preventDefault();
 	}
 	function docRecover(ev) {
 		removeEvent(document.body, 'dragover', docDragOver);
 		removeEvent(document.body, 'dragleave', docRecover);
-		oDragTarget.style.display = 'none';
 	}
 	addEvent(oDragTarget, 'dragenter', targetChange);
 	function targetChange() {
@@ -73,7 +73,17 @@ window.onload = function () {
 	}
 	function targetDrop(ev) {
 		var ev = ev || event;
-		alert(ev.dataTransfer.files);
+		var aFiles = ev.dataTransfer.files;
+		console.log(aFiles);
+		for(var i=0; i<aFiles.length; i++) {
+			var oLi = createUpFileElement(oUploadUl, aFiles[i]);
+		}
+		/*var fd = new FileReader();
+		fd.readAsDataURL(aFiles[0]);
+		fd.onload = function () {
+			updateUpProgress(oLi, 100);
+		};*/
+		//alert(ev.dataTransfer.files[0].type);
 		ev.preventDefault();
 		oDragTarget.style.display = 'none';
 		oDragTarget.innerHTML = '将文件拖至此处！';
@@ -93,11 +103,47 @@ window.onload = function () {
 		removeEvent(oDragTarget, 'drop', targetDrop);
 	}
 };
+//创建上传文件条目
+function createUpFileElement(obj, file) {
+	console.log(file);
+	var oLi = document.createElement('li');
+	var oImg = document.createElement('img');
+	var oSpan1 = document.createElement('span');
+	var oSpan2 = document.createElement('span');
+	var oSpan3 = document.createElement('span');
+	var size = file.size;
+	oImg.src = this.result;
+	oSpan1.innerHTML = file.name;
+	oSpan2.innerHTML = size2nKB(size);
+	oSpan3.innerHTML = '0%';
+	oLi.appendChild(oSpan1);
+	oLi.appendChild(oSpan2);
+	oLi.appendChild(oSpan3);
+	obj.appendChild(oLi);
+	return oLi;
+}
+function updateUpProgress(obj, iscale) {
+	obj.getElementsByTagName('span')[2].innerHTML = 'ok';
+}
 function addEvent(obj, attr, fn) {
 	obj.attachEvent ? obj.attachEvent('on' + attr, fn) : obj.addEventListener(attr, fn, false);
 }
 function removeEvent(obj, attr, fn) {
 	obj.detachEvent ? obj.detachEvent('on' + attr, fn) : obj.removeEventListener(attr, fn, false);
+}
+var nKBStr = ['B', 'KB', 'MB', 'GB'];
+var n = 0;
+function size2nKB(size) {
+	if(size / 1024 > 1) {
+		n++;
+		//console.log(size);
+		size = Math.ceil((size * 100) / 1024) /100;
+		return size2nKB(size);
+	}else {
+		var str = nKBStr[n];
+		n = 0;
+		return size + str;
+	}
 }
 </script>
 </head>
