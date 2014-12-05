@@ -2,6 +2,7 @@
 <FlowViewLayout Version="1.2">
   <StrutsActivity path="/img_post.do" location="50,50" dimension="125,76" />
   <StrutsActivity path="/img_multipart.do" location="350,50" dimension="394,116" />
-  <StrutsActivity path="/duotu.do" />
+  <StrutsActivity path="/duotu.do" location="950,50" dimension="358,116" />
+  <StrutsActivity path="/html5upload.do" location="50,250" dimension="358,116" />
 </FlowViewLayout>
 
