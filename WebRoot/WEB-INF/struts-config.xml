@@ -10,6 +10,7 @@
   	<action path="/img_multipart" type="com.imgupload.web.action.ImgMultipartAction"></action>
   	<action path="/duotu" type="com.imgupload.web.action.ImagesUPload"></action>
   	<action path="/html5upload" type="com.imgupload.web.action.HTML5UploadFiles"></action>
+  	<action path="/postReceive" type="http.request.ReceivePostAction"></action>
   </action-mappings>
   <message-resources parameter="com.imgupload.web.ApplicationResources" />
 </struts-config>

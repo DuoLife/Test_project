@@ -9,6 +9,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.google.gson.Gson;
 
 public class HttpPostTest {
 
@@ -17,16 +21,19 @@ public class HttpPostTest {
             URL url = new URL(urlStr);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setDoOutput(true);
+            con.setRequestMethod("GET");
             con.setRequestProperty("Pragma:", "no-cache");
             con.setRequestProperty("Cache-Control", "no-cache");
             con.setRequestProperty("Content-Type", "text/xml");
 
             OutputStreamWriter out = new OutputStreamWriter(con
-                    .getOutputStream());    
-            String xmlInfo = getXmlInfo();
+                    .getOutputStream()); 
+            Map map = new HashMap();
+            map.put("key", "中文");
+            String params = Map2Json(map);
             System.out.println("urlStr=" + urlStr);
-            System.out.println("xmlInfo=" + xmlInfo);
-            out.write(new String(xmlInfo.getBytes("ISO-8859-1")));
+            System.out.println("xmlInfo=" + params);
+            out.write(new String(params.getBytes("UTF-8")));
             out.flush();
             out.close();
             BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -40,25 +47,14 @@ public class HttpPostTest {
             e.printStackTrace();
         }
 	 }
-	 private String getXmlInfo() {
-	        StringBuilder sb = new StringBuilder();
-	        sb.append("<videoSend>");
-	        sb.append("    <header>");
-	        sb.append("        <sid>1</sid>");
-	        sb.append("        <type>service</type>");
-	        sb.append("    </header>");
-	        sb.append("    <service name=\"videoSend\">");
-	        sb.append("        <fromNum>0000021000011001</fromNum>");
-	        sb.append("           <toNum>33647405</toNum>");
-	        sb.append("        <videoPath>mnt/5.0.217.50/resources/80009.mov</videoPath>");
-	        sb.append("        <chargeNumber>0000021000011001</chargeNumber>");
-	        sb.append("    </service>");
-	        sb.append("</videoSend>");
-	        return sb.toString();
+	 private String Map2Json(Map map) {
+	       Gson g = new Gson();
+	       String json = g.toJson(map);
+	       return json;
 	    }
 	public static void main(String[] args) {
-//		new HttpPostTest().testPost("http://localhost:2103/leng_weixin/testRequest.do");
-		new HttpPostTest().testPost("http://www.baidu.com");
+		new HttpPostTest().testPost("http://localhost:2103/Test_project/postReceive.do?name=xu");
+		//new HttpPostTest().testPost("http://www.baidu.com");
 	}
 	
 }

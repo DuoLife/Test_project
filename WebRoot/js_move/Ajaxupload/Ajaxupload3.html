@@ -5,6 +5,7 @@
 <title>冷兔实验室-壁纸</title>
 <style>
 li{list-style: none;}
+a{text-decoration: none;}
 /*二级导航*/
 #wrap_2nav {background: #F2F9FF; position: relative;}
 .nav {width: 1032px; height: 64px; margin: 0 auto;line-height: 64px; text-align: center;}
@@ -73,14 +74,14 @@ function AJAX(method, url, formdata, succfn, failfn, oLi) {
 		if(xhr.status == 200) {
 			console.log(xhr.responseText);
 			var data = eval('(' + xhr.responseText + ')');  //因为json以'{'开始，'}'结束。不加'()'，eval会将json数据解释为js代码块。
-			succfn && succfn(data);
+			succfn && succfn(data, formdata);
 		}else {
 			failfn && failfn();
 		}
 	};
 	xhr.open(method, url, true);
 	xhr.setRequestHeader('X-Request-With', 'XMLHttpRequest');
-	xhr.send(formdata);
+	xhr.send(formdata.d);
 }
 </script>
 <script>
@@ -92,6 +93,7 @@ window.onload = function () {
 	var oUploadUl = document.getElementById('uploadlist');
 	var oShowBtn = document.getElementById('showBtn');
 	addEvent(oShowBtn, 'click', showFn);
+	addEvent(document.body, 'mouseout', targetDisappear);
 	var isShow = true;
 	function showFn() {
 		if(isShow) {
@@ -125,6 +127,9 @@ window.onload = function () {
 		addEvent(oDragTarget, 'dragover', targetDragover);
 		addEvent(oDragTarget, 'dragleave', targetRecover);
 	}
+	function targetDisappear() {
+		oDragTarget.style.display = 'none';
+	}
 	//拖拽至上传文件感应区释放。  文件类型判断，创建条目，上传处理
 	function targetDrop(ev) {
 		var ev = ev || event;
@@ -133,7 +138,11 @@ window.onload = function () {
 			var f = aFiles[i];
 			if(f.type.indexOf('image') != -1) {
 				var oLi = createUpFileElement(oUploadUl, f);
-				var formdata = file2Formdata('file', f);
+				var formdata = {
+						s : size2nKB(f.size),
+						n : f.name,
+						d : file2Formdata('file', f)
+					};
 				Post(url, formdata, succfn, failfn, oLi);
 			}else {
 				alert(f.name + '不是图片~');
@@ -176,18 +185,18 @@ function createUpFileElement(obj, file) {
 	return oLi;
 }
 //callback  success
-function succfn(data) {
+function succfn(data, formdata) {
 	//alert('success');
 	var oLi = document.createElement('li');
 	var oSpan1 = document.createElement('span');
 	var oA = document.createElement('a');
 	oA.href = data.fileurl;
 	oA.target = '_blank';
-	oA.innerHTML = '文件名称';
+	oA.innerHTML = formdata.n;
 	var oSpan2 = document.createElement('span');
 	var oSpan3 = document.createElement('span');
 	oSpan1.appendChild(oA);
-	oSpan2.innerHTML = '**MB';
+	oSpan2.innerHTML = formdata.s;
 	oSpan3.innerHTML = data.mesg;
 	oLi.appendChild(oSpan1);
 	oLi.appendChild(oSpan2);
@@ -218,7 +227,6 @@ function removeEvent(obj, attr, fn) {
 }
 //文件尺寸换算
 var nKBStr = ['B', 'KB', 'MB', 'GB'];
-
 var n = 0;
 function size2nKB(size) {
 	if(size / 1024 > 1) {
@@ -238,6 +246,9 @@ function file2Formdata(keyStr, file) {
 	d.append(keyStr, file);
 	return d;
 }
+
+//按钮上传部分
+
 </script>
 </head>
 
