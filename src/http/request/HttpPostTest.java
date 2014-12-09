@@ -26,14 +26,24 @@ public class HttpPostTest {
             con.setRequestProperty("Cache-Control", "no-cache");
             con.setRequestProperty("Content-Type", "text/xml");
 
+    		TestBean tb = new TestBean();
+    		Gson g = new Gson();
+    		String json = g.toJson(tb);
+    		System.out.println(json);
+    		
+    		TestBean tbObj = g.fromJson(json, TestBean.class);
+    		System.out.println(tbObj.age);
+    		System.out.println(tbObj.name);
+    		System.out.println(tbObj.pw);
+    		
             OutputStreamWriter out = new OutputStreamWriter(con
-                    .getOutputStream()); 
+                    .getOutputStream(), "UTF-8"); 
             Map map = new HashMap();
-            map.put("key", "中文");
+            map.put("key", tbObj);
             String params = Map2Json(map);
             System.out.println("urlStr=" + urlStr);
             System.out.println("xmlInfo=" + params);
-            out.write(new String(params.getBytes("UTF-8")));
+            out.write(params);
             out.flush();
             out.close();
             BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));

@@ -40,7 +40,7 @@ public class ReceivePostAction extends Action{
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		BufferedReader bf = new BufferedReader(new InputStreamReader(request.getInputStream()));
+		BufferedReader bf = new BufferedReader(new InputStreamReader(request.getInputStream(), "UTF-8"));
 		StringBuffer sb = new StringBuffer();
 		System.out.println(request.getRequestURI());
 		System.out.println(request.getParameter("name"));
