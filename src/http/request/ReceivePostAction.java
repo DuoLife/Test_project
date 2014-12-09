@@ -42,7 +42,7 @@ public class ReceivePostAction extends Action{
 			throws Exception {
 		BufferedReader bf = new BufferedReader(new InputStreamReader(request.getInputStream(), "UTF-8"));
 		StringBuffer sb = new StringBuffer();
-		System.out.println(request.getRequestURI());
+		System.out.println("server : " + request.getRequestURI());
 		System.out.println(request.getParameter("name"));
 		String line = "";
 		for(line = bf.readLine(); line != null; line = bf.readLine()) {
@@ -51,19 +51,13 @@ public class ReceivePostAction extends Action{
 		Gson g = new Gson();
 		System.out.println("json : "+sb.toString());
 		Map m = g.fromJson(sb.toString(), Map.class);
-//		System.out.println("key : " + str2UTF8((String) m.get("key")));
 		System.out.println("key : " + m.get("key"));
+		Map mjson = (Map) m.get("key");
+		System.out.println(mjson.get("age"));
+		
+		TestBean tb = g.fromJson(mjson.toString(), TestBean.class);
+		System.out.println(tb.age);
 		return null;
 	}
 
-	public String str2UTF8(String str) {
-		try {
-			String sUtf8 = new String(str.getBytes("UTF-8"));
-			return sUtf8;
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
 }

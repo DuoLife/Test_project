@@ -23,4 +23,14 @@ public class TestBean {
 	String name = "名字";
 	String pw = "pw";
 	int age = 18;
+	public void setName(String name) {
+		this.name = name;
+	}
+	public void setPw(String pw) {
+		this.pw = pw;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	
 }
