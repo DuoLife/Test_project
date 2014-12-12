@@ -34,7 +34,7 @@ public class Weixin {
 			File outf = new File(outPath);
 			FileInputStream fis = new FileInputStream(inf);
 			FileOutputStream fos = new FileOutputStream(outf);
-			fos.write(b);
+//			fos.write(b);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
