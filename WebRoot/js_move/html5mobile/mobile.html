@@ -20,6 +20,8 @@
 			body {width: 100%;height: 100%;}
 		/*wrapper*/
 			.wrapper {width: 100%; height: 100%;}
+		/*music*/
+			#musicBtn {background: #FF0000; width: 60px; height: 60px; position: absolute; top: 10px; right: 10px; z-index: 2;}
 		/*list*/
 			#list {width: 100%; height: 100%; left: 0; top: 0;}
 			#list li {list-style: none; width: 100%; height: 100%; position: relative;}
@@ -47,12 +49,27 @@
 		</style>
 		<script>
 			window.onload = function () {
-				
+				var audio = document.getElementById('audio');
+				var musicBtn = document.getElementById('musicBtn');
+				var isPlay = true;
+				musicBtn.onclick = function () {
+					if(isPlay) {
+						audio.pause();
+						audio.innerHTML = "start";
+						isPlay = false;
+					}else {
+						audio.play();
+						audio.innerHTML = "stop";
+						isPlay = true;
+					}
+				};
 			};
 		</script>
 	</head>
 
 	<body style="width: 100%;">
+		<audio id="audio" src="1.mp3" autoplay="autoplay"></audio>
+		<div id="musicBtn">stop</div>
 		<div class="wrapper">
 			<ul id="list">
 				<li>
