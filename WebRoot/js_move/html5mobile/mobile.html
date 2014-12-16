@@ -30,9 +30,11 @@
 			#list li:nth-of-type(3) {background: #075f88; background-image: radial-gradient(#3B7E9D,#075f88);}
 			#list li:nth-of-type(4) {background: #178bc1;}
 			#list li:nth-of-type(5) {background: #97c96a;}
+		/*page*/
+			.page {width: 320px; height: 450px; margin: auto; background: red; position: absolute; left: 50%; top: 50%; transform: translate3d(-50%,-50%,0);}
 		/*animation*/
 			.move_block1 {background: #5966FF; width: 20px; height: 20px; position: absolute; left: 0%; top: 0%; opacity: 0; -webkit-animation: move_block1 3s infinite;}
-			.move_star {background: #5966FF; width: 20px; height: 20px; position: absolute; left: 30%; top: 60%; opacity: 0; -webkit-animation: move_star 2s ease-in infinite;}
+			.move_star {background: #5966FF; width: 20px; height: 20px; transform: scale(1);-webkit-transform:scale(1); position: absolute; left: 30%; top: 60%; opacity: 0; -webkit-animation: move_star 2s ease-in infinite;}
 			@-webkit-keyframes move_block1
 			{
 				0% {top: 0%; left: 0%; opacity: 0;}
@@ -42,9 +44,9 @@
 			}
 			@-webkit-keyframes move_star
 			{
-				0% {background:#3B7E9D; opacity: 0;}
-				50% {opacity: 1;}
-				100% {background:#97C96A; opacity: 0;}
+				0% {background:#3B7E9D; transform: scale(1); -webkit-transform:scale(1);}
+				50% {opacity: 1; transform: scale(2); -webkit-transform:scale(2);}
+				100% {background:#97C96A; transform: scale(1); -webkit-transform:scale(1);}
 			}
 		</style>
 		<script>
@@ -55,11 +57,11 @@
 				musicBtn.onclick = function () {
 					if(isPlay) {
 						audio.pause();
-						audio.innerHTML = "start";
+						musicBtn.innerHTML = "start";
 						isPlay = false;
 					}else {
 						audio.play();
-						audio.innerHTML = "stop";
+						musicBtn.innerHTML = "stop";
 						isPlay = true;
 					}
 				};
@@ -73,8 +75,10 @@
 		<div class="wrapper">
 			<ul id="list">
 				<li>
-					<div class="move_block1"></div>
-					<div class="move_star"></div>
+					<div class="page">
+						<div class="move_block1"></div>
+						<div class="move_star"></div>
+					</div>
 				</li>
 				<li>
 					<div class="move"></div>

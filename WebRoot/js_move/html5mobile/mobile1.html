@@ -1,0 +1,140 @@
+<html>
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>new_file</title>
+		<meta name="description" content="" />
+		<meta name="author" content="Orange" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		<style>
+			* {margin: 0; padding: 0;}
+			body {width: 100%;height: 100%;}
+		/*wrapper*/
+			.wrapper {width: 100%; height: 100%; transition: transform .5s; -webkit-transition: -webkit-transform .5s;}
+		/*music*/
+			#musicBtn {background: #FF0000; width: 60px; height: 60px; position: absolute; top: 10px; right: 10px; z-index: 2;}
+		/*list*/
+			#list {width: 100%; height: 100%; left: 0; top: 0;}
+			#list li {list-style: none; width: 100%; height: 100%;float: left; position: relative;}
+			#list li:nth-of-type(1) {background: #142441; background-image: radial-gradient(#2E4369,#142441);}
+			#list li:nth-of-type(2) {background: #1a315f; background-image: radial-gradient(#134b70,#1a315f);}
+			#list li:nth-of-type(3) {background: #075f88; background-image: radial-gradient(#3B7E9D,#075f88);}
+			#list li:nth-of-type(4) {background: #178bc1;}
+			#list li:nth-of-type(5) {background: #97c96a;}
+		/*page*/
+			.page {width: 320px; height: 450px; margin: auto; background: red; position: absolute; left: 50%; top: 50%; transform: translate3d(-50%,-50%,0); -webkit-transform: translate3d(-50%,-50%,0);}
+		/*animation*/
+			.move_block1 {background: #5966FF; width: 20px; height: 20px; position: absolute; left: 0%; top: 0%; opacity: 0; -webkit-animation: move_block1 3s infinite;}
+			.move_star {background: #5966FF; width: 20px; height: 20px; transform: scale(1); -webkit-transform:scale(1); position: absolute; left: 30%; top: 60%; opacity: 0; -webkit-animation: move_star 2s ease-in infinite;}
+			@-webkit-keyframes move_block1
+			{
+				0% {top: 0%; left: 0%; opacity: 0;}
+				40% {top: 50%; left: 50%; opacity: 1;}
+				65% {top: 50%; left: 50%; opacity: 1;}
+				100% {top: 90%; left: 90%; opacity: 0;}
+			}
+			@-webkit-keyframes move_star
+			{
+				0% {background:#3B7E9D; transform: scale(1); -webkit-transform:scale(1);}
+				50% {opacity: 1; transform: scale(2); -webkit-transform:scale(2);}
+				100% {background:#97C96A; transform: scale(1); -webkit-transform:scale(1);}
+			}
+		</style>
+	</head>
+
+	<body onresize="show()" style="width: 100%;">
+		<audio id="audio" src="1.mp3" autoplay="autoplay"></audio>
+		<div id="musicBtn">stop</div>
+		<div class="wrapper">
+			<ul id="list">
+				<li>
+					<div class="page">
+						<div class="move_block1"></div>
+						<div class="move_star"></div>
+					</div>
+				</li>
+				<li>
+					<div class="move_block1"></div>
+				</li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+        <script>
+			//禁止原生滑动
+			document.ontouchmove = function(ev){
+				 ev.preventDefault();
+			};
+			//init
+			var list = document.getElementById('list');
+			setWidth(list, 'li');
+			//滑动部分
+			addEvent(list, 'touchstart', pageSlip);
+			function pageSlip(ev) {
+				addEvent(this, 'touchmove', pageMove);
+			}
+			function pageMove(ev) {
+				with(list.style) {
+					tranfrom = 'translate(-100px,0)';
+				}
+			}
+			//音乐控制
+			var audio = document.getElementById('audio');
+			var musicBtn = document.getElementById('musicBtn');
+			var isPlay = true;
+			addEvent(musicBtn, "touchstart", function () {
+				addEvent(musicBtn, "touchend", audioControl);
+			});
+			function audioControl() {
+				if(isPlay) {
+					audio.pause();
+					musicBtn.innerHTML = "start";
+					isPlay = false;
+				}else {
+					audio.play();
+					musicBtn.innerHTML = "stop";
+					isPlay = true;
+				}
+				removeEvent(musicBtn, "touchend", audioControl);
+			}
+			//页面尺寸变化时重新设置ul以及li宽度
+			function show() {
+				setWidth(list, 'li');
+			}
+			//设置ul宽度，全部li横向排列，便于横向滑动
+			function setWidth(obj, attr) {
+				var aSubE = obj.getElementsByTagName(attr);
+				var num = aSubE.length;
+				console.log(num);
+				if(num == 0) {
+					return;
+				}
+				var w = window.screen.width;
+				for(var i=0; i<num; i++) {
+					aSubE[i].style.width = w + 'px';
+				}
+				var subWidth = parseInt(getStyle(aSubE[0], 'width'));
+				obj.style.width = subWidth * num + 'px';
+			}
+			function getStyle(obj, attr) {
+				return obj.currentStyle?obj.currentStyle()[attr]:getComputedStyle(obj)[attr];
+			}
+			function addEvent(obj, attr, fn) {
+				obj.attachEvent?obj.attachEvent('on' + attr, fn):obj.addEventListener(attr, fn, false);
+			}
+			function removeEvent(obj, attr, fn) {
+				obj.detachEvent?obj.detachEvent('on' + attr, fn):obj.removeEventListener(attr, fn, false);
+			}
+		</script>
+	</body>
+</html>
