@@ -19,11 +19,11 @@
 			* {margin: 0; padding: 0;}
 			body {width: 100%;height: 100%;}
 		/*wrapper*/
-			.wrapper {width: 100%; height: 100%; transition: transform .5s; -webkit-transition: -webkit-transform .5s;}
+			.wrapper {width: 100%; height: 100%; overflow: hidden;}
 		/*music*/
 			#musicBtn {background: #FF0000; width: 60px; height: 60px; position: absolute; top: 10px; right: 10px; z-index: 2;}
 		/*list*/
-			#list {width: 100%; height: 100%; left: 0; top: 0;}
+			#list {width: 100%; height: 100%; left: 0; top: 0; transition: transform; -webkit-transition: -webkit-transform;}
 			#list li {list-style: none; width: 100%; height: 100%;float: left; position: relative;}
 			#list li:nth-of-type(1) {background: #142441; background-image: radial-gradient(#2E4369,#142441);}
 			#list li:nth-of-type(2) {background: #1a315f; background-image: radial-gradient(#134b70,#1a315f);}
@@ -79,14 +79,59 @@
 			var list = document.getElementById('list');
 			setWidth(list, 'li');
 			//滑动部分
+			var downX;
+			var downy;
+			var iNow=0;
 			addEvent(list, 'touchstart', pageSlip);
 			function pageSlip(ev) {
+				//console.log(ev);
+				downX = ev.changedTouches[0].pageX;
+				downY = ev.changedTouches[0].pageY;
+				//console.log(downX);
 				addEvent(this, 'touchmove', pageMove);
+				addEvent(this, 'touchend', pageMoveEnd);
 			}
 			function pageMove(ev) {
-				with(list.style) {
-					tranfrom = 'translate(-100px,0)';
+				var touch = ev.changedTouches[0];
+				var nowX = touch.pageX;
+				//console.log(nowX-downX);
+				var w = document.body.offsetWidth;
+				var iSpeed = nowX - downX + (-iNow * w);
+				if(iNow == 0) {
+					nowX = touch.pageX;
+					iSpeed = (nowX - downX)/3 + (-iNow * w);
 				}
+				if(iNow == list.children.length-1) {
+					nowX = touch.pageX;
+					iSpeed = (nowX - downX)/3 + (-iNow * w);
+				}
+				with(this.style) {
+					transition = 'transform ease-out, -webkit-transform ease';
+					transform = 'translate('+ iSpeed +'px,0)';
+					WebkitTransform = 'translate('+ iSpeed +'px,0)';
+				}
+			}
+			function pageMoveEnd(ev) {
+				var nowX = ev.changedTouches[0].pageX;
+				//console.log(list.children.length);
+				console.log(nowX-downX + '... iNow: ' + iNow);
+				if(nowX-downX > 60) {
+					if(iNow-1 >= 0) {
+						iNow--;
+					}
+				}else if(nowX-downX < -60) {
+					if(iNow <= list.children.length-2) {
+						iNow++;
+					}
+				}
+				var w = document.body.offsetWidth;
+				with(this.style) {
+					transition = '1.5s transform ease-out, 1.5s -webkit-transform ease-out';
+					transform = 'translate('+ (-iNow * w) +'px,0)';
+					WebkitTransform = 'translate('+ (-iNow * w) +'px,0)';
+				}
+				removeEvent(this, 'touchmove', pageMove);
+				removeEvent(this, 'touchend', pageMoveEnd);
 			}
 			//音乐控制
 			var audio = document.getElementById('audio');
@@ -119,7 +164,7 @@
 				if(num == 0) {
 					return;
 				}
-				var w = window.screen.width;
+				var w = document.body.offsetWidth;
 				for(var i=0; i<num; i++) {
 					aSubE[i].style.width = w + 'px';
 				}
