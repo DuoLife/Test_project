@@ -1,0 +1,379 @@
+<html>
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>new_file</title>
+		<meta name="description" content="" />
+		<meta name="author" content="Orange" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		<style>
+			* {margin: 0; padding: 0;}
+			body {width: 100%;height: 100%;}
+		/*wrapper*/
+			.wrapper {width: 100%; height: 100%; position: absolute; left: 0; top: 0; overflow: hidden;}
+		/*music*/
+			#musicBtn {background: #FF0000; width: 60px; height: 60px; position: absolute; top: 10px; right: 10px; z-index: 2;}
+		/*list*/
+			#list {width: 100%; height: 100%;}
+			#list li {list-style: none; width: 100%; height: 100%;float: left;}
+			#list li:nth-of-type(1) {background: #EC5151;}
+			#list li:nth-of-type(2) {background: #E56C41;}
+			#list li:nth-of-type(3) {background: #E5B141;}
+			#list li:nth-of-type(4) {background: #E6CC41;}
+			#list li:nth-of-type(5) {background: #D4E541;}
+			#list li:nth-of-type(6) {background: #A9E541;}
+			#list li:nth-of-type(7) {background: #A8E540;}
+			#list li:nth-of-type(8) {background: #41E560;}
+			#list li:nth-of-type(9) {background: #41E68A;}
+			#list li:nth-of-type(10) {background: #42E5BA;}
+			#list li:nth-of-type(11) {background: #41E3E5;}
+			#list li:nth-of-type(12) {background: #41B5E6;}
+			#list li:nth-of-type(13) {background: #4169E5;}
+			#list li:nth-of-type(14) {background: #9941E5;}
+			#list li:nth-of-type(15) {background: #E542DB;}
+			#list li:nth-of-type(16) {background: #DB3535;}
+		/*page*/
+			.page {width: 320px; height: 400px; position: relative; left: 50%; top: 50%; transform: translate(-50%,-50%); -webkit-transform: translate(-50%,-50%);}
+		/*page animation*/
+			.listTouch {transition: 0s transform; -webkit-transition: 0s -webkit-transform;}
+			.listMove {transition: 0.5s transform; -webkit-transition: 0.5s -webkit-transform;}
+		/*animation*/
+			/*page base*/
+			/*page1*/
+			.page1 .ele_img {background:url(nian/1.png); width: 320px; height: 320px; background-size: 320px 320px; position: absolute; left: 100%; top: -20px; opacity: 0;}
+			.page1 .ele_font {background:url(nian/zi.png) no-repeat; width: 126px; height: 30px; background-size: 469px 339px; background-position: -140px -42px; transform: scale(1); -webkit-transform:scale(1); position: absolute; left: 0; bottom: 0; opacity: 0;}
+			.page1 .ele_font1 {background:url(nian/zi.png) no-repeat; width: 185px; height: 14px; background-size: 469px 339px; background-position: -5px -300px; position: absolute; left: 0; bottom: 50px; opacity: 0;}
+			/*page2*/
+			.page2 .ele_img {background:url(nian/2.png); width: 320px; height: 320px; background-size: 320px 320px; position: absolute; left: 0; top: -20px; opacity: 0;}
+			.page2 .ele_font {background:url(nian/zi.png) no-repeat; width: 93px; height: 27px; background-size: 469px 339px; background-position: -233px -168px; transform: scale(1); -webkit-transform:scale(1); position: absolute; left: 0; bottom: 0px; opacity: 0;}
+			.page2 .ele_font1 {background:url(nian/zi.png) no-repeat; width: 180px; height: 16px; background-size: 469px 339px; background-position: -168px -277px; position: absolute; left: 0; bottom: 50px; opacity: 0;}
+			.page2 .circle_bling {background: red;width: 16px; height:16px; border-radius: 10px; position: absolute; right: 66px; bottom: 211px; opacity: 0;}
+			/*page1 active*/
+			.active .page1 .ele_img {
+				animation-name: page1_img1;
+				-webkit-animation-name: page1_img1;
+				animation-duration: 3s;
+				-webkit-animation-duration: 3s;
+				animation-delay: .5s;
+				-webkit-animation-delay: .5s;
+				animation-timing-function: ease-in;
+				-webkit-animation-timing-function: ease-in;
+				-webkit-animation-fill-mode: forwards;
+				animation-fill-mode: forwards;
+				animation-iteration-count: 1;
+				-webkit-animation-iteration-count: 1;
+			}
+			.active .page1 .ele_font {
+				animation-name: page1_font;
+				-webkit-animation-name: page1_font;
+				animation-duration: 1s;
+				-webkit-animation-duration: 1s;
+				animation-delay: 3.5s;
+				-webkit-animation-delay: 3.5s;
+				animation-timing-function: ease-in;
+				-webkit-animation-timing-function: ease-in;
+				-webkit-animation-fill-mode: forwards;
+				animation-fill-mode: forwards;
+				animation-iteration-count: 1;
+				-webkit-animation-iteration-count: 1;
+			}
+			.active .page1 .ele_font1 {
+				animation-name: page1_font1;
+				-webkit-animation-name: page1_font1;
+				animation-duration: 3s;
+				-webkit-animation-duration: 3s;
+				animation-delay: 0.5s;
+				-webkit-animation-delay: 0.5s;
+				animation-timing-function: ease-in;
+				-webkit-animation-timing-function: ease-in;
+				-webkit-animation-fill-mode: forwards;
+				animation-fill-mode: forwards;
+				animation-iteration-count: 1;
+				-webkit-animation-iteration-count: 1;
+			}
+			@-webkit-keyframes page1_img1
+			{
+ 				0% {-webkit-transform: translate(0, 0) rotate(20deg); opacity: 0;}
+				33% {-webkit-transform: translate(-25%, 0) rotate(-20deg); opacity: 0.5;}
+				66% {-webkit-transform: translate(-100%, 0) rotate(20deg); opacity: 1;}
+				100% {-webkit-transform: translate(-100%, 0) rotate(0deg); opacity: 1;}
+			}
+			@-webkit-keyframes page1_font
+			{
+				0% {opacity: 0;transform: scale(1); -webkit-transform:scale(1);}
+				50% {opacity: 1; transform: scale(2); -webkit-transform:scale(2);}
+				100% {opacity: 1; transform: scale(1); -webkit-transform:scale(1);}
+			}
+			@-webkit-keyframes page1_font1
+			{
+				0% {transform: translate(-200%, 0px); -webkit-transform:scale(0.1); -webkit-transform:translate(-200%, 0px); opacity: 0;}
+				100% {transform: translate(0px, 0px); -webkit-transform:scale(1); -webkit-transform:translate(0px, 0px); opacity: 1;}
+			}
+			/*page2 active*/
+			.active .page2 .ele_img {
+				animation-name: page2_img1;
+				-webkit-animation-name: page2_img1;
+				animation-duration: 3s;
+				-webkit-animation-duration: 3s;
+				animation-delay: .5s;
+				-webkit-animation-delay: .5s;
+				animation-timing-function: ease;
+				-webkit-animation-timing-function: ease;
+				-webkit-animation-fill-mode: forwards;
+				animation-fill-mode: forwards;
+				animation-iteration-count: 1;
+				-webkit-animation-iteration-count: 1;
+			}
+			.active .page2 .ele_font {
+				animation-name: page2_font;
+				-webkit-animation-name: page2_font;
+				animation-duration: 1s;
+				-webkit-animation-duration: 1s;
+				animation-delay: 3.5s;
+				-webkit-animation-delay: 3.5s;
+				animation-timing-function: ease-in;
+				-webkit-animation-timing-function: ease-in;
+				-webkit-animation-fill-mode: forwards;
+				animation-fill-mode: forwards;
+				animation-iteration-count: 1;
+				-webkit-animation-iteration-count: 1;
+			}
+			.active .page2 .ele_font1 {
+				animation-name: page2_font1;
+				-webkit-animation-name: page2_font1;
+				animation-duration: 3s;
+				-webkit-animation-duration: 3s;
+				animation-delay: 0.5s;
+				-webkit-animation-delay: 0.5s;
+				animation-timing-function: ease-in;
+				-webkit-animation-timing-function: ease-in;
+				-webkit-animation-fill-mode: forwards;
+				animation-fill-mode: forwards;
+				animation-iteration-count: 1;
+				-webkit-animation-iteration-count: 1;
+			}
+			.active .page2 .circle_bling {
+				animation-name: circle_bling;
+				-webkit-animation-name: circle_bling;
+				animation-duration: 2s;
+				-webkit-animation-duration: 2s;
+				animation-delay: 4.5s;
+				-webkit-animation-delay: 4.5s;
+				animation-timing-function: ease-in;
+				-webkit-animation-timing-function: ease-in;
+				-webkit-animation-fill-mode: forwards;
+				animation-fill-mode: forwards;
+				animation-iteration-count: infinite;
+				-webkit-animation-iteration-count: infinite;
+			}
+			@-webkit-keyframes page2_img1
+			{
+ 				0% {-webkit-transform: translate(-25%, -50px) rotate(-2400deg) scale(0.1); opacity: 0;}
+				100% {-webkit-transform: translate(0px, -20px) rotate(0deg) scale(1); opacity: 1;}
+			}
+			@-webkit-keyframes page2_font
+			{
+				0% {opacity: 0;transform: scale(1); -webkit-transform:scale(1);}
+				50% {opacity: 1; transform: scale(2); -webkit-transform:scale(2);}
+				100% {opacity: 1; transform: scale(1); -webkit-transform:scale(1);}
+			}
+			@-webkit-keyframes page2_font1
+			{
+				0% {transform: translate(-200%, 0px); -webkit-transform:scale(0.1); -webkit-transform:translate(-200%, 0px); opacity: 0;}
+				100% {transform: translate(0px, 0px); -webkit-transform:scale(1); -webkit-transform:translate(0px, 0px); opacity: 1;}
+			}
+			@-webkit-keyframes circle_bling
+			{
+				0% {background: #FFADB2; opacity: 0.4;transform: scale(0.8); -webkit-transform:scale(0.8);}
+				50% {background: red; opacity: 1; transform: scale(1.2); -webkit-transform:scale(1.2);}
+				100% {background: #FFFDB2; opacity: 0.4; transform: scale(0.8); -webkit-transform:scale(0.8);}
+			}
+		</style>
+	</head>
+
+	<body onresize="show()" style="width: 100%; height: 100%;">
+		<audio id="audio" src="1.mp3" autoplay="autoplay"></audio>
+		<div id="musicBtn">stop</div>
+		<div class="wrapper">
+			<ul id="list">
+				<li class="active">
+					<div class="page page1">
+						<div class="ele_img"></div>
+						<div class="ele_font"></div>
+						<div class="ele_font1"></div>
+					</div>
+				</li>
+				<li>
+					<div class="page page2">
+						<div class="ele_img"></div>
+						<div class="ele_font"></div>
+						<div class="ele_font1"></div>
+						<div class="circle_bling"></div>
+					</div>
+				</li>
+				<li>
+					<div class="page page3">
+						<div class="ele_img"></div>
+						<div class="ele_font"></div>
+						<div class="ele_font1"></div>
+					</div>
+                </li>
+				<li>
+					<div class="page page4">
+						<div class="ele_img"></div>
+						<div class="ele_font"></div>
+						<div class="ele_font1"></div>
+					</div>
+                </li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+        <script>
+			//禁止原生滑动
+			document.ontouchmove = function(ev){
+				 ev.preventDefault();
+			};
+			alert(' w : ' + document.body.offsetWidth + ' w : ' + document.body.offsetHeight);
+			//init
+			var list = document.getElementById('list');
+			setWidth(list, 'li');
+			//滑动部分
+			var downX;
+			var downy;
+			var iNow=0;
+			addEvent(list, 'touchstart', pageSlip);
+			function pageSlip(ev) {
+				//console.log(ev);
+				downX = ev.changedTouches[0].pageX;
+				downY = ev.changedTouches[0].pageY;
+				//console.log(downX);
+				addEvent(this, 'touchmove', pageMove);
+				addEvent(this, 'touchend', pageMoveEnd);
+			}
+			function pageMove(ev) {
+				var touch = ev.changedTouches[0];
+				var nowX = touch.pageX;
+				//console.log(nowX-downX);
+				var w = document.body.offsetWidth;
+				var iSpeed = nowX - downX + (-iNow * w);
+				if(iNow == 0) {
+					nowX = touch.pageX;
+					iSpeed = (nowX - downX)/3 + (-iNow * w);
+				}
+				if(iNow == list.children.length-1) {
+					nowX = touch.pageX;
+					iSpeed = (nowX - downX)/3 + (-iNow * w);
+				}
+				this.classList.remove('listMove');
+				this.classList.add('listTouch');
+				with(this.style) {
+					transform = 'translate('+ iSpeed +'px,0)';
+					WebkitTransform = 'translate('+ iSpeed +'px,0)';
+				}
+			}
+			function pageMoveEnd(ev) {
+				var nowX = ev.changedTouches[0].pageX;
+				//console.log(list.children.length);
+				console.log(nowX-downX + '... iNow: ' + iNow);
+				//移除active
+				removeActive(list, iNow);
+				if(nowX-downX > 60) {
+					if(iNow-1 >= 0) {
+						iNow--;
+					}
+				}else if(nowX-downX < -60) {
+					if(iNow <= list.children.length-2) {
+						iNow++;
+					}
+				}
+				//添加active
+				addActive(list, iNow);
+				var w = document.body.offsetWidth;
+				this.classList.remove('listTouch');
+				this.classList.add('listMove');
+				with(this.style) {
+					transform = 'translate('+ (-iNow * w) +'px,0)';
+					WebkitTransform = 'translate('+ (-iNow * w) +'px,0)';
+				}
+				removeEvent(this, 'touchmove', pageMove);
+				removeEvent(this, 'touchend', pageMoveEnd);
+			}
+			//显示动画 active
+			function addActive(obj, n) {
+				var oEle = obj.children[n];
+				oEle.classList.add('active');
+			}
+			function removeActive(obj, n) {
+				var oEle = obj.children[n];
+				oEle.classList.remove('active');
+			}
+			//音乐控制
+			var audio = document.getElementById('audio');
+			var musicBtn = document.getElementById('musicBtn');
+			var isPlay = true;
+			addEvent(musicBtn, "touchstart", function () {
+				addEvent(musicBtn, "touchend", audioControl);
+			});
+			function audioControl() {
+				if(isPlay) {
+					audio.pause();
+					musicBtn.innerHTML = "start";
+					isPlay = false;
+				}else {
+					audio.play();
+					musicBtn.innerHTML = "stop";
+					isPlay = true;
+				}
+				removeEvent(musicBtn, "touchend", audioControl);
+			}
+			//页面尺寸变化时重新设置ul以及li宽度
+			function show() {
+				setWidth(list, 'li');
+			}
+			//设置ul宽度，全部li横向排列，便于横向滑动
+			function setWidth(obj, attr) {
+				var aSubE = obj.getElementsByTagName(attr);
+				var num = aSubE.length;
+				console.log(num);
+				if(num == 0) {
+					return;
+				}
+				var w = document.body.offsetWidth;
+				for(var i=0; i<num; i++) {
+					aSubE[i].style.width = w + 'px';
+				}
+				var subWidth = parseInt(getStyle(aSubE[0], 'width'));
+				obj.style.width = subWidth * num + 'px';
+			}
+			function getStyle(obj, attr) {
+				return obj.currentStyle?obj.currentStyle()[attr]:getComputedStyle(obj)[attr];
+			}
+			function addEvent(obj, attr, fn) {
+				obj.attachEvent?obj.attachEvent('on' + attr, fn):obj.addEventListener(attr, fn, false);
+			}
+			function removeEvent(obj, attr, fn) {
+				obj.detachEvent?obj.detachEvent('on' + attr, fn):obj.removeEventListener(attr, fn, false);
+			}
+		</script>
+	</body>
+</html>

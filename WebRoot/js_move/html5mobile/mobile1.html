@@ -19,11 +19,11 @@
 			* {margin: 0; padding: 0;}
 			body {width: 100%;height: 100%;}
 		/*wrapper*/
-			.wrapper {width: 100%; height: 100%; overflow: hidden;}
+			.wrapper {width: 100%; height: 100%; position: absolute; left: 0; top: 0; overflow: hidden;}
 		/*music*/
 			#musicBtn {background: #FF0000; width: 60px; height: 60px; position: absolute; top: 10px; right: 10px; z-index: 2;}
 		/*list*/
-			#list {width: 100%; height: 100%; left: 0; top: 0; transition: transform; -webkit-transition: -webkit-transform;}
+			#list {width: 100%; height: 100%;}
 			#list li {list-style: none; width: 100%; height: 100%;float: left; position: relative;}
 			#list li:nth-of-type(1) {background: #142441; background-image: radial-gradient(#2E4369,#142441);}
 			#list li:nth-of-type(2) {background: #1a315f; background-image: radial-gradient(#134b70,#1a315f);}
@@ -31,10 +31,14 @@
 			#list li:nth-of-type(4) {background: #178bc1;}
 			#list li:nth-of-type(5) {background: #97c96a;}
 		/*page*/
-			.page {width: 320px; height: 450px; margin: auto; background: red; position: absolute; left: 50%; top: 50%; transform: translate3d(-50%,-50%,0); -webkit-transform: translate3d(-50%,-50%,0);}
+			.page {width: 320px; height: 400px; margin: auto; background: red; position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); -webkit-transform: translate(-50%,-50%);}
+		/*page animation*/
+			.listTouch {transition: 0s transform; -webkit-transition: 0s -webkit-transform;}
+			.listMove {transition: 0.5s transform; -webkit-transition: 0.5s -webkit-transform;}
 		/*animation*/
 			.move_block1 {background: #5966FF; width: 20px; height: 20px; position: absolute; left: 0%; top: 0%; opacity: 0; -webkit-animation: move_block1 3s infinite;}
 			.move_star {background: #5966FF; width: 20px; height: 20px; transform: scale(1); -webkit-transform:scale(1); position: absolute; left: 30%; top: 60%; opacity: 0; -webkit-animation: move_star 2s ease-in infinite;}
+			.move_translate {background: #5966FF; width: 20px; height: 20px; transform: scale(1); -webkit-transform:scale(1); position: absolute; left: 0; top: 0; opacity: 0; -webkit-animation: move_translate 2s ease-in infinite;}
 			@-webkit-keyframes move_block1
 			{
 				0% {top: 0%; left: 0%; opacity: 0;}
@@ -48,10 +52,17 @@
 				50% {opacity: 1; transform: scale(2); -webkit-transform:scale(2);}
 				100% {background:#97C96A; transform: scale(1); -webkit-transform:scale(1);}
 			}
+			@-webkit-keyframes move_translate
+			{
+				0% {transform: translate(0px, 0px); -webkit-transform:translate(0px, 0px); opacity: 0;}
+				40% {transform: translate(10px, 50px); -webkit-transform:translate(10px, 50px); opacity: 1;}
+				65% {transform: translate(50px, 100px); -webkit-transform:translate(50px, 100px); opacity: 1;}
+				100% {transform: translate(80px, 20px); -webkit-transform:translate(80px, 20px); opacity: 0;}
+			}
 		</style>
 	</head>
 
-	<body onresize="show()" style="width: 100%;">
+	<body onresize="show()" style="width: 100%; height: 100%;">
 		<audio id="audio" src="1.mp3" autoplay="autoplay"></audio>
 		<div id="musicBtn">stop</div>
 		<div class="wrapper">
@@ -60,6 +71,7 @@
 					<div class="page">
 						<div class="move_block1"></div>
 						<div class="move_star"></div>
+						<div class="move_translate"></div>
 					</div>
 				</li>
 				<li>
@@ -75,6 +87,7 @@
 			document.ontouchmove = function(ev){
 				 ev.preventDefault();
 			};
+			alert(' w : ' + document.body.offsetWidth + ' w : ' + document.body.offsetHeight);
 			//init
 			var list = document.getElementById('list');
 			setWidth(list, 'li');
@@ -105,8 +118,9 @@
 					nowX = touch.pageX;
 					iSpeed = (nowX - downX)/3 + (-iNow * w);
 				}
+				this.classList.remove('listMove');
+				this.classList.add('listTouch');
 				with(this.style) {
-					transition = 'transform ease-out, -webkit-transform ease';
 					transform = 'translate('+ iSpeed +'px,0)';
 					WebkitTransform = 'translate('+ iSpeed +'px,0)';
 				}
@@ -125,8 +139,9 @@
 					}
 				}
 				var w = document.body.offsetWidth;
+				this.classList.remove('listTouch');
+				this.classList.add('listMove');
 				with(this.style) {
-					transition = '1.5s transform ease-out, 1.5s -webkit-transform ease-out';
 					transform = 'translate('+ (-iNow * w) +'px,0)';
 					WebkitTransform = 'translate('+ (-iNow * w) +'px,0)';
 				}
