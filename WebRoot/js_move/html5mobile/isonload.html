@@ -1,33 +1,45 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
-
-		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
-		Remove this if you use the .htaccess -->
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-		<title>new_file</title>
-		<meta name="description" content="" />
-		<meta name="author" content="Orange" />
-
+		<title>冷兔2014年度流行语盘点</title>
+		<meta name="description" content="冷兔年度流行语盘点,冷兔,年度盘点,流行语,年度流行语,流行,2014盘点" />
+		<meta name="author" content="xuming" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-
-		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
-		<link rel="shortcut icon" href="/favicon.ico" />
-		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		<link rel="icon" href="/favicon.ico" />
 		<style>
 			* {margin: 0; padding: 0;}
 			body {width: 100%;height: 100%;}
 		/*wrapper*/
 			.wrapper {width: 100%; height: 100%; position: absolute; left: 0; top: 0; overflow: hidden;}
 		/*music*/
-			#musicBtn {background: #FF0000; width: 60px; height: 60px; position: absolute; top: 10px; right: 10px; z-index: 2;}
+			#musicBtn {background: url(nian/button.png); width: 28px; height: 28px; background-size: 85px 30px; background-position: 0 0; position: absolute; top: 10px; right: 10px; z-index: 2;}
+		/*showBeginBtn*/
+		.lengtoo_begin {display: none;}
+		.showBeginBtn {display: block; text-decoration: none; border: #CCC 1px solid; width: 100px; height: 40px; line-height: 40px; text-align: center; border-radius: 6px; position: absolute; left: 50%; top:38%; transform: translate(-50%, 0); -webkit-transform: translate(-50%, 0);}
 		/*progress*/
 			#progress_page {position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: #D6F0FF; z-index: 99;}
 			.progress_div {width: 320px; height: 400px; position: relative; left: 50%; top: 50%; transform: translate(-50%,-50%); -webkit-transform: translate(-50%,-50%); z-index: 99;}
 			.loading_img {width: 100px; height: 100px; background: url(nian/loadingimg.png); background-size: 600px 100px; margin: 0 auto;}
 			.progress_box {border: #CCC 1px solid; width: 100%; height: 20px; border-radius: 6px; position: absolute; left:0; top:40%;}
 			.progress_bar {border: 1px;background: #3DBDF9; width: 100%; height: 20px; border-radius: 6px; display: block; position: absolute; left:0; top:0;}
+			.page_hidden {
+				-webkit-animation-timing-function: ease;
+				animation-timing-function: ease;
+				-webkit-animation-duration: 1.2s;
+				animation-duration: 1.2s;
+				-webkit-animation-name: page_hidden;
+				animation-name: page_hidden;
+				-webkit-animation-delay: 0.6s;
+				animation-delay: 0.6s;
+				animation-iteration-count: 1;
+				-webkit-animation-iteration-count: 1;
+				animation-fill-mode: forwards;
+				-webkit-animation-fill-mode: forwards;
+				animation-direction: normal;
+				-webkit-animation-direction: normal
+			}
 			.progress_box .active {
 				-webkit-animation-timing-function: ease;
 				animation-timing-function: ease;
@@ -65,6 +77,12 @@
 			{
 				0% {background: #3DBDF9;}
 				100% {background: #066FFE;}
+			}
+			@-webkit-keyframes page_hidden 
+			{
+ 				0% {-webkit-transform: translate(0, 0) scale(1); opacity: 1;}
+				90% {-webkit-transform: translate(0, -100%) scale(0.6); opacity: 0.2;}
+				100% {-webkit-transform: translate(0, -100%) scale(0.4); opacity: 0; display: none;}
 			}
 		/*list*/
 			#list {width: 100%; height: 100%;}
@@ -118,8 +136,8 @@
 				-webkit-animation-name: page1_img1;
 				animation-duration: 3s;
 				-webkit-animation-duration: 3s;
-				animation-delay: .5s;
-				-webkit-animation-delay: .5s;
+				animation-delay: 1s;
+				-webkit-animation-delay: 1s;
 				animation-timing-function: ease-in;
 				-webkit-animation-timing-function: ease-in;
 				-webkit-animation-fill-mode: forwards;
@@ -132,8 +150,8 @@
 				-webkit-animation-name: page1_font;
 				animation-duration: 3s;
 				-webkit-animation-duration: 3s;
-				animation-delay: 0.5s;
-				-webkit-animation-delay: 0.5s;
+				animation-delay: 1s;
+				-webkit-animation-delay: 1s;
 				animation-timing-function: ease-in;
 				-webkit-animation-timing-function: ease-in;
 				-webkit-animation-fill-mode: forwards;
@@ -146,8 +164,8 @@
 				-webkit-animation-name: page1_font1;
 				animation-duration: 1s;
 				-webkit-animation-duration: 1s;
-				animation-delay: 3.5s;
-				-webkit-animation-delay: 3.5s;
+				animation-delay: 2.5s;
+				-webkit-animation-delay: 2.5s;
 				animation-timing-function: ease-in;
 				-webkit-animation-timing-function: ease-in;
 				-webkit-animation-fill-mode: forwards;
@@ -1180,12 +1198,13 @@
                 <div class="progress_box">
                 	<div id="progress_bar" class="progress_bar active"></div>
                 </div>
+                <a href="#" id="lengtoo_begin" class="lengtoo_begin">gogogo</a>
 			</div>
         </div>
-		<div id="musicBtn">stop</div>
+		<div id="musicBtn"></div>
 		<div class="wrapper">
 			<ul id="list">
-				<li class="active">
+				<li>
 					<div class="page page1">
 						<div class="ele_img"></div>
 						<div class="ele_font"></div>
@@ -1346,7 +1365,7 @@
 			function pageMoveEnd(ev) {
 				var nowX = ev.changedTouches[0].pageX;
 				//console.log(list.children.length);
-				console.log(nowX-downX + '... iNow: ' + iNow);
+				//console.log(nowX-downX + '... iNow: ' + iNow);
 				//移除active
 				removeActive(list, iNow);
 				if(nowX-downX > 60) {
@@ -1389,11 +1408,11 @@
 			function audioControl() {
 				if(isPlay) {
 					audio.pause();
-					musicBtn.innerHTML = "start";
+					musicBtn.style.backgroundPosition = '-30px 0';
 					isPlay = false;
 				}else {
 					audio.play();
-					musicBtn.innerHTML = "stop";
+					musicBtn.style.backgroundPosition = '0 0';
 					isPlay = true;
 				}
 				removeEvent(musicBtn, "touchend", audioControl);
@@ -1418,17 +1437,49 @@
 				obj.style.width = subWidth * num + 'px';
 			}
 			//loading
+			var urlPath = 'http://192.168.199.146:2103/Test_project/js_move/html5mobile/';
+			loading_ani();
 			function loading_ani() {
 				//music onload
+				console.log('loading_ani');
+				var onloadedNum = 0;
+				var aImg = ['nian/1.png','nian/2.png','nian/3.png','nian/4.png','nian/5.png','nian/6.png','nian/7.png','nian/8.png','nian/9.png','nian/10.png','nian/11.png','nian/12.png','nian/13.png','nian/14.png','nian/15.png','nian/16.png']
+				var eleNum = aImg.length;
 				var oAudio = new Audio();
 				oAudio.src = audio.src;
 				oAudio.load();
 				addEvent(oAudio, 'canplaythrough', function () {
-					alert('ok~go~');
-					//进度加载加1
+					audio.play();
 				});
 				//img onload
+				for(var i=0; i<aImg.length; i++) {
+					var oSrc = urlPath + aImg[i];
+					console.log(oSrc);
+					var img = new Image();
+					img.src = oSrc;
+					addEvent(img, 'load', function () {
+						onloadedNum++;
+						console.log(onloadedNum);
+						if(onloadedNum == eleNum) {
+							showBeginBtn();
+						}
+					});
+				}
 			}
+			var oBeginBtn = document.getElementById('lengtoo_begin');
+			addEvent(oBeginBtn, 'touchend',  hiddenProgressPage);
+			//showBeginBtn();
+			function showBeginBtn() {
+				oBeginBtn.classList.add('showBeginBtn');
+			}
+			//progress hidden
+			function hiddenProgressPage() {
+				var progressPage = document.getElementById('progress_page');
+				progressPage.classList.add('page_hidden');
+				
+				addActive(list, iNow);
+			}
+			//
 			function getStyle(obj, attr) {
 				return obj.currentStyle?obj.currentStyle()[attr]:getComputedStyle(obj)[attr];
 			}
