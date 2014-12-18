@@ -16,14 +16,36 @@
 		/*music*/
 			#musicBtn {background: url(nian/button.png); width: 28px; height: 28px; background-size: 85px 30px; background-position: 0 0; position: absolute; top: 10px; right: 10px; z-index: 2;}
 		/*showBeginBtn*/
-		.lengtoo_begin {display: none;}
-		.showBeginBtn {display: block; text-decoration: none; border: #CCC 1px solid; width: 100px; height: 40px; line-height: 40px; text-align: center; border-radius: 6px; position: absolute; left: 50%; top:38%; transform: translate(-50%, 0); -webkit-transform: translate(-50%, 0);}
+			.lengtoo_begin {display: none;}
+			.showBtn {text-decoration: none; border: #CCC 1px solid; width: 100px; height: 40px; line-height: 40px; text-align: center; border-radius: 6px; position: absolute; left: 50%; bottom:100px; transform: translate(-50%, 0); -webkit-transform: translate(-50%, 0); opacity: 0;}
+			.showBeginBtn {
+					-webkit-animation-timing-function: ease;
+					animation-timing-function: ease;
+					-webkit-animation-duration: 1.2s;
+					animation-duration: 1.2s;
+					-webkit-animation-name: showBeginBtn;
+					animation-name: showBeginBtn;
+					-webkit-animation-delay: 2s;
+					animation-delay: 2s;
+					animation-iteration-count: 1;
+					-webkit-animation-iteration-count: 1;
+					animation-fill-mode: forwards;
+					-webkit-animation-fill-mode: forwards;
+					animation-direction: normal;
+					-webkit-animation-direction: normal
+			}
+			@-webkit-keyframes showBeginBtn 
+			{
+				0% {-webkit-transform: translate(-50%, -40%) scale(0.4); opacity: 0; display: block;}
+				50% {-webkit-transform: translate(-50%, 5%) scale(0.8); opacity: 0.6; display: block;}
+				100% {-webkit-transform: translate(-50%, 0) scale(1); opacity: 1; display: block;}
+			}
 		/*progress*/
 			#progress_page {position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: #D6F0FF; z-index: 99;}
-			.progress_div {width: 320px; height: 400px; position: relative; left: 50%; top: 50%; transform: translate(-50%,-50%); -webkit-transform: translate(-50%,-50%); z-index: 99;}
-			.loading_img {width: 100px; height: 100px; background: url(nian/loadingimg.png); background-size: 600px 100px; margin: 0 auto;}
-			.progress_box {border: #CCC 1px solid; width: 100%; height: 20px; border-radius: 6px; position: absolute; left:0; top:40%;}
-			.progress_bar {border: 1px;background: #3DBDF9; width: 100%; height: 20px; border-radius: 6px; display: block; position: absolute; left:0; top:0;}
+			.progress_div {width: 320px; height: 400px; position: relative; left: 50%; top: 50%; transform: translate(-50%, -50%); -webkit-transform: translate(-50%,-50%); z-index: 99;}
+			.loading_img {width: 100px; height: 100px; background: url(nian/loadingimg.png); background-size: 600px 100px; position: absolute; left: 50%; bottom: 160px; transform: translate(-50%,0); -webkit-transform: translate(-50%,0);}
+			.progress_box {border: #CCC 1px solid; width: 90%; height: 10px; border-radius: 6px; position: absolute; left:5%; bottom: 120px;}
+			.progress_bar {border: 1px;background: #3DBDF9; width: 0; height: 10px; border-radius: 6px; display: block; position: absolute; left:0; top:0;}
 			.page_hidden {
 				-webkit-animation-timing-function: ease;
 				animation-timing-function: ease;
@@ -40,11 +62,27 @@
 				animation-direction: normal;
 				-webkit-animation-direction: normal
 			}
+			.progressBox_hidden {
+				-webkit-animation-timing-function: ease;
+				animation-timing-function: ease;
+				-webkit-animation-duration: 1s;
+				animation-duration: 1s;
+				-webkit-animation-name: progressBox_hidden;
+				animation-name: progressBox_hidden;
+				-webkit-animation-delay: 1s;
+				animation-delay: 1s;
+				animation-iteration-count: 1;
+				-webkit-animation-iteration-count: 1;
+				animation-fill-mode: forwards;
+				-webkit-animation-fill-mode: forwards;
+				animation-direction: normal;
+				-webkit-animation-direction: normal
+			}
 			.progress_box .active {
 				-webkit-animation-timing-function: ease;
 				animation-timing-function: ease;
-				-webkit-animation-duration: 1.2s;
-				animation-duration: 1.2s;
+				-webkit-animation-duration: 0.8s;
+				animation-duration: 0.8s;
 				-webkit-animation-name: progress_bar;
 				animation-name: progress_bar;
 				-webkit-animation-delay: 0.6s;
@@ -83,6 +121,12 @@
  				0% {-webkit-transform: translate(0, 0) scale(1); opacity: 1;}
 				90% {-webkit-transform: translate(0, -100%) scale(0.6); opacity: 0.2;}
 				100% {-webkit-transform: translate(0, -100%) scale(0.4); opacity: 0; display: none;}
+			}
+			@-webkit-keyframes progressBox_hidden 
+			{
+ 				0% {-webkit-transform: scale(1); opacity: 1;}
+				10% {-webkit-transform: scale(1.2); opacity: 1;}
+				100% {-webkit-transform: scale(0.4); opacity: 0; display: none;}
 			}
 		/*list*/
 			#list {width: 100%; height: 100%;}
@@ -1190,15 +1234,15 @@
 		</style>
 	</head>
 
-	<body onresize="show()" style="width: 100%; height: 100%;">
-		<audio id="audio" src="1.mp3" autoplay="autoplay"></audio>
+	<body onresize="show()" style="width: 100%; height: 100%; overflow: hidden;">
+		<audio id="audio" src="1.mp3" loop="loop"></audio>
         <div id="progress_page">
         	<div class="progress_div">
                 <div class="loading_img"></div>
-                <div class="progress_box">
+                <div id="progress_box" class="progress_box">
                 	<div id="progress_bar" class="progress_bar active"></div>
                 </div>
-                <a href="#" id="lengtoo_begin" class="lengtoo_begin">gogogo</a>
+                <a href="#" id="lengtoo_begin" class="lengtoo_begin showBtn">冷兔盛典</a>
 			</div>
         </div>
 		<div id="musicBtn"></div>
@@ -1324,7 +1368,7 @@
 			document.ontouchmove = function(ev){
 				 ev.preventDefault();
 			};
-			alert(' w : ' + document.body.offsetWidth + ' w : ' + document.body.offsetHeight);
+			//alert(' w : ' + document.body.offsetWidth + ' w : ' + document.body.offsetHeight);
 			//init
 			var list = document.getElementById('list');
 			setWidth(list, 'li');
@@ -1401,7 +1445,7 @@
 			//音乐控制
 			var audio = document.getElementById('audio');
 			var musicBtn = document.getElementById('musicBtn');
-			var isPlay = true;
+			var isPlay = false;
 			addEvent(musicBtn, "touchstart", function () {
 				addEvent(musicBtn, "touchend", audioControl);
 			});
@@ -1425,7 +1469,7 @@
 			function setWidth(obj, attr) {
 				var aSubE = obj.getElementsByTagName(attr);
 				var num = aSubE.length;
-				console.log(num);
+				//console.log(num);
 				if(num == 0) {
 					return;
 				}
@@ -1439,45 +1483,73 @@
 			//loading
 			var urlPath = 'http://192.168.199.146:2103/Test_project/js_move/html5mobile/';
 			loading_ani();
+			//loading timeout 
+			requestTimeout();
+			
+			var isOnload = false;
 			function loading_ani() {
 				//music onload
-				console.log('loading_ani');
-				var onloadedNum = 0;
+				//console.log('loading_ani');
 				var aImg = ['nian/1.png','nian/2.png','nian/3.png','nian/4.png','nian/5.png','nian/6.png','nian/7.png','nian/8.png','nian/9.png','nian/10.png','nian/11.png','nian/12.png','nian/13.png','nian/14.png','nian/15.png','nian/16.png']
 				var eleNum = aImg.length;
-				var oAudio = new Audio();
+				var onloadedNum = 0;
+				/*var oAudio = new Audio();
 				oAudio.src = audio.src;
 				oAudio.load();
 				addEvent(oAudio, 'canplaythrough', function () {
 					audio.play();
-				});
+				});*/
 				//img onload
 				for(var i=0; i<aImg.length; i++) {
 					var oSrc = urlPath + aImg[i];
-					console.log(oSrc);
+					//console.log(oSrc);
 					var img = new Image();
 					img.src = oSrc;
 					addEvent(img, 'load', function () {
 						onloadedNum++;
-						console.log(onloadedNum);
+						//console.log(onloadedNum);
+						var precent = Math.ceil((onloadedNum / eleNum) * 100);
+						updateProgressBar(precent);
 						if(onloadedNum == eleNum) {
+							isOnload = true;
 							showBeginBtn();
 						}
 					});
 				}
 			}
 			var oBeginBtn = document.getElementById('lengtoo_begin');
+			var progressBar = document.getElementById('progress_bar');
+			var progressBox = document.getElementById('progress_box');
 			addEvent(oBeginBtn, 'touchend',  hiddenProgressPage);
 			//showBeginBtn();
 			function showBeginBtn() {
+				progressBox.classList.add('progressBox_hidden');
+				oBeginBtn.classList.remove('lengtoo_begin');
 				oBeginBtn.classList.add('showBeginBtn');
 			}
 			//progress hidden
 			function hiddenProgressPage() {
 				var progressPage = document.getElementById('progress_page');
 				progressPage.classList.add('page_hidden');
-				
 				addActive(list, iNow);
+				audioControl();
+			}
+			//updateProgressBar();
+			function updateProgressBar(precent) {
+				//console.log(precent);
+				progressBar.style.width = precent + '%';
+				if(100 == precent) {
+					isOnload = true;
+					showBeginBtn();
+				}
+			}
+			//timeout 
+			function requestTimeout() {
+				setTimeout(function () {
+					if(isOnload == false) {
+						alert("网络不好，刷新下试试~");
+					}
+				}, 30000);
 			}
 			//
 			function getStyle(obj, attr) {
