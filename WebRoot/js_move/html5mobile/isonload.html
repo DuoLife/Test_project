@@ -150,8 +150,8 @@
 		/*page*/
 			.page {width: 320px; height: 400px; position: relative; left: 50%; top: 50%; transform: translate(-50%,-50%); -webkit-transform: translate(-50%,-50%);}
 			.page .ele_img {width: 320px; height: 320px; position: absolute; left: 0; top: -20px; opacity: 0;}
-			.page .ele_font {background:url(nian/zi.png) no-repeat; background-size: 469px 339px;position: absolute; left: 10px; bottom: 50px; opacity: 0;}
-			.page .ele_font1 {background:url(nian/zi.png) no-repeat; background-size: 469px 339px; position: absolute; left: 10px; bottom: 0; opacity: 0;}
+			.page .ele_font {background:url(nian/zi.png) no-repeat; background-size: 469px 339px;position: absolute; left: 50px; bottom: 50px; opacity: 0;}
+			.page .ele_font1 {background:url(nian/zi.png) no-repeat; background-size: 469px 339px; position: absolute; left: 50px; bottom: 0; opacity: 0;}
 		/*page animation*/
 			.listTouch {transition: 0s transform; -webkit-transition: 0s -webkit-transform;}
 			.listMove {transition: 0.5s transform; -webkit-transition: 0.5s -webkit-transform;}
@@ -323,8 +323,7 @@
 			}
 			/*page3*/
 			.page3 .ele_img {background:url(nian/3.png); left: 20px; background-size: 320px 320px;}
-			.page3 .ele_font {width: 126px; height: 30px; background-position: -140px -42px;}
-			.page3 .ele_font1 {width: 185px; height: 14px; background-position: -5px -300px;}
+			.page3 .ele_font {width: 219px; height: 27px; background-position: -140px -195px;}
 			/*page3 active*/
 			.active .page3 .ele_img {
 				animation-name: scale121;
@@ -345,20 +344,6 @@
 				-webkit-animation-name: page3_font;
 				animation-duration: 1s;
 				-webkit-animation-duration: 1s;
-				animation-delay: 3.5s;
-				-webkit-animation-delay: 3.5s;
-				animation-timing-function: ease-in;
-				-webkit-animation-timing-function: ease-in;
-				-webkit-animation-fill-mode: forwards;
-				animation-fill-mode: forwards;
-				animation-iteration-count: 1;
-				-webkit-animation-iteration-count: 1;
-			}
-			.active .page3 .ele_font1 {
-				animation-name: page3_font1;
-				-webkit-animation-name: page3_font1;
-				animation-duration: 3s;
-				-webkit-animation-duration: 3s;
 				animation-delay: 0.5s;
 				-webkit-animation-delay: 0.5s;
 				animation-timing-function: ease-in;
@@ -381,15 +366,10 @@
 				50% {opacity: 1; transform: scale(2); -webkit-transform:scale(2);}
 				100% {opacity: 1; transform: scale(1); -webkit-transform:scale(1);}
 			}
-			@-webkit-keyframes page3_font1
-			{
-				0% {transform: translate(-200%, 0px); -webkit-transform:scale(0.1); -webkit-transform:translate(-200%, 0px); opacity: 0;}
-				100% {transform: translate(0px, 0px); -webkit-transform:scale(1); -webkit-transform:translate(0px, 0px); opacity: 1;}
-			}
 			/*page4*/
 			.page4 .ele_img {background:url(nian/4.png); background-size: 320px 320px;}
-			.page4 .ele_font {width: 126px; height: 30px; background-position: -140px -42px;}
-			.page4 .ele_font1 {width: 185px; height: 14px; background-position: -5px -300px;}
+			.page4 .ele_font {width: 106px; height: 15px; background-position: -54px -250px;}
+			.page4 .ele_font1 {width: 182px; height: 23px; background-position: -286px -104px;}
 			/*page4 active*/
 			.active .page4 .ele_img {
 				animation-name: page4_img1;
@@ -410,8 +390,8 @@
 				-webkit-animation-name: page4_font;
 				animation-duration: 1s;
 				-webkit-animation-duration: 1s;
-				animation-delay: 3.5s;
-				-webkit-animation-delay: 3.5s;
+				animation-delay: .5s;
+				-webkit-animation-delay: .5s;
 				animation-timing-function: ease-in;
 				-webkit-animation-timing-function: ease-in;
 				-webkit-animation-fill-mode: forwards;
@@ -453,8 +433,8 @@
 			}
 			/*page5*/
 			.page5 .ele_img {background:url(nian/5.png); background-size: 320px 320px;}
-			.page5 .ele_font {width: 126px; height: 30px; background-position: -140px -42px;}
-			.page5 .ele_font1 {width: 185px; height: 14px; background-position: -5px -300px;}
+			.page5 .ele_font {width: 144px; height: 17px; background-position: -4px -320px;}
+			.page5 .ele_font1 {width: 183px; height: 27px; background-position: 0px -133px;}
 			/*page5 active*/
 			.active .page5 .ele_img {
 				animation-name: page5_img1;
@@ -518,8 +498,8 @@
 			}
 			/*page6*/
 			.page6 .ele_img {background:url(nian/6.png); background-size: 320px 320px;}
-			.page6 .ele_font {width: 185px; height: 14px; background-position: -5px -300px;}
-			.page6 .ele_font1 {width: 126px; height: 30px; background-position: -140px -42px;}
+			.page6 .ele_font {width: 143px; height: 15px; background-position: -4px -275px;}
+			.page6 .ele_font1 {width: 120px; height: 24px; background-position: -1px -198px;}
 			/*page6 active*/
 			.active .page6 .ele_img {
 				animation-name: page6_img1;
@@ -583,8 +563,8 @@
 			}
 			/*page7*/
 			.page7 .ele_img {background:url(nian/7.png); background-size: 320px 320px;}
-			.page7 .ele_font {width: 185px; height: 14px; background-position: -5px -300px;}
-			.page7 .ele_font1 {width: 126px; height: 30px; background-position: -140px -42px;}
+			.page7 .ele_font {width: 51px; height: 16px; background-position: -4px -250px;}
+			.page7 .ele_font1 {width: 217px; height: 24px; background-position: -2px -167px;}
 			/*page7 active*/
 			.active .page7 .ele_img {
 				animation-name: page7_img1;
@@ -648,8 +628,8 @@
 			}
 			/*page8*/
 			.page8 .ele_img {background:url(nian/8.png); background-size: 320px 320px;}
-			.page8 .ele_font {width: 185px; height: 14px; background-position: -5px -300px;}
-			.page8 .ele_font1 {width: 126px; height: 30px; background-position: -140px -42px;}
+			.page8 .ele_font {width: 219px; height: 15px; background-position: -2px -227px;}
+			.page8 .ele_font1 {width: 122px; height: 25px; background-position: -340px -162px;}
 			/*page8 active*/
 			.active .page8 .ele_img {
 				animation-name: page8_img1;
@@ -713,8 +693,7 @@
 			}
 			/*page9*/
 			.page9 .ele_img {background:url(nian/9.png); background-size: 320px 320px;}
-			.page9 .ele_font {width: 185px; height: 14px; background-position: -5px -300px;}
-			.page9 .ele_font1 {width: 126px; height: 30px; background-position: -140px -42px;}
+			.page9 .ele_font {width: 284px; height: 22px; background-position: 0px -74px;}
 			/*page9 active*/
 			.active .page9 .ele_img {
 				animation-name: page9_img1;
@@ -731,26 +710,13 @@
 				-webkit-animation-iteration-count: 1;
 			}
 			.active .page9 .ele_font {
+				left: 30px;
 				animation-name: page9_font;
 				-webkit-animation-name: page9_font;
 				animation-duration: 3s;
 				-webkit-animation-duration: 3s;
 				animation-delay: 0.5s;
 				-webkit-animation-delay: 0.5s;
-				animation-timing-function: ease-in;
-				-webkit-animation-timing-function: ease-in;
-				-webkit-animation-fill-mode: forwards;
-				animation-fill-mode: forwards;
-				animation-iteration-count: 1;
-				-webkit-animation-iteration-count: 1;
-			}
-			.active .page9 .ele_font1 {
-				animation-name: page9_font1;
-				-webkit-animation-name: page9_font1;
-				animation-duration: 1s;
-				-webkit-animation-duration: 1s;
-				animation-delay: 3.5s;
-				-webkit-animation-delay: 3.5s;
 				animation-timing-function: ease-in;
 				-webkit-animation-timing-function: ease-in;
 				-webkit-animation-fill-mode: forwards;
@@ -770,16 +736,10 @@
 				0% {transform: translate(-200%, 0px); -webkit-transform:scale(0.1); -webkit-transform:translate(-200%, 0px); opacity: 0;}
 				100% {transform: translate(0px, 0px); -webkit-transform:scale(1); -webkit-transform:translate(0px, 0px); opacity: 1;}
 			}
-			@-webkit-keyframes page9_font1
-			{
-				0% {opacity: 0;transform: scale(1); -webkit-transform:scale(1);}
-				50% {opacity: 1; transform: scale(2); -webkit-transform:scale(2);}
-				100% {opacity: 1; transform: scale(1); -webkit-transform:scale(1);}
-			}
 			/*page10*/
 			.page10 .ele_img {background:url(nian/10.png); background-size: 320px 320px;}
-			.page10 .ele_font {width: 185px; height: 14px; background-position: -5px -300px;}
-			.page10 .ele_font1 {width: 126px; height: 30px; background-position: -140px -42px;}
+			.page10 .ele_font {width: 245px; height: 15px; background-position: -173px -250px;}
+			.page10 .ele_font1 {width: 125px; height: 27px; background-position: -287px -40px;}
 			/*page10 active*/
 			.active .page10 .ele_img {
 				animation-name: page10_img1;
@@ -843,8 +803,7 @@
 			}
 			/*page11*/
 			.page11 .ele_img {background:url(nian/11.png); background-size: 320px 320px;}
-			.page11 .ele_font {width: 185px; height: 14px; background-position: -5px -300px;}
-			.page11 .ele_font1 {width: 126px; height: 30px; background-position: -140px -42px;}
+			.page11 .ele_font {width: 179px; height: 26px; background-position: -289px -75px;}
 			/*page11 active*/
 			.active .page11 .ele_img {
 				animation-name: page11_img1;
@@ -874,20 +833,6 @@
 				animation-iteration-count: 1;
 				-webkit-animation-iteration-count: 1;
 			}
-			.active .page11 .ele_font1 {
-				animation-name: page11_font1;
-				-webkit-animation-name: page11_font1;
-				animation-duration: 1s;
-				-webkit-animation-duration: 1s;
-				animation-delay: 3.5s;
-				-webkit-animation-delay: 3.5s;
-				animation-timing-function: ease-in;
-				-webkit-animation-timing-function: ease-in;
-				-webkit-animation-fill-mode: forwards;
-				animation-fill-mode: forwards;
-				animation-iteration-count: 1;
-				-webkit-animation-iteration-count: 1;
-			}
 			@-webkit-keyframes page11_img1
 			{
  				0% {-webkit-transform: translate(100%, 0) rotate(20deg); opacity: 0;}
@@ -900,16 +845,10 @@
 				0% {transform: translate(-200%, 0px); -webkit-transform:scale(0.1); -webkit-transform:translate(-200%, 0px); opacity: 0;}
 				100% {transform: translate(0px, 0px); -webkit-transform:scale(1); -webkit-transform:translate(0px, 0px); opacity: 1;}
 			}
-			@-webkit-keyframes page11_font1
-			{
-				0% {opacity: 0;transform: scale(1); -webkit-transform:scale(1);}
-				50% {opacity: 1; transform: scale(2); -webkit-transform:scale(2);}
-				100% {opacity: 1; transform: scale(1); -webkit-transform:scale(1);}
-			}
 			/*page12*/
 			.page12 .ele_img {background:url(nian/12.png); background-size: 320px 320px;}
-			.page12 .ele_font {width: 185px; height: 14px; background-position: -5px -300px;}
-			.page12 .ele_font1 {width: 126px; height: 30px; background-position: -140px -42px;}
+			.page12 .ele_font {width: 139px; height: 15px; background-position: -206px -295px;}
+			.page12 .ele_font1 {width: 207px; height: 24px; background-position: -228px -135px;}
 			/*page12 active*/
 			.active .page12 .ele_img {
 				animation-name: page12_img1;
@@ -973,8 +912,7 @@
 			}
 			/*page13*/
 			.page13 .ele_img {background:url(nian/13.png); background-size: 320px 320px;}
-			.page13 .ele_font {width: 185px; height: 14px; background-position: -5px -300px;}
-			.page13 .ele_font1 {width: 126px; height: 30px; background-position: -140px -42px;}
+			.page13 .ele_font {width: 129px; height: 24px; background-position: -0px -40px;}
 			/*page13 active*/
 			.active .page13 .ele_img {
 				animation-name: page13_img1;
@@ -1004,20 +942,6 @@
 				animation-iteration-count: 1;
 				-webkit-animation-iteration-count: 1;
 			}
-			.active .page13 .ele_font1 {
-				animation-name: page13_font1;
-				-webkit-animation-name: page13_font1;
-				animation-duration: 1s;
-				-webkit-animation-duration: 1s;
-				animation-delay: 3.5s;
-				-webkit-animation-delay: 3.5s;
-				animation-timing-function: ease-in;
-				-webkit-animation-timing-function: ease-in;
-				-webkit-animation-fill-mode: forwards;
-				animation-fill-mode: forwards;
-				animation-iteration-count: 1;
-				-webkit-animation-iteration-count: 1;
-			}
 			@-webkit-keyframes page13_img1
 			{
  				0% {-webkit-transform: translate(100%, 0) rotate(20deg); opacity: 0;}
@@ -1030,16 +954,9 @@
 				0% {transform: translate(-200%, 0px); -webkit-transform:scale(0.1); -webkit-transform:translate(-200%, 0px); opacity: 0;}
 				100% {transform: translate(0px, 0px); -webkit-transform:scale(1); -webkit-transform:translate(0px, 0px); opacity: 1;}
 			}
-			@-webkit-keyframes page13_font1
-			{
-				0% {opacity: 0;transform: scale(1); -webkit-transform:scale(1);}
-				50% {opacity: 1; transform: scale(2); -webkit-transform:scale(2);}
-				100% {opacity: 1; transform: scale(1); -webkit-transform:scale(1);}
-			}
 			/*page14*/
 			.page14 .ele_img {background:url(nian/14.png); background-size: 320px 320px;}
-			.page14 .ele_font {width: 185px; height: 14px; background-position: -5px -300px;}
-			.page14 .ele_font1 {width: 126px; height: 30px; background-position: -140px -42px;}
+			.page14 .ele_font {width: 184px; height: 23px; background-position: 0px -105px;}
 			/*page14 active*/
 			.active .page14 .ele_img {
 				animation-name: page14_img1;
@@ -1069,20 +986,6 @@
 				animation-iteration-count: 1;
 				-webkit-animation-iteration-count: 1;
 			}
-			.active .page14 .ele_font1 {
-				animation-name: page14_font1;
-				-webkit-animation-name: page14_font1;
-				animation-duration: 1s;
-				-webkit-animation-duration: 1s;
-				animation-delay: 3.5s;
-				-webkit-animation-delay: 3.5s;
-				animation-timing-function: ease-in;
-				-webkit-animation-timing-function: ease-in;
-				-webkit-animation-fill-mode: forwards;
-				animation-fill-mode: forwards;
-				animation-iteration-count: 1;
-				-webkit-animation-iteration-count: 1;
-			}
 			@-webkit-keyframes page14_img1
 			{
  				0% {-webkit-transform: translate(100%, 0) rotate(20deg); opacity: 0;}
@@ -1095,16 +998,10 @@
 				0% {transform: translate(-200%, 0px); -webkit-transform:scale(0.1); -webkit-transform:translate(-200%, 0px); opacity: 0;}
 				100% {transform: translate(0px, 0px); -webkit-transform:scale(1); -webkit-transform:translate(0px, 0px); opacity: 1;}
 			}
-			@-webkit-keyframes page14_font1
-			{
-				0% {opacity: 0;transform: scale(1); -webkit-transform:scale(1);}
-				50% {opacity: 1; transform: scale(2); -webkit-transform:scale(2);}
-				100% {opacity: 1; transform: scale(1); -webkit-transform:scale(1);}
-			}
 			/*page15*/
 			.page15 .ele_img {background:url(nian/15.png); background-size: 320px 320px;}
-			.page15 .ele_font {width: 185px; height: 14px; background-position: -5px -300px;}
-			.page15 .ele_font1 {width: 126px; height: 30px; background-position: -140px -42px;}
+			.page15 .ele_font {width: 104px; height: 15px; background-position: -231px -227px;}
+			.page15 .ele_font1 {width: 62px; height: 24px; background-position: -202px -106px;}
 			/*page15 active*/
 			.active .page15 .ele_img {
 				animation-name: page15_img1;
@@ -1168,10 +1065,11 @@
 			}
 			/*page16*/
 			.page16 .ele_img {background:url(nian/16.png); background-size: 320px 320px;}
-			.page16 .ele_font {width: 185px; height: 14px; background-position: -5px -300px;}
-			.page16 .ele_font1 {width: 126px; height: 30px; background-position: -140px -42px;}
+			.page16 .ele_font {width: 192px; height: 15px; background-position: -154px -319px;}
+			.page16 .ele_font1 {width: 210px; height: 34px; background-position: 0px 0px;}
 			/*page16 active*/
 			.active .page16 .ele_img {
+				top: 100px;
 				animation-name: page16_img1;
 				-webkit-animation-name: page16_img1;
 				animation-duration: 3s;
@@ -1186,6 +1084,8 @@
 				-webkit-animation-iteration-count: 1;
 			}
 			.active .page16 .ele_font {
+				left: 70px;
+				bottom: 270px;
 				animation-name: page16_font;
 				-webkit-animation-name: page16_font;
 				animation-duration: 3s;
@@ -1200,6 +1100,8 @@
 				-webkit-animation-iteration-count: 1;
 			}
 			.active .page16 .ele_font1 {
+				left: 60px;
+				bottom: 220px;
 				animation-name: page16_font1;
 				-webkit-animation-name: page16_font1;
 				animation-duration: 1s;
@@ -1547,7 +1449,9 @@
 			function requestTimeout() {
 				setTimeout(function () {
 					if(isOnload == false) {
-						alert("网络不好，刷新下试试~");
+						//alert("网络不好，刷新下试试~");
+						//此处改为直接进入；
+						showBeginBtn();
 					}
 				}, 30000);
 			}
