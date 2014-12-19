@@ -244,8 +244,8 @@
 			.active .page2 .ele_img {
 				animation-name: page2_img1;
 				-webkit-animation-name: page2_img1;
-				animation-duration: 3s;
-				-webkit-animation-duration: 3s;
+				animation-duration: 1s;
+				-webkit-animation-duration: 1s;
 				animation-delay: .5s;
 				-webkit-animation-delay: .5s;
 				animation-timing-function: ease;
@@ -260,8 +260,8 @@
 				-webkit-animation-name: page2_font;
 				animation-duration: 1s;
 				-webkit-animation-duration: 1s;
-				animation-delay: 3.5s;
-				-webkit-animation-delay: 3.5s;
+				animation-delay: 1s;
+				-webkit-animation-delay: 1s;
 				animation-timing-function: ease-in;
 				-webkit-animation-timing-function: ease-in;
 				-webkit-animation-fill-mode: forwards;
@@ -288,8 +288,8 @@
 				-webkit-animation-name: circle_bling;
 				animation-duration: 2s;
 				-webkit-animation-duration: 2s;
-				animation-delay: 4.5s;
-				-webkit-animation-delay: 4.5s;
+				animation-delay: 2.5s;
+				-webkit-animation-delay: 2.5s;
 				animation-timing-function: ease-in;
 				-webkit-animation-timing-function: ease-in;
 				-webkit-animation-fill-mode: forwards;
@@ -374,8 +374,8 @@
 			.active .page4 .ele_img {
 				animation-name: page4_img1;
 				-webkit-animation-name: page4_img1;
-				animation-duration: 3s;
-				-webkit-animation-duration: 3s;
+				animation-duration: 1s;
+				-webkit-animation-duration: 1s;
 				animation-delay: .5s;
 				-webkit-animation-delay: .5s;
 				animation-timing-function: ease-in;
@@ -402,8 +402,8 @@
 			.active .page4 .ele_font1 {
 				animation-name: page4_font1;
 				-webkit-animation-name: page4_font1;
-				animation-duration: 3s;
-				-webkit-animation-duration: 3s;
+				animation-duration: 2s;
+				-webkit-animation-duration: 2s;
 				animation-delay: 0.5s;
 				-webkit-animation-delay: 0.5s;
 				animation-timing-function: ease-in;
@@ -437,10 +437,10 @@
 			.page5 .ele_font1 {width: 183px; height: 27px; background-position: 0px -133px;}
 			/*page5 active*/
 			.active .page5 .ele_img {
-				animation-name: page5_img1;
-				-webkit-animation-name: page5_img1;
-				animation-duration: 3s;
-				-webkit-animation-duration: 3s;
+				animation-name: falldown;
+				-webkit-animation-name: falldown;
+				animation-duration: 0.6s;
+				-webkit-animation-duration: 0.6s;
 				animation-delay: .5s;
 				-webkit-animation-delay: .5s;
 				animation-timing-function: ease-in;
@@ -451,12 +451,12 @@
 				-webkit-animation-iteration-count: 1;
 			}
 			.active .page5 .ele_font {
-				animation-name: page5_font;
-				-webkit-animation-name: page5_font;
+				animation-name: falldown;
+				-webkit-animation-name: falldown;
 				animation-duration: 1s;
 				-webkit-animation-duration: 1s;
-				animation-delay: 3.5s;
-				-webkit-animation-delay: 3.5s;
+				animation-delay: 1s;
+				-webkit-animation-delay: 1s;
 				animation-timing-function: ease-in;
 				-webkit-animation-timing-function: ease-in;
 				-webkit-animation-fill-mode: forwards;
@@ -467,10 +467,10 @@
 			.active .page5 .ele_font1 {
 				animation-name: page5_font1;
 				-webkit-animation-name: page5_font1;
-				animation-duration: 3s;
-				-webkit-animation-duration: 3s;
-				animation-delay: 0.5s;
-				-webkit-animation-delay: 0.5s;
+				animation-duration: 1s;
+				-webkit-animation-duration: 1s;
+				animation-delay: 2s;
+				-webkit-animation-delay: 2s;
 				animation-timing-function: ease-in;
 				-webkit-animation-timing-function: ease-in;
 				-webkit-animation-fill-mode: forwards;
@@ -478,23 +478,17 @@
 				animation-iteration-count: 1;
 				-webkit-animation-iteration-count: 1;
 			}
-			@-webkit-keyframes page5_img1
+			@-webkit-keyframes falldown
 			{
- 				0% {-webkit-transform: translate(100%, 0) rotate(20deg); opacity: 0;}
-				33% {-webkit-transform: translate(25%, 0) rotate(-20deg); opacity: 0.5;}
-				66% {-webkit-transform: translate(0, 0) rotate(20deg); opacity: 1;}
-				100% {-webkit-transform: translate(0, 0) rotate(0deg); opacity: 1;}
+ 				0% {-webkit-transform: translate(0, -100%); opacity: 0;}
+				80% {-webkit-transform: translate(0, 10%); opacity: 1;}
+				100% {-webkit-transform: translate(0, 0); opacity: 1;}
 			}
-			@-webkit-keyframes page5_font
+			@-webkit-keyframes page5_font1
 			{
 				0% {opacity: 0;transform: scale(1); -webkit-transform:scale(1);}
 				50% {opacity: 1; transform: scale(2); -webkit-transform:scale(2);}
 				100% {opacity: 1; transform: scale(1); -webkit-transform:scale(1);}
-			}
-			@-webkit-keyframes page5_font1
-			{
-				0% {transform: translate(-200%, 0px); -webkit-transform:scale(0.1); -webkit-transform:translate(-200%, 0px); opacity: 0;}
-				100% {transform: translate(0px, 0px); -webkit-transform:scale(1); -webkit-transform:translate(0px, 0px); opacity: 1;}
 			}
 			/*page6*/
 			.page6 .ele_img {background:url(nian/6.png); background-size: 320px 320px;}
@@ -504,8 +498,8 @@
 			.active .page6 .ele_img {
 				animation-name: page6_img1;
 				-webkit-animation-name: page6_img1;
-				animation-duration: 3s;
-				-webkit-animation-duration: 3s;
+				animation-duration: 0.8s;
+				-webkit-animation-duration: 0.8s;
 				animation-delay: .5s;
 				-webkit-animation-delay: .5s;
 				animation-timing-function: ease-in;
@@ -518,8 +512,8 @@
 			.active .page6 .ele_font {
 				animation-name: page6_font;
 				-webkit-animation-name: page6_font;
-				animation-duration: 3s;
-				-webkit-animation-duration: 3s;
+				animation-duration: 1s;
+				-webkit-animation-duration: 1s;
 				animation-delay: 0.5s;
 				-webkit-animation-delay: 0.5s;
 				animation-timing-function: ease-in;
@@ -534,8 +528,8 @@
 				-webkit-animation-name: page6_font1;
 				animation-duration: 1s;
 				-webkit-animation-duration: 1s;
-				animation-delay: 3.5s;
-				-webkit-animation-delay: 3.5s;
+				animation-delay: 1.5s;
+				-webkit-animation-delay: 1.5s;
 				animation-timing-function: ease-in;
 				-webkit-animation-timing-function: ease-in;
 				-webkit-animation-fill-mode: forwards;
@@ -545,10 +539,13 @@
 			}
 			@-webkit-keyframes page6_img1
 			{
- 				0% {-webkit-transform: translate(100%, 0) rotate(20deg); opacity: 0;}
-				33% {-webkit-transform: translate(25%, 0) rotate(-20deg); opacity: 0.5;}
-				66% {-webkit-transform: translate(0, 0) rotate(20deg); opacity: 1;}
-				100% {-webkit-transform: translate(0, 0) rotate(0deg); opacity: 1;}
+				0% {opacity: 0;transform: scale(0.6); -webkit-transform:scale(0.6);}
+				16% {opacity: 0.8; transform: scale(1.6); -webkit-transform:scale(1.6);}
+				32% {opacity: 1; transform: scale(0.7); -webkit-transform:scale(0.7);}
+				49% {opacity: 1; transform: scale(1.5); -webkit-transform:scale(1.5);}
+				66% {opacity: 1; transform: scale(0.8); -webkit-transform:scale(0.8);}
+				84% {opacity: 1; transform: scale(1.4); -webkit-transform:scale(1.4);}
+				100% {opacity: 1; transform: scale(1); -webkit-transform:scale(1);}
 			}
 			@-webkit-keyframes page6_font
 			{
@@ -569,8 +566,8 @@
 			.active .page7 .ele_img {
 				animation-name: page7_img1;
 				-webkit-animation-name: page7_img1;
-				animation-duration: 3s;
-				-webkit-animation-duration: 3s;
+				animation-duration: 2s;
+				-webkit-animation-duration: 2s;
 				animation-delay: .5s;
 				-webkit-animation-delay: .5s;
 				animation-timing-function: ease-in;
@@ -583,8 +580,8 @@
 			.active .page7 .ele_font {
 				animation-name: page7_font;
 				-webkit-animation-name: page7_font;
-				animation-duration: 3s;
-				-webkit-animation-duration: 3s;
+				animation-duration: 1s;
+				-webkit-animation-duration: 1s;
 				animation-delay: 0.5s;
 				-webkit-animation-delay: 0.5s;
 				animation-timing-function: ease-in;
@@ -599,8 +596,8 @@
 				-webkit-animation-name: page7_font1;
 				animation-duration: 1s;
 				-webkit-animation-duration: 1s;
-				animation-delay: 3.5s;
-				-webkit-animation-delay: 3.5s;
+				animation-delay: 1.5s;
+				-webkit-animation-delay: 1.5s;
 				animation-timing-function: ease-in;
 				-webkit-animation-timing-function: ease-in;
 				-webkit-animation-fill-mode: forwards;
@@ -610,9 +607,12 @@
 			}
 			@-webkit-keyframes page7_img1
 			{
- 				0% {-webkit-transform: translate(100%, 0) rotate(20deg); opacity: 0;}
-				33% {-webkit-transform: translate(25%, 0) rotate(-20deg); opacity: 0.5;}
+				0% {-webkit-transform: translate(-100%, 0) rotate(40deg); opacity: 0;}
+				16% {-webkit-transform: translate(-10%, 0) rotate(-20deg) scale(1.2); opacity: 0.5;}
+				32% {-webkit-transform: translate(0, 0) rotate(20deg) scale(1); opacity: 1;}
+				49% {-webkit-transform: translate(-10%, 0) rotate(-20deg); opacity: 1;}
 				66% {-webkit-transform: translate(0, 0) rotate(20deg); opacity: 1;}
+				84% {-webkit-transform: translate(-10%, 0) rotate(-20deg); opacity: 1;}
 				100% {-webkit-transform: translate(0, 0) rotate(0deg); opacity: 1;}
 			}
 			@-webkit-keyframes page7_font
@@ -634,8 +634,8 @@
 			.active .page8 .ele_img {
 				animation-name: page8_img1;
 				-webkit-animation-name: page8_img1;
-				animation-duration: 3s;
-				-webkit-animation-duration: 3s;
+				animation-duration: 2s;
+				-webkit-animation-duration: 2s;
 				animation-delay: .5s;
 				-webkit-animation-delay: .5s;
 				animation-timing-function: ease-in;
@@ -664,8 +664,8 @@
 				-webkit-animation-name: page8_font1;
 				animation-duration: 1s;
 				-webkit-animation-duration: 1s;
-				animation-delay: 3.5s;
-				-webkit-animation-delay: 3.5s;
+				animation-delay: 2.5s;
+				-webkit-animation-delay: 2.5s;
 				animation-timing-function: ease-in;
 				-webkit-animation-timing-function: ease-in;
 				-webkit-animation-fill-mode: forwards;
@@ -675,10 +675,16 @@
 			}
 			@-webkit-keyframes page8_img1
 			{
- 				0% {-webkit-transform: translate(100%, 0) rotate(20deg); opacity: 0;}
-				33% {-webkit-transform: translate(25%, 0) rotate(-20deg); opacity: 0.5;}
-				66% {-webkit-transform: translate(0, 0) rotate(20deg); opacity: 1;}
-				100% {-webkit-transform: translate(0, 0) rotate(0deg); opacity: 1;}
+ 				0% {-webkit-transform: translate(0, -50%) scale(0.1); opacity: 0;}
+				60% {-webkit-transform: translate(0, 0) scale(1); opacity: 0.5;}
+				65% {-webkit-transform: translate(-10px, 0); opacity: 1;}
+				70% {-webkit-transform: translate(-10px, -10px); opacity: 1;}
+				75% {-webkit-transform: translate(-20px, -10px); opacity: 1;}
+				80% {-webkit-transform: translate(0, 0); opacity: 1;}
+				85% {-webkit-transform: translate(-10px, 0); opacity: 1;}
+				90% {-webkit-transform: translate(-10px, -10px); opacity: 1;}
+				95% {-webkit-transform: translate(-20px, -10px); opacity: 1;}
+				100% {-webkit-transform: translate(0, 0); opacity: 1;}
 			}
 			@-webkit-keyframes page8_font
 			{
@@ -1088,8 +1094,8 @@
 				bottom: 270px;
 				animation-name: page16_font;
 				-webkit-animation-name: page16_font;
-				animation-duration: 3s;
-				-webkit-animation-duration: 3s;
+				animation-duration: 2s;
+				-webkit-animation-duration: 2s;
 				animation-delay: 0.5s;
 				-webkit-animation-delay: 0.5s;
 				animation-timing-function: ease-in;
@@ -1383,7 +1389,7 @@
 				obj.style.width = subWidth * num + 'px';
 			}
 			//loading
-			var urlPath = 'http://192.168.199.146:2103/Test_project/js_move/html5mobile/';
+			//var urlPath = 'http://192.168.199.146:2103/Test_project/js_move/html5mobile/';
 			loading_ani();
 			//loading timeout 
 			requestTimeout();
@@ -1403,7 +1409,8 @@
 				});*/
 				//img onload
 				for(var i=0; i<aImg.length; i++) {
-					var oSrc = urlPath + aImg[i];
+					//var oSrc = urlPath + aImg[i];
+					var oSrc = aImg[i];
 					//console.log(oSrc);
 					var img = new Image();
 					img.src = oSrc;
