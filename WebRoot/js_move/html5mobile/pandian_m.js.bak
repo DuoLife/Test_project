@@ -1,0 +1,165 @@
+
+document.ontouchmove = function(ev){
+	 ev.preventDefault();
+};
+var list = document.getElementById('list');
+setWidth(list, 'li');
+var downX;
+var downy;
+var iNow=0;
+var eleNum = 0;
+addEvent(list, 'touchstart', pageSlip);
+function pageSlip(ev) {
+	downX = ev.changedTouches[0].pageX;
+	downY = ev.changedTouches[0].pageY;
+	addEvent(this, 'touchmove', pageMove);
+	addEvent(this, 'touchend', pageMoveEnd);
+}
+function pageMove(ev) {
+	var touch = ev.changedTouches[0];
+	var nowX = touch.pageX;
+	var w = document.body.offsetWidth;
+	var iSpeed = nowX - downX + (-iNow * w);
+	if(iNow == 0) {
+		nowX = touch.pageX;
+		iSpeed = (nowX - downX)/3 + (-iNow * w);
+	}
+	if(iNow == list.children.length-1) {
+		nowX = touch.pageX;
+		iSpeed = (nowX - downX)/3 + (-iNow * w);
+	}
+	this.classList.remove('listMove');
+	this.classList.add('listTouch');
+	with(this.style) {
+		transform = 'translate('+ iSpeed +'px,0)';
+		WebkitTransform = 'translate('+ iSpeed +'px,0)';
+	}
+}
+function pageMoveEnd(ev) {
+	var nowX = ev.changedTouches[0].pageX;
+	removeActive(list, iNow);
+	if(nowX-downX > 60) {
+		if(iNow-1 >= 0) {
+			iNow--;
+		}
+	}else if(nowX-downX < -60) {
+		if(iNow <= list.children.length-2) {
+			iNow++;
+			if(iNow == (eleNum - 1)) {
+				hiddenSlipBtn();
+			}
+		}
+	}
+	addActive(list, iNow);
+	var w = document.body.offsetWidth;
+	this.classList.remove('listTouch');
+	this.classList.add('listMove');
+	with(this.style) {
+		transform = 'translate('+ (-iNow * w) +'px,0)';
+		WebkitTransform = 'translate('+ (-iNow * w) +'px,0)';
+	}
+	removeEvent(this, 'touchmove', pageMove);
+	removeEvent(this, 'touchend', pageMoveEnd);
+}
+function addActive(obj, n) {
+	var oEle = obj.children[n];
+	oEle.classList.add('active');
+}
+function removeActive(obj, n) {
+	var oEle = obj.children[n];
+	oEle.classList.remove('active');
+}
+var audio = document.getElementById('audio');
+var musicBtn = document.getElementById('musicBtn');
+var isPlay = false;
+addEvent(musicBtn, "touchstart", function () {
+	addEvent(musicBtn, "touchend", audioControl);
+});
+function audioControl() {
+	if(isPlay) {
+		audio.pause();
+		musicBtn.style.backgroundPosition = '-30px 0';
+		isPlay = false;
+	}else {
+		audio.play();
+		musicBtn.style.backgroundPosition = '0 0';
+		isPlay = true;
+	}
+	removeEvent(musicBtn, "touchend", audioControl);
+}
+function show() {
+	setWidth(list, 'li');
+}
+function setWidth(obj, attr) {
+	var aSubE = obj.getElementsByTagName(attr);
+	var num = aSubE.length;
+	if(num == 0) {
+		return;
+	}
+	var w = document.body.offsetWidth;
+	for(var i=0; i<num; i++) {
+		aSubE[i].style.width = w + 'px';
+	}
+	var subWidth = parseInt(getStyle(aSubE[0], 'width'));
+	obj.style.width = subWidth * num + 'px';
+}
+loading_ani();
+requestTimeout();
+var isOnload = false;
+function loading_ani() {
+	var aImg = ['nian/1.png','nian/2.png','nian/3.png','nian/4.png','nian/5.png','nian/6.png','nian/7.png','nian/8.png','nian/9.png','nian/10.png','nian/11.png','nian/12.png','nian/13.png','nian/14.png','nian/15.png','nian/16.png']
+	eleNum = aImg.length;
+	var onloadedNum = 0;
+	for(var i=0; i<aImg.length; i++) {
+		var oSrc = aImg[i];
+		var img = new Image();
+		img.src = oSrc;
+		addEvent(img, 'load', function () {
+			onloadedNum++;
+			var precent = Math.ceil((onloadedNum / eleNum) * 100);
+			updateProgressBar(precent);
+			if(onloadedNum == eleNum) {
+				isOnload = true;
+				hiddenProgressPage();
+			}
+		});
+	}
+}
+var oBeginBtn = document.getElementById('lengtoo_begin');
+var oSlipBtn = document.getElementById('slipBtn');
+var progressBar = document.getElementById('progress_bar');
+var progressBox = document.getElementById('progress_box');
+addEvent(oBeginBtn, 'touchend',  hiddenProgressPage);
+function hiddenProgressPage() {
+	var progressPage = document.getElementById('progress_page');
+	progressPage.classList.add('page_hidden');
+	oSlipBtn.classList.add('slip_ani');
+	addActive(list, iNow);
+	audioControl();
+}
+function hiddenSlipBtn() {
+	oSlipBtn.classList.remove('slip_ani');
+}
+function updateProgressBar(precent) {
+	progressBar.style.width = precent + '%';
+	if(100 == precent) {
+		isOnload = true;
+		showBeginBtn();
+	}
+}
+function requestTimeout() {
+	setTimeout(function () {
+		if(isOnload == false) {
+			hiddenProgressPage();
+		}
+	}, 30000);
+}
+function getStyle(obj, attr) {
+	return obj.currentStyle?obj.currentStyle()[attr]:getComputedStyle(obj)[attr];
+}
+function addEvent(obj, attr, fn) {
+	obj.attachEvent?obj.attachEvent('on' + attr, fn):obj.addEventListener(attr, fn, false);
+}
+function removeEvent(obj, attr, fn) {
+	obj.detachEvent?obj.detachEvent('on' + attr, fn):obj.removeEventListener(attr, fn, false);
+}
