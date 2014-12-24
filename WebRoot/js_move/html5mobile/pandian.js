@@ -11,6 +11,8 @@ var downX;
 var downy;
 var iNow=0;
 var eleNum = 0;
+var audio = document.getElementById('audio');
+var musicBtn = document.getElementById('musicBtn');
 addEvent(list, 'touchstart', pageSlip);
 function pageSlip(ev) {
 	//console.log(ev);
@@ -42,22 +44,28 @@ function pageMove(ev) {
 	}
 }
 function pageMoveEnd(ev) {
+	//console.log(iNow);
 	var nowX = ev.changedTouches[0].pageX;
 	//console.log(list.children.length);
 	//console.log(nowX-downX + '... iNow: ' + iNow);
 	//移除active
 	removeActive(list, iNow);
-	if(nowX-downX > 60) {
+	if(nowX-downX > 30) {
 		if(iNow-1 >= 0) {
 			iNow--;
 		}
-	}else if(nowX-downX < -60) {
+	}else if(nowX-downX < -30) {
 		if(iNow <= list.children.length-2) {
 			iNow++;
 			if(iNow == (eleNum - 1)) {
 				hiddenSlipBtn();
 			}
 		}
+	}
+	if(iNow == 1) {
+		audio.play();
+		//console.log('lll');
+		//alert(iNow+'....');
 	}
 	//添加active
 	addActive(list, iNow);
@@ -128,14 +136,19 @@ var isOnload = false;
 function loading_ani() {
 	//music onload
 	//console.log('loading_ani');
-	var aImg = ['nian/1.png','nian/2.png','nian/3.png','nian/4.png','nian/5.png','nian/6.png','nian/7.png','nian/8.png','nian/9.png','nian/10.png','nian/11.png','nian/12.png','nian/13.png','nian/14.png','nian/15.png','nian/16.png']
-	eleNum = aImg.length + 1;
+	var aImg = ['nian/zi.png','nian/supfont1.png','nian/supfont2.png','nian/16_ed.png','nian/0.png','nian/1.png','nian/2.png','nian/3.png','nian/4.png','nian/5.png','nian/6.png','nian/7.png','nian/8.png','nian/9.png','nian/10.png','nian/11.png','nian/12.png','nian/13.png','nian/14.png','nian/15.png','nian/16.png'];
+	eleNum = aImg.length;
 	var onloadedNum = 0;
-	addEvent(audio, 'canplaythrough', function () {
-		//audio.play();
+/*	addEvent(audio, 'canplaythrough', function () {
+		audio.play();
 		console.log('load music');
 		onloadedNum++;
-	});
+		if(onloadedNum == eleNum) {
+			isOnload = true;
+			//showBeginBtn();
+			hiddenProgressPage();
+		}
+	});*/
 	//img onload
 	for(var i=0; i<aImg.length; i++) {
 		//var oSrc = urlPath + aImg[i];
@@ -194,11 +207,31 @@ function requestTimeout() {
 			//alert("网络不好，刷新下试试~");
 			//此处改为直接进入；
 			//showBeginBtn();
+			//console.log('15...');
 			hiddenProgressPage();
 		}
 	}, 15000);
 }
-//
+//huluobo
+var hlb = document.getElementById('huluobo');
+var lengtoo16p = document.getElementById('lengtoo16p');
+addEvent(hlb, 'touchstart', fnHLBStart);
+function fnHLBStart (ev) {
+	ev.preventDefault();
+	lengtoo16p.style.background = 'url(nian/16_ed.png)';
+	lengtoo16p.style.backgroundSize = '320px 320px';
+	addEvent(hlb, 'touchend', fnHLBEnd);
+}
+function fnJump () {
+	window.location.href='http://mp.weixin.qq.com/s?__biz=MzAxNzE0MDAzOA==&mid=202494175&idx=1&sn=b565e6bcbf4037eb3774c8c637b693fd#rd';
+}
+function fnHLBEnd (ev) {
+	ev.preventDefault();
+	lengtoo16p.style.background = 'url(nian/16.png)';
+	lengtoo16p.style.backgroundSize = '320px 320px';
+	removeEvent(hlb, 'touchend', fnHLBStart);
+	addEvent(hlb, 'touchstart', fnJump);
+}
 function getStyle(obj, attr) {
 	return obj.currentStyle?obj.currentStyle()[attr]:getComputedStyle(obj)[attr];
 }

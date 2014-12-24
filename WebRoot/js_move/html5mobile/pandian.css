@@ -167,10 +167,10 @@ body {width: 100%;height: 100%;}
 /*animation*/
 /*homepage*/
 .homepage {width: 320px; height: 400px; position: relative; left: 50%; top: 50%; transform: translate(-50%,-50%); -webkit-transform: translate(-50%,-50%);}
-.homepage .ele_img {background:url(nian/0.png); width: 304px; height: 270px; position: absolute; left: 8px; bottom: 0px; background-size: 304px 270px; opacity: 1;}
-.homepage .ele_font {background:url(nian/hp_font.png) no-repeat; width: 230px; height: 96px; background-size: 230px 96px;position: absolute; left: 50px; top: 0px; opacity: 1;}
-.homepage .ele_font1 {background:url(nian/hp_font1.png) no-repeat; width: 230px; height: 96px; background-size: 99px 25px;position: absolute; left: 50px; top: 100px; opacity: 1;}
-.homepage_slip {width: 106px; height: 22px; position: absolute; left: 50%; bottom: 40px; background: url(nian/hp_slip.gif); background-size: 106px 22px; z-index: 10; transform: translate(-50%,0); -webkit-transform: translate(-50%,0);}
+.homepage .ele_img {background:url(nian/0.png); width: 311px; height: 264px; position: absolute; left: 8px; bottom: 0px; background-size: 311px 264px; opacity: 1;}
+.homepage .ele_font {background:url(nian/hp_font.png) no-repeat; width: 270px; height: 65px; background-size: 270px 65px;position: absolute; left: 50%; top: 0px; transform: translate(-50%, 0); -webkit-transform: translate(-50%, 0);opacity: 1;}
+.homepage .ele_font1 {background:url(nian/hp_font1.png) no-repeat; width: 99px; height: 25px; background-size: 99px 25px;position: absolute; right: 20px; top: 74px; opacity: 1;}
+.homepage_slip {width: 105px; height: 17px; position: absolute; left: 50%; bottom: 40px; background: url(nian/hp_slip.gif); background-size: 105px 17px; z-index: 10; transform: translate(-50%,0); -webkit-transform: translate(-50%,0);}
 /*page1*/
 .page1 .ele_img {background:url(nian/1.png); background-size: 320px 320px;}
 .page1 .ele_font {width: 185px; height: 14px; background-position: -5px -300px;}
@@ -1015,6 +1015,9 @@ body {width: 100%;height: 100%;}
 .page16 .ele_img {background:url(nian/16.png); background-size: 320px 320px; z-index: 10;}
 .page16 .ele_font {width: 192px; height: 15px; background-position: -154px -319px; z-index: 10;}
 .page16 .ele_font1 {width: 210px; height: 34px; background-position: 0px 0px; z-index: 10;}
+.page16 .ele_font2 {background:url(nian/supfont1.png) no-repeat; background-size: 90px 16px; position: absolute; left: 140px; bottom: 180px; width: 90px; height: 16px; z-index: 10; opacity: 0;}
+.page16 .ele_font3 {background:url(nian/supfont2.png);width: 24px; height: 27px; background-size: 24px 27px; position: absolute; left: 240px; bottom: 160px; z-index: 10; opacity: 0;}
+.page16 .huluobo {width: 200px; height: 100px; position: absolute; left: 50px; bottom: 60px; z-index: 10;}
 .page16 .money {position: absolute; opacity: 0; z-index: 10;}
 .page16 .money1 {background: url(nian/money1.png); left: 0px; top: -100px; width: 20px; height: 20px; background-size: 20px 20px;}
 .page16 .money2 {background: url(nian/money2.png); left: 105px; top: -100px; width: 20px; height: 20px; background-size: 20px 20px;}
@@ -1075,7 +1078,7 @@ body {width: 100%;height: 100%;}
 }
 /*page16 active*/
 .active .page16 .ele_img {
-	top: 100px;
+	top: 120px;
 	animation-name: left_slip_in;
 	-webkit-animation-name: left_slip_in;
 	animation-duration: 1s;
@@ -1090,7 +1093,7 @@ body {width: 100%;height: 100%;}
 	-webkit-animation-iteration-count: 1;
 }
 .active .page16 .ele_font {
-	left: 70px;
+	left: 64px;
 	bottom: 270px;
 	animation-name: page16_font;
 	-webkit-animation-name: page16_font;
@@ -1112,8 +1115,8 @@ body {width: 100%;height: 100%;}
 	-webkit-animation-name: page16_font1;
 	animation-duration: 1s;
 	-webkit-animation-duration: 1s;
-	animation-delay: 1.5s;
-	-webkit-animation-delay: 1.5s;
+	animation-delay: 1s;
+	-webkit-animation-delay: 1s;
 	animation-timing-function: ease-in;
 	-webkit-animation-timing-function: ease-in;
 	-webkit-animation-fill-mode: forwards;
@@ -1121,12 +1124,33 @@ body {width: 100%;height: 100%;}
 	animation-iteration-count: 1;
 	-webkit-animation-iteration-count: 1;
 }
-@-webkit-keyframes page16_img1
-{
-	0% {-webkit-transform: translate(100%, 0) rotate(20deg); opacity: 0;}
-	33% {-webkit-transform: translate(25%, 0) rotate(-20deg); opacity: 0.5;}
-	66% {-webkit-transform: translate(0, 0) rotate(20deg); opacity: 1;}
-	100% {-webkit-transform: translate(0, 0) rotate(0deg); opacity: 1;}
+.active .page16 .ele_font2 {
+	animation-name: page16_font2;
+	-webkit-animation-name: page16_font2;
+	animation-duration: 0.5s;
+	-webkit-animation-duration: 0.5s;
+	animation-delay: 2s;
+	-webkit-animation-delay: 2s;
+	animation-timing-function: ease-in;
+	-webkit-animation-timing-function: ease-in;
+	-webkit-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+	animation-iteration-count: infinity;
+	-webkit-animation-iteration-count: infinite;
+}
+.active .page16 .ele_font3 {
+	animation-name: page16_font;
+	-webkit-animation-name: page16_font;
+	animation-duration: 1s;
+	-webkit-animation-duration: 1s;
+	animation-delay: 2s;
+	-webkit-animation-delay: 2s;
+	animation-timing-function: ease-in;
+	-webkit-animation-timing-function: ease-in;
+	-webkit-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+	animation-iteration-count: 1;
+	-webkit-animation-iteration-count: 1;
 }
 @-webkit-keyframes moneyfall
 {
@@ -1143,4 +1167,10 @@ body {width: 100%;height: 100%;}
 	0% {opacity: 0;transform: scale(1); -webkit-transform:scale(1);}
 	50% {opacity: 1; transform: scale(2); -webkit-transform:scale(2);}
 	100% {opacity: 1; transform: scale(1); -webkit-transform:scale(1);}
+}
+@-webkit-keyframes page16_font2
+{
+	0% {opacity: 0;transform: scale(0.9); -webkit-transform:scale(0.9);}
+	50% {opacity: 1; transform: scale(1); -webkit-transform:scale(1);}
+	100% {opacity: 0; transform: scale(0.9); -webkit-transform:scale(0.9);}
 }
