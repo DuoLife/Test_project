@@ -229,8 +229,9 @@ function fnHLBEnd (ev) {
 	ev.preventDefault();
 	lengtoo16p.style.background = 'url(nian/16.png)';
 	lengtoo16p.style.backgroundSize = '320px 320px';
-	removeEvent(hlb, 'touchend', fnHLBStart);
 	addEvent(hlb, 'touchstart', fnJump);
+	removeEvent(hlb, 'touchstart', fnHLBStart);
+	removeEvent(hlb, 'touchend', fnHLBEnd);
 }
 function getStyle(obj, attr) {
 	return obj.currentStyle?obj.currentStyle()[attr]:getComputedStyle(obj)[attr];
