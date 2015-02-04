@@ -40,10 +40,38 @@ public class UploadFileUtil {
 
 	private final static boolean writeToFile = true;
 	private static String projectPath;
-	private static long sizeMax = 4 * 1024 * 1024;    //4MB
+	private static long maxsize = 4 * 1024 * 1024;    //4MB
 	private static String mesg;
 	private static String[] allowFileTypes = {"jpg", "jpeg", "png","JPG", "JPEG", "PNG"};
 	
+	public static String getProjectPath() {
+		return projectPath;
+	}
+	public static void setProjectPath(String projectPath) {
+		UploadFileUtil.projectPath = projectPath;
+	}
+	public static long getMaxsize() {
+		return maxsize;
+	}
+	public static void setMaxsize(long maxsize) {
+		UploadFileUtil.maxsize = maxsize;
+	}
+	public static String getMesg() {
+		return mesg;
+	}
+	public static void setMesg(String mesg) {
+		UploadFileUtil.mesg = mesg;
+	}
+	public static String[] getAllowFileTypes() {
+		return allowFileTypes;
+	}
+	public static void setAllowFileTypes(String[] allowFileTypes) {
+		UploadFileUtil.allowFileTypes = allowFileTypes;
+	}
+	public static boolean isWritetofile() {
+		return writeToFile;
+	}
+
 	public Map getUploadFile2Map(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("UTF-8");
 		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
@@ -99,7 +127,7 @@ public class UploadFileUtil {
 		ServletFileUpload upload = new ServletFileUpload(factory);
 		//set overall request size constraint
 		//long sizeMax = 4 * 1024 * 1024;    //4MB
-		upload.setSizeMax(sizeMax);
+		upload.setSizeMax(maxsize);
 		
 		//parse the request
 		try {

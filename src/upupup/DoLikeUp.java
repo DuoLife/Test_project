@@ -27,11 +27,11 @@ public class DoLikeUp {
 	public static void main(String[] args) {
 		try {
 			HTTPLikeUPUPUP likeup = new HTTPLikeUPUPUP();
-			String urlStr = "http://www.kanzhun.com/news/newsuseful.json?newsId=7896&_=1417426062664";
+			String urlStr = "http://www.kanzhun.com/news/newsuseful.json?newsId=23478&_=1422416944612";
 //			String urlStr = "http://m.kanzhun.com/news/toutiao/7903.html";
 //			String urlStr = "http://192.168.1.110:2103/lengtooyinxiang";
 			URL url = new URL(urlStr);
-			int count = 1;
+			int count = 500;
 			for(int i=0; i<count ; i++) {
 				likeup.LikeUP(url);
 			}

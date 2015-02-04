@@ -1,0 +1,101 @@
+<!DOCTYPE>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>冷兔2015年新春大吉</title>
+    <meta name="description" content="冷兔2015年新春大吉,happy new year,新年快乐,冷兔" />
+    <meta name="author" content="xuming" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta itemprop="description" name="description" content="2014年度最最流行语！不想out？快来get！">
+    <style>
+		*{margin:0;padding:0;}
+    	.wrap{width:100%;height:100%;overflow:hidden;position:fixed;left:0;top:0;}
+    	#list{width:100%;height:100%;position:relative;transition:all .5s ease;}
+		.page{width:100%;height:100%;position:relative;}
+		.page1{background:url(../img/08.png) no-repeat;background-size:100%;}
+		.page2{background:#00F;}
+		.page3{background:#0F0;}
+		.page4{background:#0FF;}
+		.page5{background:#999;}
+    </style>
+    <script>
+		document.ontouchmove = function () {
+			ev.preventDefault();
+		};
+    	window.onload = function () {
+			var oTouchDiv = document.getElementById('list'),
+				pages = document.getElementsByTagName('section'),
+				h = document.body.offsetHeight,
+				iNow=0,
+				yDown_site,
+				yUp_site,
+				addEvent = function (obj, attr, fn) {
+					obj.attachEvent?obj.attachEvent('on' + attr, fn):obj.addEventListener(attr, fn, false);
+				},
+				removeEvent = function (obj, attr, fn) {
+					obj.detachEvent?obj.detachEvent('on' + attr, fn):obj.removeEventListener(attr, fn, false);
+				},
+				touchstart = function (ev) {
+					yDown_size = ev.changedTouches[0].pageY;
+					addEvent(oTouchDiv, 'touchmove', touchmove);
+					addEvent(oTouchDiv, 'touchend', touchend);
+				},
+				touchmove = function (ev) {
+					ev.preventDefault();
+				},
+				touchend = function (ev) {
+					yUp_size = ev.changedTouches[0].pageY;
+					var s =yDown_size - yUp_size;
+					if(Math.abs(s)>50) {
+						(s > 0) ? (iNow + 1>pages.length-1?pages.length:iNow++):(iNow - 1<0? 0:iNow--);
+					}
+					//alert(iNow);
+					pagemove(oTouchDiv, iNow);
+					removeEvent(oTouchDiv, 'touchmove', touchmove);
+					removeEvent(oTouchDiv, 'touchend', touchend);
+				}
+				pagemove = function (obj, n) {
+					with(obj.style) {
+						transform = 'translate(0, '+ (-n * h) +'px)';
+						WebkitTransform = 'translate(0, '+ (-n * h) +'px)';
+					}
+				};
+			addEvent(oTouchDiv, 'touchstart', touchstart);
+		};
+    </script>
+</head>
+
+<body>
+	<div class="wrap">
+	    <div id="list">
+            <section class="page page1">
+                <div></div>
+                <div></div>
+                <div></div>
+            </section>
+            <section class="page page2">
+                <div></div>
+                <div></div>
+                <div></div>
+            </section>
+            <section class="page page3">
+                <div></div>
+                <div></div>
+                <div></div>
+            </section>
+            <section class="page page4">
+                <div></div>
+                <div></div>
+                <div></div>
+            </section>
+            <section class="page page5">
+                <div></div>
+                <div></div>
+                <div></div>
+            </section>
+        </div>
+    </div>
+</body>
+</html>

@@ -26,7 +26,6 @@ import java.net.URL;
  */
 public class HTTPLikeUPUPUP {
 	
-	//http://www.kanzhun.com/news/newsuseful.json?newsId=7896&_=1417426062664
 	int i =0;
 	public void LikeUP(URL url) throws IOException {
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
