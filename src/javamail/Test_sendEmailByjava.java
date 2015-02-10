@@ -16,7 +16,7 @@ public class Test_sendEmailByjava {
 	  mailInfo.setMailServerPort("25"); 
 	  mailInfo.setValidate(true); 
 	  mailInfo.setUserName("noreply@lengtucao.com"); 
-	  mailInfo.setPassword("huang@2103");//您的邮箱密码 
+	  mailInfo.setPassword("***");//您的邮箱密码 
 	  mailInfo.setFromAddress("noreply@lengtucao.com"); 
 	  mailInfo.setToAddress("yi@coldworks.com");
 //	  mailInfo.setToAddress("vip6ming@126.com");
@@ -39,7 +39,7 @@ public class Test_sendEmailByjava {
 			  mailInfo.setMailServerPort("25"); 
 			  mailInfo.setValidate(true); 
 			  mailInfo.setUserName("vip6ming@126.com"); 
-			  mailInfo.setPassword("xuming2009+");//您的邮箱密码 
+			  mailInfo.setPassword("***");//您的邮箱密码 
 			  mailInfo.setFromAddress("noreply@lengtucao.com"); 
 			  mailInfo.setToAddress(email); 
 			  mailInfo.setSubject("密码重置"); 
