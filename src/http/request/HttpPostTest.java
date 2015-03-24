@@ -10,6 +10,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.google.gson.Gson;
@@ -36,21 +37,28 @@ public class HttpPostTest {
     		System.out.println(tbObj.name);
     		System.out.println(tbObj.pw);
     		
-            OutputStreamWriter out = new OutputStreamWriter(con
-                    .getOutputStream(), "UTF-8"); 
-            Map map = new HashMap();
-            map.put("key", tbObj);
-            String params = Map2Json(map);
-            System.out.println("urlStr=" + urlStr);
-            System.out.println("xmlInfo=" + params);
-            out.write(params);
-            out.flush();
-            out.close();
-            BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            String line = "";
-            for (line = br.readLine(); line != null; line = br.readLine()) {
-                System.out.println(line);
-            }
+//            OutputStreamWriter out = new OutputStreamWriter(con
+//                    .getOutputStream(), "UTF-8"); 
+//            Map map = new HashMap();
+//            map.put("key", tbObj);
+//            String params = Map2Json(map);
+//            System.out.println("urlStr=" + urlStr);
+//            System.out.println("xmlInfo=" + params);
+//            out.write(params);
+//            out.flush();
+//            out.close();
+    		BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+			StringBuffer sb = new StringBuffer();
+			String line = br.readLine();
+			while(line != null) {
+				sb.append(line);
+				line = br.readLine();
+			}
+			Map gathers = g.fromJson(sb.toString(), Map.class);
+			List list = (List) gathers.get("jokes");
+			for(int i=0; i<list.size(); i++) {
+				System.out.println(list.get(i));
+			}
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -63,7 +71,8 @@ public class HttpPostTest {
 	       return json;
 	    }
 	public static void main(String[] args) {
-		new HttpPostTest().testPost("http://localhost:2103/Test_project/postReceive.do?name=xu");
+//		new HttpPostTest().testPost("http://localhost:2103/Test_project/postReceive.do?name=xu");
+		new HttpPostTest().testPost("http://lengxiaohua.com/lengxiaohuaapi/jokeToLingxiTextList");
 		//new HttpPostTest().testPost("http://www.baidu.com");
 	}
 	

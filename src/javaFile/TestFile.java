@@ -11,7 +11,7 @@ import java.util.Date;
 public class TestFile {
 
 	public static void main(String[] args) {
-		String infile = "F:/workspace/Test_project/src/javaFile/a.txt";
+		String infile = "http://lengxiaohua.com/lengxiaohuaapi/gather?action=getOneGather&Gatherid=1766";
 		String inPath = "F:/workspace/Test_project/src/javaFile/FICContactsHeadImgFormatName.imageTable";
 		String outfile = "F:/workspace/Test_project/src/javaFile/b.txt";
 		byte[] tempbyte = new byte[100];

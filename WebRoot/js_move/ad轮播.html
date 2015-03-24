@@ -1,0 +1,44 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>新闻滚动</title>
+<style>
+a{display:block;line-height:18px;text-decoration:none;color:#555;font-family:Arial;font-size:12px;}
+.shell{
+	background:url(/jscss/demoimg/200902/arrowb.gif) no-repeat 4px 5px;
+	border:1px solid #aaa; 
+	width:230px;
+	padding:3px 2px 2px 26px; 
+}
+#div1{
+	height:18px;
+	overflow:hidden;
+}
+</style>
+</head>
+<body>
+<div class="shell">
+	<div id="div1">
+	  <a href="javascript:">jQuery的图片滚动切换插件</a>
+	  <a href="javascript:">Mootools slider 滚动条拖动取值的实现 </a>
+	  <a href="javascript:">VB开发的Eclipse编程软件完整版</a>
+	  <a href="javascript:">VC++生成随机数并快速排序的算法</a>
+	  <a href="javascript:">VB语音报数计算器源程序</a>
+	</div> 
+<div>
+</body>
+<script>
+var c,_=Function;
+with(o=document.getElementById("div1")){ 
+	 innerHTML+=innerHTML;
+	 onmouseover=_("c=1");
+	 onmouseout=_("c=0");
+  }
+(F=_(
+		"if(#%18||!c)#++,#%=o.scrollHeight>>1;setTimeout(F,#%18?10:1500);"
+		.replace(/#/g,"o.scrollTop")
+	)
+)();
+</script>
+</html>
