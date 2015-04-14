@@ -65,7 +65,7 @@ public class RequestRssAPI {
 			StringBuffer sb = new StringBuffer();
 			String line = br.readLine();
 			while(line != null) {
-				sb.append(line);
+				sb.append(line + "\r\n");
 				line = br.readLine();
 			}
 			return sb.toString();
@@ -139,8 +139,10 @@ public class RequestRssAPI {
 		Gson g = new Gson();
 		Map gathers = g.fromJson(result, Map.class);
 		String content = (String) gathers.get("content");
-		content = content.replaceAll("\\[image_", "<br/><img src='http://lengxiaohua.com/img/user/userupload/0/");
-		content = content.replaceAll("\\]", ".jpg'/><br/>");
+		content = content.replaceAll("\\[image_", "<img src='http://lengxiaohua.com/img/user/userupload/0/");
+		content = content.replaceAll("\\]", ".jpg'/>");
+		content = content.replaceAll("\r\n", "<br/>");
+		System.out.println(content);
 		return content;
 	}
 	public static void writeRssFile(String xml) {
