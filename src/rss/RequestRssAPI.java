@@ -15,6 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -65,7 +66,7 @@ public class RequestRssAPI {
 			StringBuffer sb = new StringBuffer();
 			String line = br.readLine();
 			while(line != null) {
-				sb.append(line + "\r\n");
+				sb.append(line);
 				line = br.readLine();
 			}
 			return sb.toString();
@@ -149,10 +150,11 @@ public class RequestRssAPI {
 		try {
 			File file = new File("F:/rss.xml");
 			FileOutputStream fout = new FileOutputStream(file);
-			byte[] b = xml.getBytes();
-			fout.write(b);
-			fout.flush();
-			fout.close();
+			OutputStreamWriter writer = new OutputStreamWriter(fout, "UTF-8");
+//			byte[] b = xml.getBytes();
+			writer.write(xml);
+			writer.flush();
+			writer.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
